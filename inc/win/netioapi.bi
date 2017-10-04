@@ -48,17 +48,17 @@
 
 #pragma once
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#include once "winapifamily.bi"
 #endif
 
-#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT >= &h0600)
 	extern "Windows"
-#elseif defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+#elseif defined(__FB_64BIT__) and (_WIN32_WINNT >= &h0600)
 	extern "C"
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define _NETIOAPI_H_
 	type NETIO_STATUS as DWORD
 	#define NETIO_SUCCESS(x) ((x) = NO_ERROR)

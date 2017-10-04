@@ -98,11 +98,14 @@ const SI_RESET_SACL = &h00080000
 const SI_RESET_OWNER = &h00100000
 const SI_NO_ADDITIONAL_PERMISSION = &h00200000
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SI_VIEW_ONLY = &h00400000
 	const SI_PERMS_ELEVATION_REQUIRED = &h01000000
 	const SI_AUDITS_ELEVATION_REQUIRED = &h02000000
 	const SI_OWNER_ELEVATION_REQUIRED = &h04000000
+#endif
+
+#if _WIN32_WINNT = &h0602
 	const SI_SCOPE_ELEVATION_REQUIRED = &h08000000
 #endif
 
@@ -147,8 +150,11 @@ enum
 	SI_PAGE_OWNER
 	SI_PAGE_EFFECTIVE
 
-	#if _WIN32_WINNT = &h0602
+	#if _WIN32_WINNT >= &h0600
 		SI_PAGE_TAKEOWNERSHIP
+	#endif
+
+	#if _WIN32_WINNT = &h0602
 		SI_PAGE_SHARE
 	#endif
 end enum
@@ -259,7 +265,7 @@ end type
 
 type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type ISecurityInformation3Vtbl as ISecurityInformation3Vtbl_
 
 	type ISecurityInformation3
@@ -275,7 +281,9 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	end type
 
 	type LPSECURITYINFO3 as ISecurityInformation3 ptr
+#endif
 
+#if _WIN32_WINNT = &h0602
 	type _SECURITY_OBJECT
 		pwszName as PWSTR
 		pData as PVOID
@@ -337,8 +345,11 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 '' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission = {0x3853dc76,0x9f35,0x407c,{0x88,0xa1,0xd1,0x93,0x44,0x36,0x5f,0xbc}};
 '' TODO: const IID __attribute__((selectany)) IID_ISecurityObjectTypeInfo = {0xfc3066eb,0x79ef,0x444b,{0x91,0x11,0xd1,0x8a,0x75,0xeb,0xf2,0xfa}};
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation3 = {0xe2cdc9cc,0x31bd,0x4f8f,{0x8c,0x8b,0xb6,0x41,0xaf,0x51,0x6a,0x1a}};
+#endif
+
+#if _WIN32_WINNT = &h0602
 	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation4 = {0xea961070,0xcd14,0x4621,{0xac,0xe4,0xf6,0x3c,0x3,0xe5,0x83,0xe4}};
 	'' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission2 = {0x941fabca,0xdd47,0x4fca,{0x90,0xbb,0xb0,0xe1,0x2,0x55,0xf2,0xd}};
 #endif
@@ -346,7 +357,7 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 declare function CreateSecurityPage(byval psi as LPSECURITYINFO) as HPROPSHEETPAGE
 declare function EditSecurity(byval hwndOwner as HWND, byval psi as LPSECURITYINFO) as WINBOOL
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	declare function EditSecurityAdvanced(byval hwndOwner as HWND, byval psi as LPSECURITYINFO, byval uSIPage as SI_PAGE_TYPE) as HRESULT
 #endif
 

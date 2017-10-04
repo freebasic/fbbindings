@@ -15,15 +15,15 @@
 
 #pragma once
 
-#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT = &h0602)
+#if (not defined(__FB_64BIT__)) and (_WIN32_WINNT >= &h0601)
 	extern "Windows"
-#elseif defined(__FB_64BIT__) and (_WIN32_WINNT = &h0602)
+#elseif defined(__FB_64BIT__) and (_WIN32_WINNT >= &h0601)
 	extern "C"
 #endif
 
 #define _INC_VIRTDISK
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0601
 	type _ATTACH_VIRTUAL_DISK_FLAG as long
 	enum
 		ATTACH_VIRTUAL_DISK_FLAG_NONE = &h00000000

@@ -376,15 +376,15 @@ const CMF_NOVERBS = &h8
 const CMF_CANRENAME = &h10
 const CMF_NODEFAULT = &h20
 
-#if _WIN32_WINNT = &h0602
-	const CMF_ITEMMENU = &h80
-#else
+#if _WIN32_WINNT <= &h0502
 	const CMF_INCLUDESTATIC = &h40
+#else
+	const CMF_ITEMMENU = &h80
 #endif
 
 const CMF_EXTENDEDVERBS = &h100
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const CMF_DISABLEDVERBS = &h200
 #endif
 
@@ -431,10 +431,10 @@ const GCS_UNICODE = &h4
 
 const CMIC_MASK_HOTKEY = SEE_MASK_HOTKEY
 
-#if _WIN32_WINNT = &h0602
-	#define CMIC_MASK_ICON SEE_MASK_ICON
-#else
+#if _WIN32_WINNT <= &h0502
 	const CMIC_MASK_ICON = SEE_MASK_ICON
+#else
+	#define CMIC_MASK_ICON SEE_MASK_ICON
 #endif
 
 const CMIC_MASK_FLAG_NO_UI = SEE_MASK_FLAG_NO_UI
@@ -449,7 +449,7 @@ const CMIC_MASK_NO_CONSOLE = SEE_MASK_NO_CONSOLE
 #define CMIC_MASK_FLAG_SEP_VDM SEE_MASK_FLAG_SEPVDM
 const CMIC_MASK_ASYNCOK = SEE_MASK_ASYNCOK
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const CMIC_MASK_NOASYNC = SEE_MASK_NOASYNC
 #endif
 
@@ -1019,7 +1019,7 @@ type SFGAOF as ULONG
 #define STR_PARSE_SKIP_NET_CACHE wstr("Skip Net Resource Cache")
 #define STR_PARSE_SHELL_PROTOCOL_TO_FILE_OBJECTS wstr("Parse Shell Protocol To File Objects")
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define STR_TRACK_CLSID wstr("Track the CLSID")
 	#define STR_INTERNAL_NAVIGATE wstr("Internal Navigation")
 	#define STR_PARSE_PROPERTYSTORE wstr("DelegateNamedProperties")
@@ -1030,7 +1030,13 @@ type SFGAOF as ULONG
 	#define STR_PARSE_SHOW_NET_DIAGNOSTICS_UI wstr("Show network diagnostics UI")
 	#define STR_PARSE_DONT_REQUIRE_VALIDATED_URLS wstr("Do not require validated URLs")
 	#define STR_INTERNETFOLDER_PARSE_ONLY_URLMON_BINDABLE wstr("Validate URL")
+#endif
+
+#if _WIN32_WINNT = &h0602
 	const BIND_INTERRUPTABLE = &hffffffff
+#endif
+
+#if _WIN32_WINNT >= &h0601
 	#define STR_BIND_FOLDERS_READ_ONLY wstr("Folders As Read Only")
 	#define STR_BIND_FOLDER_ENUM_MODE wstr("Folder Enum Mode")
 
@@ -1327,7 +1333,7 @@ enum
 	FVM_LAST = 8
 end enum
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type FOLDERLOGICALVIEWMODE as long
 	enum
 		FLVM_UNSPECIFIED = -1
@@ -1572,7 +1578,7 @@ declare sub IShellView2_HandleRename_Stub(byval This as IRpcStubBuffer ptr, byva
 declare function IShellView2_SelectAndPositionItem_Proxy(byval This as IShellView2 ptr, byval pidlItem as LPCITEMIDLIST, byval uFlags as UINT, byval ppt as POINT ptr) as HRESULT
 declare sub IShellView2_SelectAndPositionItem_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IShellView3_INTERFACE_DEFINED__
 
 	type _SV3CVW3_FLAGS as long
@@ -1716,7 +1722,7 @@ declare function IFolderView_SelectAndPositionItems_Proxy(byval This as IFolderV
 declare sub IFolderView_SelectAndPositionItems_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 extern SID_SFolderView alias "IID_IFolderView" as const GUID
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0601
 	#define __ISearchBoxInfo_INTERFACE_DEFINED__
 	extern IID_ISearchBoxInfo as const GUID
 	type ISearchBoxInfo as ISearchBoxInfo_
@@ -1743,7 +1749,9 @@ extern SID_SFolderView alias "IID_IFolderView" as const GUID
 	declare sub ISearchBoxInfo_GetCondition_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 	declare function ISearchBoxInfo_GetText_Proxy(byval This as ISearchBoxInfo ptr, byval ppsz as LPWSTR ptr) as HRESULT
 	declare sub ISearchBoxInfo_GetText_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
+#endif
 
+#if _WIN32_WINNT >= &h0600
 	type tagSORTDIRECTION as long
 	enum
 		SORT_DESCENDING = -1
@@ -2098,7 +2106,7 @@ const CDB2N_CONTEXTMENU_DONE = &h00000001
 const CDB2N_CONTEXTMENU_START = &h00000002
 const CDB2GVF_SHOWALLFILES = &h1
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const CDB2GVF_ISFILESAVE = &h2
 	const CDB2GVF_ALLOWPREVIEWPANE = &h4
 	const CDB2GVF_NOSELECTVERB = &h8
@@ -2145,7 +2153,7 @@ declare function ICommDlgBrowser2_GetViewFlags_Proxy(byval This as ICommDlgBrows
 declare sub ICommDlgBrowser2_GetViewFlags_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 type LPCOMMDLGBROWSER2 as ICommDlgBrowser2 ptr
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __ICommDlgBrowser3_INTERFACE_DEFINED__
 	extern IID_ICommDlgBrowser3 as const GUID
 	type ICommDlgBrowser3 as ICommDlgBrowser3_
@@ -2430,7 +2438,7 @@ const SBSP_NAVIGATEBACK = &h4000
 const SBSP_NAVIGATEFORWARD = &h8000
 const SBSP_ALLOW_AUTONAVIGATE = &h00010000
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SBSP_KEEPSAMETEMPLATE = &h00020000
 	const SBSP_KEEPWORDWHEELTEXT = &h00040000
 	const SBSP_ACTIVATE_NOFOCUS = &h00080000
@@ -2444,7 +2452,7 @@ const SBSP_ALLOW_AUTONAVIGATE = &h00010000
 const SBSP_NOAUTOSELECT = &h04000000
 const SBSP_WRITENOHISTORY = &h08000000
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SBSP_TRUSTEDFORACTIVEX = &h10000000
 	const SBSP_FEEDNAVIGATION = &h20000000
 #endif
@@ -2590,7 +2598,7 @@ end enum
 type SICHINTF as DWORD
 extern IID_IShellItem as const GUID
 
-#if _WIN32_WINNT <= &h0502
+#if _WIN32_WINNT <= &h0600
 	type IShellItem as IShellItem_
 #endif
 
@@ -2630,7 +2638,7 @@ declare function IShellItem_Compare_Proxy(byval This as IShellItem ptr, byval ps
 declare sub IShellItem_Compare_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 declare function SHSimpleIDListFromPath(byval pszPath as PCWSTR) as LPITEMIDLIST
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	declare function SHCreateItemFromIDList(byval pidl as LPCITEMIDLIST, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare function SHCreateItemFromParsingName(byval pszPath as PCWSTR, byval pbc as IBindCtx ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare function SHCreateItemWithParent(byval pidlParent as LPCITEMIDLIST, byval psfParent as IShellFolder ptr, byval pidl as LPCITEMIDLIST, byval riid as const IID const ptr, byval ppvItem as any ptr ptr) as HRESULT
@@ -2641,7 +2649,9 @@ declare function SHSimpleIDListFromPath(byval pszPath as PCWSTR) as LPITEMIDLIST
 	declare function SHGetPropertyStoreFromIDList(byval pidl as LPCITEMIDLIST, byval flags as GETPROPERTYSTOREFLAGS, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare function SHGetPropertyStoreFromParsingName(byval pszPath as PCWSTR, byval pbc as IBindCtx ptr, byval flags as GETPROPERTYSTOREFLAGS, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare function SHGetNameFromIDList(byval pidl as LPCITEMIDLIST, byval sigdnName as SIGDN, byval ppszName as PWSTR ptr) as HRESULT
+#endif
 
+#if _WIN32_WINNT >= &h0601
 	type DATAOBJ_GET_ITEM_FLAGS as long
 	enum
 		DOGIF_DEFAULT = &h0
@@ -2868,7 +2878,7 @@ end enum
 
 type TRANSFER_SOURCE_FLAGS as DWORD
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __ITransferAdviseSink_INTERFACE_DEFINED__
 
 	type _TRANSFER_ADVISE_STATE as long
@@ -3202,7 +3212,7 @@ end type
 declare function IStreamUnbufferedInfo_GetSectorSize_Proxy(byval This as IStreamUnbufferedInfo ptr, byval pcbSectorSize as ULONG ptr) as HRESULT
 declare sub IStreamUnbufferedInfo_GetSectorSize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IFileOperationProgressSink_INTERFACE_DEFINED__
 	extern IID_IFileOperationProgressSink as const GUID
 	type IFileOperationProgressSink as IFileOperationProgressSink_
@@ -3347,7 +3357,7 @@ declare sub IShellItemArray_GetItemAt_Stub(byval This as IRpcStubBuffer ptr, byv
 declare function IShellItemArray_EnumItems_Proxy(byval This as IShellItemArray ptr, byval ppenumShellItems as IEnumShellItems ptr ptr) as HRESULT
 declare sub IShellItemArray_EnumItems_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	declare function SHCreateShellItemArray(byval pidlParent as LPCITEMIDLIST, byval psf as IShellFolder ptr, byval cidl as UINT, byval ppidl as LPCITEMIDLIST ptr, byval ppsiItemArray as IShellItemArray ptr ptr) as HRESULT
 	declare function SHCreateShellItemArrayFromDataObject(byval pdo as IDataObject ptr, byval riid as const IID const ptr, byval ppv as any ptr ptr) as HRESULT
 	declare function SHCreateShellItemArrayFromIDLists(byval cidl as UINT, byval rgpidl as LPCITEMIDLIST ptr, byval ppsiItemArray as IShellItemArray ptr ptr) as HRESULT
@@ -3501,7 +3511,7 @@ declare sub IPropertyUI_FormatForDisplay_Stub(byval This as IRpcStubBuffer ptr, 
 declare function IPropertyUI_GetHelpInfo_Proxy(byval This as IPropertyUI ptr, byval fmtid as const IID const ptr, byval pid as PROPID, byval pwszHelpFile as LPWSTR, byval cch as DWORD, byval puHelpID as UINT ptr) as HRESULT
 declare sub IPropertyUI_GetHelpInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	declare function SHRemovePersonalPropertyValues(byval psia as IShellItemArray ptr) as HRESULT
 	declare function SHAddDefaultPropertiesByExt(byval pszExt as PCWSTR, byval pPropStore as IPropertyStore ptr) as HRESULT
 	type IFileOperation as IFileOperation_
@@ -3684,7 +3694,7 @@ declare sub IDragSourceHelper_InitializeFromBitmap_Stub(byval This as IRpcStubBu
 declare function IDragSourceHelper_InitializeFromWindow_Proxy(byval This as IDragSourceHelper ptr, byval hwnd as HWND, byval ppt as POINT ptr, byval pDataObject as IDataObject ptr) as HRESULT
 declare sub IDragSourceHelper_InitializeFromWindow_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type DSH_FLAGS as long
 	enum
 		DSH_ALLOWDROPDESCRIPTIONTEXT = &h1
@@ -4098,7 +4108,7 @@ const ARCONTENT_AUTOPLAYPIX = &h00000080
 const ARCONTENT_AUTOPLAYMUSIC = &h00000100
 const ARCONTENT_AUTOPLAYVIDEO = &h00000200
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const ARCONTENT_VCD = &h00000400
 	const ARCONTENT_SVCD = &h00000800
 	const ARCONTENT_DVDAUDIO = &h00001000
@@ -4137,7 +4147,7 @@ end type
 declare function IQueryCancelAutoPlay_AllowAutoPlay_Proxy(byval This as IQueryCancelAutoPlay ptr, byval pszPath as LPCWSTR, byval dwContentType as DWORD, byval pszLabel as LPCWSTR, byval dwSerialNumber as DWORD) as HRESULT
 declare sub IQueryCancelAutoPlay_AllowAutoPlay_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IDynamicHWHandler_INTERFACE_DEFINED__
 	extern IID_IDynamicHWHandler as const GUID
 	type IDynamicHWHandler as IDynamicHWHandler_
@@ -4504,7 +4514,7 @@ declare sub IItemNameLimits_GetValidCharacters_Stub(byval This as IRpcStubBuffer
 declare function IItemNameLimits_GetMaxLength_Proxy(byval This as IItemNameLimits ptr, byval pszName as LPCWSTR, byval piMaxNameLen as long ptr) as HRESULT
 declare sub IItemNameLimits_GetMaxLength_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __ISearchFolderItemFactory_INTERFACE_DEFINED__
 	extern IID_ISearchFolderItemFactory as const GUID
 	type ISearchFolderItemFactory as ISearchFolderItemFactory_
@@ -4755,7 +4765,7 @@ const DBIMF_BREAK = &h0100
 const DBIMF_ADDTOFRONT = &h0200
 const DBIMF_TOPALIGN = &h0400
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const DBIMF_NOGRIPPER = &h0800
 	const DBIMF_ALWAYSGRIPPER = &h1000
 	const DBIMF_NOMARGINS = &h2000
@@ -4813,7 +4823,7 @@ end type
 declare function IDeskBand_GetBandInfo_Proxy(byval This as IDeskBand ptr, byval dwBandID as DWORD, byval dwViewMode as DWORD, byval pdbi as DESKBANDINFO ptr) as HRESULT
 declare sub IDeskBand_GetBandInfo_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IDeskBandInfo_INTERFACE_DEFINED__
 	extern IID_IDeskBandInfo as const GUID
 	type IDeskBandInfo as IDeskBandInfo_
@@ -5287,7 +5297,7 @@ const SHPWHF_NONETPLACECREATE = &h00000002
 const SHPWHF_NOFILESELECTOR = &h00000004
 const SHPWHF_USEMRU = &h00000008
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SHPWHF_ANYLOCATION = &h00000100
 #endif
 
@@ -5346,7 +5356,7 @@ end type
 declare function IFolderViewHost_Initialize_Proxy(byval This as IFolderViewHost ptr, byval hwndParent as HWND, byval pdo as IDataObject ptr, byval prc as RECT ptr) as HRESULT
 declare sub IFolderViewHost_Initialize_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IExplorerBrowserEvents_INTERFACE_DEFINED__
 	extern IID_IExplorerBrowserEvents as const GUID
 	type IExplorerBrowserEvents as IExplorerBrowserEvents_
@@ -5540,7 +5550,7 @@ declare sub IResultsFolder_RemoveAll_Stub(byval This as IRpcStubBuffer ptr, byva
 declare function IResultsFolder_AddIDList_Proxy(byval This as IResultsFolder ptr, byval pidl as LPCITEMIDLIST, byval ppidlAdded as LPITEMIDLIST ptr) as HRESULT
 declare function IResultsFolder_AddIDList_Stub(byval This as IResultsFolder ptr, byval pidl as LPCITEMIDLIST, byval ppidlAdded as LPITEMIDLIST ptr) as HRESULT
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IEnumObjects_INTERFACE_DEFINED__
 	extern IID_IEnumObjects as const GUID
 	type IEnumObjects as IEnumObjects_
@@ -5872,7 +5882,7 @@ declare sub INamespaceWalkCB_LeaveFolder_Stub(byval This as IRpcStubBuffer ptr, 
 declare function INamespaceWalkCB_InitializeProgressDialog_Proxy(byval This as INamespaceWalkCB ptr, byval ppszTitle as LPWSTR ptr, byval ppszCancel as LPWSTR ptr) as HRESULT
 declare sub INamespaceWalkCB_InitializeProgressDialog_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __INamespaceWalkCB2_INTERFACE_DEFINED__
 	extern IID_INamespaceWalkCB2 as const GUID
 	type INamespaceWalkCB2 as INamespaceWalkCB2_
@@ -6021,7 +6031,7 @@ const BSIS_NOCAPTION = &h00000040
 const BSIS_PREFERNOLINEBREAK = &h00000080
 const BSIS_LOCKED = &h00000100
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const BSIS_PRESERVEORDERDURINGLAYOUT = &h00000200
 	const BSIS_FIXEDORDER = &h00000400
 #endif
@@ -6347,7 +6357,7 @@ end type
 declare function IImageRecompress_RecompressImage_Proxy(byval This as IImageRecompress ptr, byval psi as IShellItem ptr, byval cx as long, byval cy as long, byval iQuality as long, byval pstg as IStorage ptr, byval ppstrmOut as IStream ptr ptr) as HRESULT
 declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT >= &h0502
+#if _WIN32_WINNT >= &h0501
 	#define __IDeskBar_INTERFACE_DEFINED__
 	extern IID_IDeskBar as const GUID
 	type IDeskBar as IDeskBar_
@@ -6454,7 +6464,7 @@ declare sub IImageRecompress_RecompressImage_Stub(byval This as IRpcStubBuffer p
 	declare sub IMenuPopup_SetSubMenu_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type FILE_USAGE_TYPE as long
 	enum
 		FUT_PLAYING = 0
@@ -7225,7 +7235,7 @@ end type
 declare function IDelegateFolder_SetItemAlloc_Proxy(byval This as IDelegateFolder ptr, byval pmalloc as IMalloc ptr) as HRESULT
 declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT >= &h0502
+#if _WIN32_WINNT >= &h0501
 	#define __IBrowserFrameOptions_INTERFACE_DEFINED__
 	type IBrowserFrameOptions as IBrowserFrameOptions_
 	type LPBROWSERFRAMEOPTIONS as IBrowserFrameOptions ptr
@@ -7276,7 +7286,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	declare sub IBrowserFrameOptions_GetFrameOptions_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type NWMF as long
 	enum
 		NWMF_UNLOADING = &h1
@@ -7401,7 +7411,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	declare sub IAttachmentExecute_ClearClientState_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 #endif
 
-#if _WIN32_WINNT >= &h0502
+#if _WIN32_WINNT >= &h0501
 	type tagSMDATA
 		dwMask as DWORD
 		dwFlags as DWORD
@@ -7494,7 +7504,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	const SMC_SFDDRESTRICTED = &h00000030
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SMC_SFEXEC_MIDDLE = &h00000031
 	const SMC_GETAUTOEXPANDSTATE = &h00000041
 	const SMC_AUTOEXPANDCHANGE = &h00000042
@@ -7507,7 +7517,7 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	const SMAE_VALID = &h00000007
 #endif
 
-#if _WIN32_WINNT >= &h0502
+#if _WIN32_WINNT >= &h0501
 	#define __IShellMenuCallback_INTERFACE_DEFINED__
 	extern IID_IShellMenuCallback as const GUID
 	type IShellMenuCallback as IShellMenuCallback_
@@ -7535,13 +7545,13 @@ declare sub IDelegateFolder_SetItemAlloc_Stub(byval This as IRpcStubBuffer ptr, 
 	const SMINIT_CACHED = &h00000010
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	const SMINIT_AUTOEXPAND = &h00000100
 	const SMINIT_AUTOTOOLTIP = &h00000200
 	const SMINIT_DROPONCONTAINER = &h00000400
 #endif
 
-#if _WIN32_WINNT >= &h0502
+#if _WIN32_WINNT >= &h0501
 	const SMINIT_VERTICAL = &h10000000
 	const SMINIT_HORIZONTAL = &h20000000
 	const ANCESTORDEFAULT = cast(UINT, -1)
@@ -7628,7 +7638,7 @@ end type
 declare function IShellRunDll_Run_Proxy(byval This as IShellRunDll ptr, byval pszArgs as LPCWSTR) as HRESULT
 declare sub IShellRunDll_Run_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	type KF_CATEGORY as long
 	enum
 		KF_CATEGORY_VIRTUAL = 1
@@ -7913,7 +7923,7 @@ end type
 declare function IPreviousVersionsInfo_AreSnapshotsAvailable_Proxy(byval This as IPreviousVersionsInfo ptr, byval pszPath as LPCWSTR, byval fOkToBeSlow as WINBOOL, byval pfAvailable as WINBOOL ptr) as HRESULT
 declare sub IPreviousVersionsInfo_AreSnapshotsAvailable_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IRelatedItem_INTERFACE_DEFINED__
 	extern IID_IRelatedItem as const GUID
 	type IRelatedItem as IRelatedItem_
@@ -8177,7 +8187,7 @@ declare sub INewMenuClient_SelectAndEditItem_Stub(byval This as IRpcStubBuffer p
 extern SID_SNewMenuClient alias "IID_INewMenuClient" as const GUID
 extern SID_SCommandBarState as const GUID
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __IInitializeWithBindCtx_INTERFACE_DEFINED__
 	extern IID_IInitializeWithBindCtx as const GUID
 	type IInitializeWithBindCtx as IInitializeWithBindCtx_
@@ -8717,7 +8727,7 @@ declare sub INameSpaceTreeControlCustomDraw_ItemPrePaint_Stub(byval This as IRpc
 declare function INameSpaceTreeControlCustomDraw_ItemPostPaint_Proxy(byval This as INameSpaceTreeControlCustomDraw ptr, byval hdc as HDC, byval prc as RECT ptr, byval pnstccdItem as NSTCCUSTOMDRAW ptr) as HRESULT
 declare sub INameSpaceTreeControlCustomDraw_ItemPostPaint_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __INameSpaceTreeControlFolderCapabilities_INTERFACE_DEFINED__
 
 	type NSTCFOLDERCAPABILITIES as long
@@ -8832,7 +8842,7 @@ declare sub IPreviewHandlerFrame_GetWindowContext_Stub(byval This as IRpcStubBuf
 declare function IPreviewHandlerFrame_TranslateAccelerator_Proxy(byval This as IPreviewHandlerFrame ptr, byval pmsg as MSG ptr) as HRESULT
 declare sub IPreviewHandlerFrame_TranslateAccelerator_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	#define __ITrayDeskBand_INTERFACE_DEFINED__
 	extern IID_ITrayDeskBand as const GUID
 	type ITrayDeskBand as ITrayDeskBand_
@@ -9331,7 +9341,7 @@ declare sub IFileSystemBindData2_SetJunctionCLSID_Stub(byval This as IRpcStubBuf
 declare function IFileSystemBindData2_GetJunctionCLSID_Proxy(byval This as IFileSystemBindData2 ptr, byval pclsid as CLSID ptr) as HRESULT
 declare sub IFileSystemBindData2_GetJunctionCLSID_Stub(byval This as IRpcStubBuffer ptr, byval pRpcChannelBuffer as IRpcChannelBuffer ptr, byval pRpcMessage as PRPC_MESSAGE, byval pdwStubPhase as DWORD ptr)
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0601
 	#define __ICustomDestinationList_INTERFACE_DEFINED__
 
 	type KNOWNDESTCATEGORY as long
@@ -10106,10 +10116,12 @@ extern CLSID_ApplicationActivationManager as const GUID
 extern CLSID_ApplicationDesignModeSettings as const GUID
 extern CLSID_ExecuteFolder as const GUID
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0600
 	declare function SHGetTemporaryPropertyForItem(byval psi as IShellItem ptr, byval propkey as const PROPERTYKEY const ptr, byval ppropvar as PROPVARIANT ptr) as HRESULT
 	declare function SHSetTemporaryPropertyForItem(byval psi as IShellItem ptr, byval propkey as const PROPERTYKEY const ptr, byval propvar as const PROPVARIANT const ptr) as HRESULT
+#endif
 
+#if _WIN32_WINNT >= &h0601
 	type LIBRARYMANAGEDIALOGOPTIONS as long
 	enum
 		LMD_DEFAULT = &h0
@@ -10118,6 +10130,9 @@ extern CLSID_ExecuteFolder as const GUID
 
 	declare function SHShowManageLibraryUI(byval psiLibrary as IShellItem ptr, byval hwndOwner as HWND, byval pszTitle as LPCWSTR, byval pszInstruction as LPCWSTR, byval lmdOptions as LIBRARYMANAGEDIALOGOPTIONS) as HRESULT
 	declare function SHResolveLibrary(byval psiLibrary as IShellItem ptr) as HRESULT
+#endif
+
+#if _WIN32_WINNT >= &h0600
 	#define __IAssocHandlerInvoker_INTERFACE_DEFINED__
 	extern IID_IAssocHandlerInvoker as const GUID
 	type IAssocHandlerInvoker as IAssocHandlerInvoker_
@@ -10219,7 +10234,13 @@ extern CLSID_ExecuteFolder as const GUID
 	end enum
 
 	declare function SHAssocEnumHandlers(byval pszExtra as PCWSTR, byval afFilter as ASSOC_FILTER, byval ppEnumHandler as IEnumAssocHandlers ptr ptr) as HRESULT
+#endif
+
+#if _WIN32_WINNT >= &h0601
 	declare function SHAssocEnumHandlersForProtocolByApplication(byval protocol as PCWSTR, byval riid as const IID const ptr, byval enumHandlers as any ptr ptr) as HRESULT
+#endif
+
+#if _WIN32_WINNT = &h0602
 	#define __IDataObjectProvider_INTERFACE_DEFINED__
 	extern IID_IDataObjectProvider as const GUID
 	type IDataObjectProvider as IDataObjectProvider_
