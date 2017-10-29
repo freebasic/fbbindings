@@ -58,7 +58,7 @@ allegro4: tools
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG_TARBALL)/download" -O "$(ALPNG_TARBALL)"; \
+		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
 	fi
 	if [ ! -d extracted/$(ALPNG) ]; then \
 		mkdir -p extracted/$(ALPNG); \
