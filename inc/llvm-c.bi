@@ -869,7 +869,7 @@ declare function LLVMBuildAlloca(byval as LLVMBuilderRef, byval Ty as LLVMTypeRe
 declare function LLVMBuildArrayAlloca(byval as LLVMBuilderRef, byval Ty as LLVMTypeRef, byval Val as LLVMValueRef, byval Name as const zstring ptr) as LLVMValueRef
 declare function LLVMBuildFree(byval as LLVMBuilderRef, byval PointerVal as LLVMValueRef) as LLVMValueRef
 declare function LLVMBuildLoad(byval as LLVMBuilderRef, byval PointerVal as LLVMValueRef, byval Name as const zstring ptr) as LLVMValueRef
-declare function LLVMBuildStore(byval as LLVMBuilderRef, byval Val as LLVMValueRef, byval Ptr as LLVMValueRef) as LLVMValueRef
+declare function LLVMBuildStore(byval as LLVMBuilderRef, byval Val as LLVMValueRef, byval Ptr_ as LLVMValueRef) as LLVMValueRef
 declare function LLVMBuildGEP(byval B as LLVMBuilderRef, byval Pointer as LLVMValueRef, byval Indices as LLVMValueRef ptr, byval NumIndices as ulong, byval Name as const zstring ptr) as LLVMValueRef
 declare function LLVMBuildInBoundsGEP(byval B as LLVMBuilderRef, byval Pointer as LLVMValueRef, byval Indices as LLVMValueRef ptr, byval NumIndices as ulong, byval Name as const zstring ptr) as LLVMValueRef
 declare function LLVMBuildStructGEP(byval B as LLVMBuilderRef, byval Pointer as LLVMValueRef, byval Idx as ulong, byval Name as const zstring ptr) as LLVMValueRef
@@ -915,7 +915,7 @@ declare function LLVMBuildIsNotNull(byval as LLVMBuilderRef, byval Val as LLVMVa
 declare function LLVMBuildPtrDiff(byval as LLVMBuilderRef, byval LHS as LLVMValueRef, byval RHS as LLVMValueRef, byval Name as const zstring ptr) as LLVMValueRef
 declare function LLVMBuildFence(byval B as LLVMBuilderRef, byval ordering as LLVMAtomicOrdering, byval singleThread as LLVMBool, byval Name as const zstring ptr) as LLVMValueRef
 declare function LLVMBuildAtomicRMW(byval B as LLVMBuilderRef, byval op as LLVMAtomicRMWBinOp, byval PTR as LLVMValueRef, byval Val as LLVMValueRef, byval ordering as LLVMAtomicOrdering, byval singleThread as LLVMBool) as LLVMValueRef
-declare function LLVMBuildAtomicCmpXchg(byval B as LLVMBuilderRef, byval Ptr as LLVMValueRef, byval Cmp as LLVMValueRef, byval New as LLVMValueRef, byval SuccessOrdering as LLVMAtomicOrdering, byval FailureOrdering as LLVMAtomicOrdering, byval SingleThread as LLVMBool) as LLVMValueRef
+declare function LLVMBuildAtomicCmpXchg(byval B as LLVMBuilderRef, byval Ptr_ as LLVMValueRef, byval Cmp as LLVMValueRef, byval New_ as LLVMValueRef, byval SuccessOrdering as LLVMAtomicOrdering, byval FailureOrdering as LLVMAtomicOrdering, byval SingleThread as LLVMBool) as LLVMValueRef
 declare function LLVMIsAtomicSingleThread(byval AtomicInst as LLVMValueRef) as LLVMBool
 declare sub LLVMSetAtomicSingleThread(byval AtomicInst as LLVMValueRef, byval SingleThread as LLVMBool)
 declare function LLVMGetCmpXchgSuccessOrdering(byval CmpXchgInst as LLVMValueRef) as LLVMAtomicOrdering
@@ -1454,7 +1454,7 @@ enum
 	LLVMOrcErrGeneric
 end enum
 
-declare function LLVMOrcMakeSharedModule(byval Mod as LLVMModuleRef) as LLVMSharedModuleRef
+declare function LLVMOrcMakeSharedModule(byval Mod_ as LLVMModuleRef) as LLVMSharedModuleRef
 declare sub LLVMOrcDisposeSharedModuleRef(byval SharedMod as LLVMSharedModuleRef)
 declare function LLVMOrcMakeSharedObjectBuffer(byval ObjBuffer as LLVMMemoryBufferRef) as LLVMSharedObjectBufferRef
 declare sub LLVMOrcDisposeSharedObjectBufferRef(byval SharedObjBuffer as LLVMSharedObjectBufferRef)
@@ -1465,8 +1465,8 @@ declare sub LLVMOrcDisposeMangledSymbol(byval MangledSymbol as zstring ptr)
 declare function LLVMOrcCreateLazyCompileCallback(byval JITStack as LLVMOrcJITStackRef, byval RetAddr as LLVMOrcTargetAddress ptr, byval Callback as LLVMOrcLazyCompileCallbackFn, byval CallbackCtx as any ptr) as LLVMOrcErrorCode
 declare function LLVMOrcCreateIndirectStub(byval JITStack as LLVMOrcJITStackRef, byval StubName as const zstring ptr, byval InitAddr as LLVMOrcTargetAddress) as LLVMOrcErrorCode
 declare function LLVMOrcSetIndirectStubPointer(byval JITStack as LLVMOrcJITStackRef, byval StubName as const zstring ptr, byval NewAddr as LLVMOrcTargetAddress) as LLVMOrcErrorCode
-declare function LLVMOrcAddEagerlyCompiledIR(byval JITStack as LLVMOrcJITStackRef, byval RetHandle as LLVMOrcModuleHandle ptr, byval Mod as LLVMSharedModuleRef, byval SymbolResolver as LLVMOrcSymbolResolverFn, byval SymbolResolverCtx as any ptr) as LLVMOrcErrorCode
-declare function LLVMOrcAddLazilyCompiledIR(byval JITStack as LLVMOrcJITStackRef, byval RetHandle as LLVMOrcModuleHandle ptr, byval Mod as LLVMSharedModuleRef, byval SymbolResolver as LLVMOrcSymbolResolverFn, byval SymbolResolverCtx as any ptr) as LLVMOrcErrorCode
+declare function LLVMOrcAddEagerlyCompiledIR(byval JITStack as LLVMOrcJITStackRef, byval RetHandle as LLVMOrcModuleHandle ptr, byval Mod_ as LLVMSharedModuleRef, byval SymbolResolver as LLVMOrcSymbolResolverFn, byval SymbolResolverCtx as any ptr) as LLVMOrcErrorCode
+declare function LLVMOrcAddLazilyCompiledIR(byval JITStack as LLVMOrcJITStackRef, byval RetHandle as LLVMOrcModuleHandle ptr, byval Mod_ as LLVMSharedModuleRef, byval SymbolResolver as LLVMOrcSymbolResolverFn, byval SymbolResolverCtx as any ptr) as LLVMOrcErrorCode
 declare function LLVMOrcAddObjectFile(byval JITStack as LLVMOrcJITStackRef, byval RetHandle as LLVMOrcModuleHandle ptr, byval Obj as LLVMSharedObjectBufferRef, byval SymbolResolver as LLVMOrcSymbolResolverFn, byval SymbolResolverCtx as any ptr) as LLVMOrcErrorCode
 declare function LLVMOrcRemoveModule(byval JITStack as LLVMOrcJITStackRef, byval H as LLVMOrcModuleHandle) as LLVMOrcErrorCode
 declare function LLVMOrcGetSymbolAddress(byval JITStack as LLVMOrcJITStackRef, byval RetAddr as LLVMOrcTargetAddress ptr, byval SymbolName as const zstring ptr) as LLVMOrcErrorCode
@@ -1609,13 +1609,13 @@ declare function lto_module_create_in_local_context(byval mem as const any ptr, 
 declare function lto_module_create_in_codegen_context(byval mem as const any ptr, byval length as uinteger, byval path as const zstring ptr, byval cg as lto_code_gen_t) as lto_module_t
 declare function lto_module_create_from_fd(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger) as lto_module_t
 declare function lto_module_create_from_fd_at_offset(byval fd as long, byval path as const zstring ptr, byval file_size as uinteger, byval map_size as uinteger, byval offset as off_t) as lto_module_t
-declare sub lto_module_dispose(byval mod as lto_module_t)
-declare function lto_module_get_target_triple(byval mod as lto_module_t) as const zstring ptr
-declare sub lto_module_set_target_triple(byval mod as lto_module_t, byval triple as const zstring ptr)
-declare function lto_module_get_num_symbols(byval mod as lto_module_t) as ulong
-declare function lto_module_get_symbol_name(byval mod as lto_module_t, byval index as ulong) as const zstring ptr
-declare function lto_module_get_symbol_attribute(byval mod as lto_module_t, byval index as ulong) as lto_symbol_attributes
-declare function lto_module_get_linkeropts(byval mod as lto_module_t) as const zstring ptr
+declare sub lto_module_dispose(byval mod_ as lto_module_t)
+declare function lto_module_get_target_triple(byval mod_ as lto_module_t) as const zstring ptr
+declare sub lto_module_set_target_triple(byval mod_ as lto_module_t, byval triple as const zstring ptr)
+declare function lto_module_get_num_symbols(byval mod_ as lto_module_t) as ulong
+declare function lto_module_get_symbol_name(byval mod_ as lto_module_t, byval index as ulong) as const zstring ptr
+declare function lto_module_get_symbol_attribute(byval mod_ as lto_module_t, byval index as ulong) as lto_symbol_attributes
+declare function lto_module_get_linkeropts(byval mod_ as lto_module_t) as const zstring ptr
 
 type lto_codegen_diagnostic_severity_t as long
 enum
@@ -1630,8 +1630,8 @@ declare sub lto_codegen_set_diagnostic_handler(byval as lto_code_gen_t, byval as
 declare function lto_codegen_create() as lto_code_gen_t
 declare function lto_codegen_create_in_local_context() as lto_code_gen_t
 declare sub lto_codegen_dispose(byval as lto_code_gen_t)
-declare function lto_codegen_add_module(byval cg as lto_code_gen_t, byval mod as lto_module_t) as lto_bool_t
-declare sub lto_codegen_set_module(byval cg as lto_code_gen_t, byval mod as lto_module_t)
+declare function lto_codegen_add_module(byval cg as lto_code_gen_t, byval mod_ as lto_module_t) as lto_bool_t
+declare sub lto_codegen_set_module(byval cg as lto_code_gen_t, byval mod_ as lto_module_t)
 declare function lto_codegen_set_debug_model(byval cg as lto_code_gen_t, byval as lto_debug_model) as lto_bool_t
 declare function lto_codegen_set_pic_model(byval cg as lto_code_gen_t, byval as lto_codegen_model) as lto_bool_t
 declare sub lto_codegen_set_cpu(byval cg as lto_code_gen_t, byval cpu as const zstring ptr)
@@ -1669,7 +1669,7 @@ declare sub thinlto_codegen_set_cpu(byval cg as thinlto_code_gen_t, byval cpu as
 declare sub thinlto_codegen_disable_codegen(byval cg as thinlto_code_gen_t, byval disable as lto_bool_t)
 declare sub thinlto_codegen_set_codegen_only(byval cg as thinlto_code_gen_t, byval codegen_only as lto_bool_t)
 declare sub thinlto_debug_options(byval options as const zstring const ptr ptr, byval number as long)
-declare function lto_module_is_thinlto(byval mod as lto_module_t) as lto_bool_t
+declare function lto_module_is_thinlto(byval mod_ as lto_module_t) as lto_bool_t
 declare sub thinlto_codegen_add_must_preserve_symbol(byval cg as thinlto_code_gen_t, byval name as const zstring ptr, byval length as long)
 declare sub thinlto_codegen_add_cross_referenced_symbol(byval cg as thinlto_code_gen_t, byval name as const zstring ptr, byval length as long)
 declare sub thinlto_codegen_set_cache_dir(byval cg as thinlto_code_gen_t, byval cache_dir as const zstring ptr)
