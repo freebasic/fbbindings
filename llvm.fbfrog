@@ -2,6 +2,8 @@
 
 -define __STDC_LIMIT_MACROS 1
 -define __STDC_CONSTANT_MACROS 1
+-define UINT32_MAX 4294967295u
+-define UINT32_C
 
 -removedefine HAVE_INTTYPES_H
 -removedefine HAVE_STDINT_H
