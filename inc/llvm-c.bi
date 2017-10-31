@@ -52,6 +52,9 @@
 #include once "crt/sys/types.bi"
 #include once "crt/stddef.bi"
 
+'' The following symbols have been renamed:
+''     constant LTO_API_VERSION => LTO_API_VERSION_
+
 extern "C"
 
 #define LLVM_C_ANALYSIS_H
@@ -1552,7 +1555,7 @@ declare sub LLVMAddLoopVectorizePass(byval PM as LLVMPassManagerRef)
 declare sub LLVMAddSLPVectorizePass(byval PM as LLVMPassManagerRef)
 #define LLVM_C_LTO_H
 type lto_bool_t as byte
-const LTO_API_VERSION = 21
+const LTO_API_VERSION_ = 21
 
 type lto_symbol_attributes as long
 enum
