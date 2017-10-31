@@ -21,3 +21,9 @@
 
 -removeinclude inttypes.h
 -removeinclude stdbool.h
+
+-rename_ mod
+-rename_ Mod
+-rename_ New
+-rename_ Ptr
+-rename_ ptr
