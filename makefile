@@ -644,15 +644,14 @@ chipmunk: tools
 
 	rm *.tmp
 
-CLANG_VERSION := 3.6.2
+CLANG_VERSION := 5.0.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang: tools
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
 	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > clang.tmp
 	$(FBFROG) -o inc/clang-c.bi \
-		extracted/$(CLANG_TITLE)/include/clang-c/Index.h \
-		extracted/$(CLANG_TITLE)/include/clang-c/CXCompilationDatabase.h \
 		-incdir extracted/$(CLANG_TITLE)/include \
+		$$(find extracted/$(CLANG_TITLE)/include/clang-c -name "*.h" | LC_ALL=C sort) \
 		-removedefine CINDEX_LINKAGE \
 		-title $(CLANG_TITLE) clang.tmp fbteam.txt
 	rm *.tmp
@@ -1669,33 +1668,22 @@ jsonc: tools
 
 	rm extracted/$(JSONCDIR)/*.tmp
 
-LLVM_VERSION := 3.6.2
+LLVM_VERSION := 5.0.0
 LLVM_TITLE := llvm-$(LLVM_VERSION).src
 llvm: tools
 	./get.sh $(LLVM_TITLE) $(LLVM_TITLE).tar.xz "http://llvm.org/releases/$(LLVM_VERSION)/$(LLVM_TITLE).tar.xz"
 
 	cd extracted/$(LLVM_TITLE) && \
-		if [ ! -f include/llvm/Config/Targets.def ]; then ./configure --prefix=/usr; fi
+		if [ ! -f build/include/llvm/Config/Targets.def ]; then \
+			mkdir build; cd build; cmake ..; \
+		fi
 
 	sed -n 4,43p extracted/$(LLVM_TITLE)/LICENSE.TXT > llvm.tmp
 
 	$(FBFROG) -o inc/llvm-c.bi llvm.fbfrog \
 		-incdir extracted/$(LLVM_TITLE)/include \
-		extracted/$(LLVM_TITLE)/include/llvm-c/Analysis.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/BitReader.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/BitWriter.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Core.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Disassembler.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/ExecutionEngine.h	\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Initialization.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/IRReader.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Linker.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/LinkTimeOptimizer.h	\
-		extracted/$(LLVM_TITLE)/include/llvm-c/lto.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Object.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Support.h		\
-		extracted/$(LLVM_TITLE)/include/llvm-c/Target.h			\
-		extracted/$(LLVM_TITLE)/include/llvm-c/TargetMachine.h		\
+		-incdir extracted/$(LLVM_TITLE)/build/include \
+		$$(find extracted/$(LLVM_TITLE)/include/llvm-c -name "*.h" | LC_ALL=C sort) \
 		-title $(LLVM_TITLE) llvm.tmp fbteam.txt
 
 	rm *.tmp

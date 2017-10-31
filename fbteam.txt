@@ -1,1 +1,1 @@
-Copyright © 2015 FreeBASIC development team
+Copyright © 2017 FreeBASIC development team
