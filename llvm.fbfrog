@@ -27,3 +27,6 @@
 -rename_ New
 -rename_ Ptr
 -rename_ ptr
+
+# Conflicts with lto_api_version()
+-rename_ LTO_API_VERSION
