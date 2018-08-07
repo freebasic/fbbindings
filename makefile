@@ -126,6 +126,18 @@ all: $(ALL)
 clean:
 	rm -rf extracted/*
 
+dist-clean:
+
+# Remove temp directories and temp files
+	rm -rf extracted
+	rm -rf tarballs
+	rm -f *.tmp
+
+# Remove tools
+	rm -f getcomment
+	rm -f fake-configure
+	rm -f *.exe
+
 $(LOCAL_FBFROG_DIR):
 	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
 
