@@ -16,7 +16,10 @@ ALL += caca
 ALL += cairo
 ALL += cd
 ALL += cgiutil
-ALL += cgui
+
+# 2.0.4 is offline.
+# TODO : update to 2.0.5
+#ALL += cgui
 ALL += chipmunk
 ALL += clang
 ALL += crt
