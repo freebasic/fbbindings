@@ -3585,7 +3585,7 @@ zip: tools
 
 ZLIB_TITLE := zlib-1.2.8
 zlib: tools
-	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
+	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.gz "http://zlib.net/fossils/$(ZLIB_TITLE).tar.gz"
 
 	$(GETCOMMENT) extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
 	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h \
