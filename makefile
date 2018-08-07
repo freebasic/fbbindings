@@ -46,7 +46,12 @@ ALL += freetype
 ALL += gd
 ALL += gdbm
 ALL += gdkpixbuf
+
+# gdsl is unmaintened (GNA is shut down)
+# and an old tarball is used
+# TODO : maybe remove it
 ALL += gdsl
+
 ALL += glib
 ALL += glfw
 ALL += glut
@@ -1150,7 +1155,10 @@ gdkpixbuf: tools glib-extract gdkpixbuf-extract
 
 GDSL := gdsl-1.8
 gdsl: tools
-	./get.sh $(GDSL) $(GDSL).tar.gz http://download.gna.org/gdsl/$(GDSL).tar.gz
+	./get.sh $(GDSL) $(GDSL).zip https://github.com/zlongshen/gdsl/archive/master.zip
+	if [ -d extracted/gdsl-master ]; then \
+		mv extracted/gdsl-master extracted/$(GDSL); \
+	fi
 	cd extracted/$(GDSL) && \
 		if [ ! -d include  ]; then \
 			mkdir -p include/gdsl && mv src/*.h include/gdsl; \
