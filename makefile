@@ -160,7 +160,7 @@ allegro4: tools
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
+		wget --no-verbose "https://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
 	fi
 	if [ ! -d extracted/$(ALPNG) ]; then \
 		mkdir -p extracted/$(ALPNG); \
@@ -270,7 +270,7 @@ ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 ALLEGRO5_LIB := -5.0.10-static-md
 ALLEGRO5_DLL := -5.0.10-md
 allegro5: tools
-	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
+	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "https://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform
@@ -646,7 +646,7 @@ cairo: tools cairo-extract
 CD_VERSION := 5.8.2
 CD := cd-$(CD_VERSION)
 cd: tools
-	./get.sh $(CD) $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download createdir
+	./get.sh $(CD) $(CD)_Sources.tar.gz https://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download createdir
 	find extracted/$(CD)/cd/ -type d -exec chmod +x '{}' ';'
 
 	$(GETCOMMENT) --2 extracted/$(CD)/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
@@ -713,7 +713,7 @@ cgiutil: tools
 CGUI_VERSION := 2.0.4
 CGUI_TITLE := cgui-$(CGUI_VERSION)
 cgui: tools
-	./get.sh $(CGUI_TITLE) $(CGUI_TITLE).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI_TITLE).tar.gz/download"
+	./get.sh $(CGUI_TITLE) $(CGUI_TITLE).tar.gz "https://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI_TITLE).tar.gz/download"
 	if [ -d extracted/cgui ]; then \
 		mv extracted/cgui extracted/$(CGUI_TITLE); \
 	fi
@@ -826,7 +826,7 @@ cryptlib: tools
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit: tools
-	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
+	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "https://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
 	$(GETCOMMENT) extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h > cunit.tmp
@@ -895,7 +895,7 @@ devil: tools
 	rm *.tmp
 
 disphelper: tools
-	./get.sh disphelper_081 disphelper_081.zip http://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
+	./get.sh disphelper_081 disphelper_081.zip https://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
 
 	$(GETCOMMENT) extracted/disphelper_081/source/disphelper.h > disphelper.tmp
 	$(GETCOMMENT) extracted/disphelper_081/source/convert.h > convert.tmp
@@ -913,7 +913,7 @@ disphelper: tools
 EXPAT_VERSION := 2.1.0
 EXPAT := expat-$(EXPAT_VERSION)
 expat: tools
-	./get.sh $(EXPAT) $(EXPAT).tar.gz http://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
+	./get.sh $(EXPAT) $(EXPAT).tar.gz https://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
 	cp extracted/$(EXPAT)/COPYING expat.tmp
 	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi \
 		-title $(EXPAT) expat.tmp fbteam.txt
@@ -993,7 +993,7 @@ fontconfig: tools
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut: tools
-	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
+	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz https://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
 
 	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut.h     > freeglut.tmp
 	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_ext.h > freeglut_ext.tmp
@@ -1067,8 +1067,8 @@ GLFW3_VERSION := 3.1.1
 GLFW2 := glfw-$(GLFW2_VERSION)
 GLFW3 := glfw-$(GLFW3_VERSION)
 glfw: tools
-	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
-	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+	./get.sh $(GLFW2) $(GLFW2).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
+	./get.sh $(GLFW3) $(GLFW3).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 
 	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
 	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
@@ -1296,8 +1296,8 @@ glut: tools
 GIFLIB4 := giflib-4.2.3
 GIFLIB5 := giflib-5.1.1
 giflib: tools
-	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
-	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
+	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
+	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
 	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp
 	cp extracted/$(GIFLIB5)/COPYING giflib5.tmp
 	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
@@ -1517,7 +1517,7 @@ iconv: tools
 IM_VERSION := 3.9.1
 IM := im-$(IM_VERSION)
 im: tools
-	./get.sh $(IM) $(IM)_Sources.tar.gz http://sourceforge.net/projects/imtoolkit/files/$(IM_VERSION)/Docs%20and%20Sources/$(IM)_Sources.tar.gz/download createdir
+	./get.sh $(IM) $(IM)_Sources.tar.gz https://sourceforge.net/projects/imtoolkit/files/$(IM_VERSION)/Docs%20and%20Sources/$(IM)_Sources.tar.gz/download createdir
 	find extracted/$(IM)/im/ -type d -exec chmod +x '{}' ';'
 
 	# Headers with C++ classes/templates
@@ -1600,7 +1600,7 @@ im: tools
 IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
-	./get.sh $(IUP_TITLE) $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download" createdir
+	./get.sh $(IUP_TITLE) $(IUP_TITLE)_Sources.tar.gz "https://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download" createdir
 	find extracted/$(IUP_TITLE)/iup/ -type d -exec chmod +x '{}' ';'
 
 	$(GETCOMMENT) --1 extracted/$(IUP_TITLE)/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
@@ -1837,7 +1837,7 @@ mediainfo: tools
 MODPLUG_VERSION := 0.8.8.5
 MODPLUG := libmodplug-$(MODPLUG_VERSION)
 modplug: tools
-	./get.sh $(MODPLUG) $(MODPLUG).tar.gz http://sourceforge.net/projects/modplug-xmms/files/libmodplug/$(MODPLUG_VERSION)/$(MODPLUG).tar.gz/download
+	./get.sh $(MODPLUG) $(MODPLUG).tar.gz https://sourceforge.net/projects/modplug-xmms/files/libmodplug/$(MODPLUG_VERSION)/$(MODPLUG).tar.gz/download
 	$(GETCOMMENT) extracted/$(MODPLUG)/src/modplug.h > modplug.tmp
 	$(FBFROG) modplug.fbfrog extracted/$(MODPLUG)/src/modplug.h \
 		-o inc/modplug.bi -title $(MODPLUG) modplug.tmp fbteam.txt
@@ -1846,7 +1846,7 @@ modplug: tools
 MPG123_VERSION := 1.22.4
 MPG123 := mpg123-$(MPG123_VERSION)
 mpg123: tools
-	./get.sh $(MPG123) $(MPG123).tar.bz2 http://sourceforge.net/projects/mpg123/files/mpg123/$(MPG123_VERSION)/$(MPG123).tar.bz2/download
+	./get.sh $(MPG123) $(MPG123).tar.bz2 https://sourceforge.net/projects/mpg123/files/mpg123/$(MPG123_VERSION)/$(MPG123).tar.bz2/download
 	sed -n 13,13p extracted/$(MPG123)/configure.ac | sed -e 's/API_VERSION=//g' > mpg123-apiversion.tmp
 	sed \
 		-e 's/@PACKAGE_VERSION@/$(MPG123_VERSION)/g' \
@@ -2110,8 +2110,8 @@ PCRE1 := pcre-$(PCRE1_VERSION)
 PCRE2_VERSION := 10.20
 PCRE2 := pcre2-$(PCRE2_VERSION)
 pcre: tools
-	./get.sh $(PCRE1) $(PCRE1).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre/$(PCRE1_VERSION)/$(PCRE1).tar.bz2/download
-	./get.sh $(PCRE2) $(PCRE2).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre2/$(PCRE2_VERSION)/$(PCRE2).tar.bz2/download
+	./get.sh $(PCRE1) $(PCRE1).tar.bz2 https://sourceforge.net/projects/pcre/files/pcre/$(PCRE1_VERSION)/$(PCRE1).tar.bz2/download
+	./get.sh $(PCRE2) $(PCRE2).tar.bz2 https://sourceforge.net/projects/pcre/files/pcre2/$(PCRE2_VERSION)/$(PCRE2).tar.bz2/download
 
 	cd extracted/$(PCRE1) && \
 		cp config.h.generic config.h && \
@@ -2150,7 +2150,7 @@ pcre: tools
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
 pdcurses: tools
-	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
+	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "https://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
 	sed -n 15,25p extracted/$(PDCURSES)/README > pdcurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi \
@@ -2682,7 +2682,7 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
-	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 
 	cd extracted/$(MINGWW64_TITLE) && ../../winapi-patch.sh
 
@@ -3566,7 +3566,7 @@ xml2: tools
 XMP_VERSION := 4.3.9
 XMP := libxmp-$(XMP_VERSION)
 xmp: tools
-	./get.sh $(XMP) $(XMP).tar.gz http://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
+	./get.sh $(XMP) $(XMP).tar.gz https://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
 	sed -n 57,67p extracted/$(XMP)/README > xmp.tmp
 	./fsf-address-fix.sh xmp.tmp
 	$(FBFROG) xmp.fbfrog extracted/$(XMP)/include/xmp.h -o inc/xmp.bi \
