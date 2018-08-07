@@ -1,9 +1,11 @@
 FBFROG_VERSION := e07d699e8fdb604906e98c18c99973a9512d8f34
 
+ALL := 
+
 # NB: write each package of ALL target on a separate line.
 # This makes it possible to disable packages in case of compilation error.
 
-ALL := allegro
+ALL += allegro
 ALL += allegro4
 ALL += allegro5
 ALL += aspell
