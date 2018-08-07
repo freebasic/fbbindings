@@ -29,7 +29,10 @@ ALL += curl
 ALL += devil
 ALL += disphelper
 ALL += expat
-ALL += fastcgi
+
+# http://www.fastcgi.com (broken link)
+#ALL += fastcgi
+
 ALL += ffi
 ALL += flite
 ALL += fontconfig
