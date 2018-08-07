@@ -23,7 +23,11 @@ ALL += cgiutil
 ALL += chipmunk
 ALL += clang
 ALL += crt
-ALL += cryptlib
+
+# cl343_beta is offline.
+# TODO : update to cl344
+#ALL += cryptlib
+
 ALL += cunit
 ALL += curl
 ALL += devil
@@ -793,9 +797,9 @@ crt: tools
 
 	rm *.tmp
 
-CRYPTLIB := cl343_beta
+CRYPTLIB := cl344
 cryptlib: tools
-	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip http://www.cypherpunks.to/~peter/$(CRYPTLIB).zip createdir
+	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip https://www.cryptlib.com/downloads/$(CRYPTLIB).zip createdir
 	tail -n+7 extracted/$(CRYPTLIB)/COPYING > cryptlib.tmp
 	$(FBFROG) cryptlib.fbfrog extracted/$(CRYPTLIB)/cryptlib.h \
 		-o inc/cryptlib.bi -inclib cl -title $(CRYPTLIB) cryptlib.tmp fbteam.txt
