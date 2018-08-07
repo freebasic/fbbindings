@@ -942,7 +942,7 @@ flite: tools
 
 FONTCONFIG := fontconfig-2.11.1
 fontconfig: tools
-	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
+	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "https://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
 
 	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fontconfig.h > fontconfig.tmp
 	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fcfreetype.h > fcfreetype.tmp
