@@ -689,12 +689,15 @@ cgiutil: tools
 	rm *.tmp
 
 CGUI_VERSION := 2.0.4
-CGUI := cgui-$(CGUI_VERSION)
+CGUI_TITLE := cgui-$(CGUI_VERSION)
 cgui: tools
-	./get.sh $(CGUI) $(CGUI).tar.gz "http://cgui.cvs.sourceforge.net/viewvc/cgui/cgui/?view=tar&pathrev=Branch_CGUI_1-6-7"
+	./get.sh $(CGUI_TITLE) $(CGUI_TITLE).tar.gz "http://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI_TITLE).tar.gz/download"
+	if [ -d extracted/cgui ]; then \
+		mv extracted/cgui extracted/$(CGUI_TITLE); \
+	fi
 	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
-	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
-		-title $(CGUI) cgui.tmp fbteam.txt
+	$(FBFROG) cgui.fbfrog -o inc extracted/$(CGUI_TITLE)/include/cgui.h \
+		-title $(CGUI_TITLE) cgui.tmp fbteam.txt
 	rm *.tmp
 
 CHIPMUNK := Chipmunk-7.0.1
