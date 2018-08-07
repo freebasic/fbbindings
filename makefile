@@ -1988,7 +1988,7 @@ MESA_VERSION := 10.6.4
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
 opengl-mesa: tools
-	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
+	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
 	$(GETCOMMENT) extracted/$(MESA)/include/GL/gl.h    > mesa-gl.tmp
