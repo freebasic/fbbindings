@@ -831,7 +831,7 @@ cunit: tools
 
 CURL_TITLE := curl-7.44.0
 curl: tools
-	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "https://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
