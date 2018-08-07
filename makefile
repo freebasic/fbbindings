@@ -1828,7 +1828,7 @@ mpg123: tools
 
 MXML := mxml-2.9
 mxml: tools
-	./get.sh $(MXML) $(MXML).tar.gz http://www.msweet.org/files/project3/$(MXML).tar.gz
+	./get.sh $(MXML) $(MXML).tar.gz https://github.com/michaelrsweet/mxml/releases/download/release-2.9/$(MXML).tar.gz
 	$(GETCOMMENT) extracted/$(MXML)/mxml.h > mxml.tmp
 	echo >> mxml.tmp
 	sed -n 5,23p extracted/$(MXML)/COPYING >> mxml.tmp
