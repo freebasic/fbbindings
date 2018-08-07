@@ -96,7 +96,6 @@ ALL += sdl
 ALL += sdl1
 ALL += sdl2
 ALL += sndfile
-ALL += spidermonkey
 ALL += sqlite
 ALL += tre
 ALL += uuid
@@ -2469,10 +2468,6 @@ sndfile: tools
 		-inclib sndfile \
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
-
-SPIDERMONKEY := mozjs-31.2.0
-spidermonkey: tools
-	./get.sh $(SPIDERMONKEY) $(SPIDERMONKEY).rc0.tar.bz2 https://people.mozilla.org/~sstangl/$(SPIDERMONKEY).rc0.tar.bz2
 
 SQLITE3_PRETTY := "SQLite 3.8.11.1"
 SQLITE3 := sqlite-amalgamation-3081101
