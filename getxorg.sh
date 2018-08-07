@@ -7,10 +7,11 @@ url="$3"
 
 mkdir -p tarballs/xorg extracted/xorg
 
-if [ ! -f "$tarball" ]; then
-	wget --no-verbose "$url" -O "$tarball"
-fi
+# If the download failed previously, try to resume it before 
+wget --no-verbose -c "$url" -O "$tarball"
 
-if [ ! -d "$dirname" ]; then
-	tar xf "$tarball" -C extracted/xorg
+if [ $? -eq 0 ]; then
+	if [ ! -d "$dirname" ]; then
+		tar xf "$tarball" -C extracted/xorg
+	fi
 fi
