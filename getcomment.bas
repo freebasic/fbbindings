@@ -1,7 +1,4 @@
-const FALSE = 0
-const TRUE = -1
-
-#include once "crt.bi"
+﻿#include once "crt.bi"
 
 const CH_TAB       = &h09
 const CH_LF        = &h0A
