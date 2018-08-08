@@ -357,13 +357,13 @@ convert c:
 	static __inline__ void _SDLNet_Write16(Uint16 value, void *areap) {
 		*(Uint16 *)areap = SDL_Swap16(value);
 	}
-to fb: #define _SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end sco
+to fb: #define _SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end scope
 
 convert c:
 	static __inline__ void _SDLNet_Write32(Uint32 value, void *areap) {
 		*(Uint32 *)areap = SDL_Swap32(value);
 	}
-to fb: #define _SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end sco
+to fb: #define _SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end scope
 
 convert c:
 	static __inline__ Uint16 _SDLNet_Read16(const void *areap) {
