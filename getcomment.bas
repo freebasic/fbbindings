@@ -416,6 +416,12 @@ sub loadCommentsFromFile(byref filename as string)
 	loadComments()
 end sub
 
+
+
+'----------------------------------------------------------------------
+' Main
+'----------------------------------------------------------------------
+
 if __FB_ARGC__ <= 1 then
 	print "extract comment text from C/C++ code"
 	print "usage: ./this [-[-]N[-M]] files..."
