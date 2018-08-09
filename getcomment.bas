@@ -215,7 +215,7 @@ dim shared code as zstring ptr '' File content
 dim shared x as ubyte ptr      '' Current char, will always be <= limit
 
 '' Look-ahead and check whether the \ is an escaped EOL, and if yes, skip it
-private function hSkipEscapedEol() as integer
+private function hSkipEscapedEol() as Boolean
 	var i = 0
 	assert(x[0] = CH_BACKSLASH)
 	i += 1
