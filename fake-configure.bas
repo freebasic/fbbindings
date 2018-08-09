@@ -32,6 +32,12 @@ function strSplit(byref s as string, byref delimiter as string, byref l as strin
 	end if
 end function
 
+
+
+'----------------------------------------------------------------------
+' Main
+'----------------------------------------------------------------------
+
 for i as integer = 1 to __FB_ARGC__ - 1
 	var arg = *__FB_ARGV__[i]
 	dim as string id, value
