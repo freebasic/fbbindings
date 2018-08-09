@@ -22,7 +22,7 @@
 ''   slouken@libsdl.org
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2015 FreeBASIC development team
+''   Copyright © 2018 FreeBASIC development team
 
 #pragma once
 

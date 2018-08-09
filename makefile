@@ -28,6 +28,7 @@ LOCAL_FBFROG_DIR := extracted/fbfrog-$(FBFROG_VERSION)
 LOCAL_FBFROG := $(LOCAL_FBFROG_DIR)/fbfrog$(EXEEXT)
 FBFROG := $(LOCAL_FBFROG)
 GETCOMMENT := ./getcomment$(EXEEXT)
+FAKE_CONFIGURE := ./fake-configure$(EXEEXT)
 
 .PHONY: all clean tests tests-winapi $(ALL)
 
@@ -45,7 +46,10 @@ $(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) 
 $(GETCOMMENT): getcomment.bas
 	fbc $< -g -exx
 
-tools: $(LOCAL_FBFROG) $(GETCOMMENT)
+$(FAKE_CONFIGURE): fake-configure.bas
+	fbc $< -g -exx
+
+tools: $(LOCAL_FBFROG) $(GETCOMMENT) $(FAKE_CONFIGURE)
 
 tests:
 	lib/tests.sh
@@ -75,19 +79,19 @@ allegro4: tools
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform
 
-	./fake-configure ALLEGRO_DJGPP \
+	$(FAKE_CONFIGURE) ALLEGRO_DJGPP \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/dos/allegro/platform/alplatf.h
 
-	./fake-configure ALLEGRO_UNIX \
+	$(FAKE_CONFIGURE) ALLEGRO_UNIX \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform/alplatf.h
 
-	./fake-configure ALLEGRO_MINGW32 \
+	$(FAKE_CONFIGURE) ALLEGRO_MINGW32 \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform/alplatf.h
 
-	./fake-configure \
+	$(FAKE_CONFIGURE) \
 		ALLEGRO_LITTLE_ENDIAN \
 		ALLEGRO_HAVE_INTTYPES_H \
 		ALLEGRO_HAVE_STDBOOL_H \
@@ -181,19 +185,19 @@ allegro5: tools
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform
 
 	# Other Unix (BSD/Cygwin)
-	./fake-configure `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
+	$(FAKE_CONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 
 	# Linux
-	./fake-configure `cat allegro5-config.txt` `cat allegro5-config-unix.txt` `cat allegro5-config-linux.txt` \
+	$(FAKE_CONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` `cat allegro5-config-linux.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
 
 	# Windows
-	./fake-configure ALLEGRO_MINGW32 `cat allegro5-config.txt` \
+	$(FAKE_CONFIGURE) ALLEGRO_MINGW32 `cat allegro5-config.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
@@ -1644,10 +1648,10 @@ jpeglib: tools
 	# but in version 9 it actually gives a special boolean typedef that
 	# matters for the library's ABI, so at least because of that it's a good
 	# idea to actually use a more-or-less proper jconfig.h.
-	cd extracted/jpeg-6b && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-7  && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-8d && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-9a && ../../fake-configure $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-6b && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-7  && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-8d && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-9a && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
 
 	sed -n 102,146p extracted/jpeg-9a/README > jpeglib.tmp
 
@@ -1668,7 +1672,7 @@ JSONCDIR := json-c-$(JSONC)
 jsonc: tools
 	./get.sh $(JSONCDIR) $(JSONC).tar.gz https://github.com/json-c/json-c/archive/$(JSONC).tar.gz
 
-	./fake-configure JSON_C_HAVE_INTTYPES_H \
+	$(FAKE_CONFIGURE) JSON_C_HAVE_INTTYPES_H \
 		< extracted/$(JSONCDIR)/json_config.h.in \
 		> extracted/$(JSONCDIR)/json_config.h
 
@@ -2192,7 +2196,7 @@ sdl1: tools
 	cd extracted/$(SDL1_MAIN)/include && \
 		mkdir -p unix windows && \
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
-	./fake-configure \
+	$(FAKE_CONFIGURE) \
 		`cat unix-config.txt` \
 		SDL_HAS_64BIT_TYPE \
 		SDL_VIDEO_DRIVER_X11 \
@@ -2276,12 +2280,12 @@ sdl1: tools
 
 	rm *.tmp
 
-SDL2_MAIN := SDL2-2.0.3
-SDL2_IMAGE := SDL2_image-2.0.0
-SDL2_MIXER := SDL2_mixer-2.0.0
-SDL2_NET := SDL2_net-2.0.0
-SDL2_TTF := SDL2_ttf-2.0.12
-SDL2_GFX := SDL2_gfx-1.0.1
+SDL2_MAIN := SDL2-2.0.8
+SDL2_IMAGE := SDL2_image-2.0.3
+SDL2_MIXER := SDL2_mixer-2.0.2
+SDL2_NET := SDL2_net-2.0.1
+SDL2_TTF := SDL2_ttf-2.0.14
+SDL2_GFX := SDL2_gfx-1.0.4
 sdl2: tools winapi-extract
 	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
 	./get.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"
@@ -2297,7 +2301,7 @@ sdl2: tools winapi-extract
 	cd extracted/$(SDL2_MAIN)/include && \
 		mkdir -p unix windows && \
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
-	./fake-configure \
+	$(FAKE_CONFIGURE) \
 		`cat unix-config.txt` \
 		SDL_HAS_64BIT_TYPE \
 		SDL_VIDEO_DRIVER_X11 \

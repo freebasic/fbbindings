@@ -30,14 +30,16 @@ convert c:
 	#define SDL_enabled_assert(condition) \
 		do { \
 			while ( !(condition) ) { \
-				static struct SDL_assert_data assert_data = { 0, 0, #condition, 0, 0, 0, 0 }; \
-				const SDL_assert_state state = SDL_ReportAssertion(&assert_data, SDL_FUNCTION, SDL_FILE, SDL_LINE); \
-				if (state == SDL_ASSERTION_RETRY) { \
-					continue; \
-				} else if (state == SDL_ASSERTION_BREAK) { \
+				static struct SDL_AssertData sdl_assert_data = { \
+					0, 0, #condition, 0, 0, 0, 0 \
+				}; \
+				const SDL_AssertState sdl_assert_state = SDL_ReportAssertion(&sdl_assert_data, SDL_FUNCTION, SDL_FILE, SDL_LINE); \
+				if (sdl_assert_state == SDL_ASSERTION_RETRY) { \
+					continue; /* go again. */ \
+				} else if (sdl_assert_state == SDL_ASSERTION_BREAK) { \
 					SDL_TriggerBreakpoint(); \
 				} \
-				break; \
+				break; /* not retrying. */ \
 			} \
 		} while (SDL_NULL_WHILE_LOOP_CONDITION)
 to fb:
@@ -68,3 +70,17 @@ to c:      #define SDL_MemoryBarrierRelease() SDL_CompilerBarrier()
 
 convert c: #define SDL_MemoryBarrierAcquire() __asm__ __volatile__ ("dmb ish" : : : "memory")
 to c:      #define SDL_MemoryBarrierAcquire() SDL_CompilerBarrier()
+
+convert c:
+	__attribute__((always_inline)) static __inline__ void _SDLNet_Write16(Uint16 value, void *areap)
+	{
+		*(Uint16 *)areap = SDL_Swap16(value);
+	}
+to fb:	#define _SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end scope
+
+convert c:
+	__attribute__((always_inline)) static __inline__ void _SDLNet_Write32(Uint32 value, void *areap)
+	{
+		*(Uint32 *)areap = SDL_Swap32(value);
+	}
+to fb: #define _SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end scope

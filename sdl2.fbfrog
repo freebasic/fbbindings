@@ -18,18 +18,21 @@
 
 -rename_ SDL_Log
 
+-rename_ SDL_PRIX64
+
 # For Windows, SDL2 has a SDL_CreateThread() macro that wraps the SDL_CreateThread() function
 -iftarget windows
 	-renameproc SDL_CreateThread SDL_CreateThread_
 -endif
 
+-removedefine SDLMAIN_DECLSPEC
 -removedefine SDL2_FRAMERATE_SCOPE
 -removedefine SDL2_IMAGEFILTER_SCOPE
 -removedefine SDL2_GFXPRIMITIVES_SCOPE
 -removedefine SDL2_ROTOZOOM_SCOPE
 
 -iftarget darwin
-	-define MAC_OS_X_VERSION_MIN_REQUIRED 1050
+	-define MAC_OS_X_VERSION_MIN_REQUIRED 1060
 	-define NULL "((void *)0)"
 	-removeinclude AvailabilityMacros.h
 	-removeinclude TargetConditionals.h
