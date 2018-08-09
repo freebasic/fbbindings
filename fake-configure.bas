@@ -7,7 +7,7 @@ function lookupDefine(byref id as string) as integer
 			return i
 		end if
 	next
-	function = -1
+	return -1
 end function
 
 sub addDefine(byref id as string, byref value as string)
@@ -27,6 +27,8 @@ function strSplit(byref s as string, byref delimiter as string, byref l as strin
 		l = left(s, leftlen)
 		r = right(s, len(s) - leftlen - len(delimiter))
 		function = TRUE
+	else
+		function = FALSE
 	end if
 end function
 
