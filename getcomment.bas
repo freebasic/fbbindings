@@ -30,10 +30,10 @@ function strIsJustWhiteSpace(byref s as string) as integer
 		select case s[i]
 		case CH_TAB, CH_SPACE
 		case else
-			exit function
+			return FALSE
 		end select
 	next
-	function = TRUE
+	return TRUE
 end function
 
 function strIsNonEmptyLine(byref s as string) as integer
@@ -115,9 +115,9 @@ end function
 
 function Comment.linesStartWith(byval first as integer, byval last as integer, byref s as string) as integer
 	for i as integer = first to last
-		if lineStartsWith(i, s) = FALSE then exit function
+		if lineStartsWith(i, s) = FALSE then return FALSE
 	next
-	function = TRUE
+	return TRUE
 end function
 
 function Comment.allLinesStartWith(byref s as string) as integer
@@ -238,7 +238,7 @@ private function hSkipEscapedEol() as integer
 	end select
 
 	x += i
-	function = TRUE
+	return TRUE
 end function
 
 '' // C++ comment
