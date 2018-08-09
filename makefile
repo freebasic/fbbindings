@@ -2268,12 +2268,12 @@ sdl1: tools
 
 	rm *.tmp
 
-SDL2_MAIN := SDL2-2.0.6
-SDL2_IMAGE := SDL2_image-2.0.1
-SDL2_MIXER := SDL2_mixer-2.0.1
+SDL2_MAIN := SDL2-2.0.8
+SDL2_IMAGE := SDL2_image-2.0.3
+SDL2_MIXER := SDL2_mixer-2.0.2
 SDL2_NET := SDL2_net-2.0.1
 SDL2_TTF := SDL2_ttf-2.0.14
-SDL2_GFX := SDL2_gfx-1.0.1
+SDL2_GFX := SDL2_gfx-1.0.4
 sdl2: tools winapi-extract
 	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
 	./get.sh $(SDL2_IMAGE) $(SDL2_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL2_IMAGE).tar.gz"

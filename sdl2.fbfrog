@@ -25,6 +25,7 @@
 	-renameproc SDL_CreateThread SDL_CreateThread_
 -endif
 
+-removedefine SDLMAIN_DECLSPEC
 -removedefine SDL2_FRAMERATE_SCOPE
 -removedefine SDL2_IMAGEFILTER_SCOPE
 -removedefine SDL2_GFXPRIMITIVES_SCOPE
