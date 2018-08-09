@@ -17,11 +17,11 @@ sub addDefine(byref id as string, byref value as string)
 	values(ubound(values)) = value
 end sub
 
-function strStartsWith(byref s as string, byref lookfor as string) as integer
+function strStartsWith(byref s as string, byref lookfor as string) as Boolean
 	function = left(s, len(lookfor)) = lookfor
 end function
 
-function strSplit(byref s as string, byref delimiter as string, byref l as string, byref r as string) as integer
+function strSplit(byref s as string, byref delimiter as string, byref l as string, byref r as string) as Boolean
 	var leftlen = instr(s, delimiter) - 1
 	if leftlen > 0 then
 		l = left(s, leftlen)
