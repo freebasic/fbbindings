@@ -352,27 +352,3 @@ to fb:
 	#define SDL_Swap64(x) _
 		culngint((SDL_Swap32(culngint(x) and &hFFFFFFFF) shl 32) or _
 		         SDL_Swap32(culngint(x) shr 32))
-
-convert c:
-	static __inline__ void _SDLNet_Write16(Uint16 value, void *areap) {
-		*(Uint16 *)areap = SDL_Swap16(value);
-	}
-to fb: #define _SDLNet_Write16(value, areap) scope : *cptr(Uint16 ptr, areap) = SDL_Swap16(value) : end sco
-
-convert c:
-	static __inline__ void _SDLNet_Write32(Uint32 value, void *areap) {
-		*(Uint32 *)areap = SDL_Swap32(value);
-	}
-to fb: #define _SDLNet_Write32(value, areap) scope : *cptr(Uint32 ptr, areap) = SDL_Swap32(value) : end sco
-
-convert c:
-	static __inline__ Uint16 _SDLNet_Read16(const void *areap) {
-		return SDL_Swap16(*(const Uint16 *)areap);
-	}
-to fb: #define _SDLNet_Read16(areap) SDL_Swap16(*cptr(const Uint16 ptr, areap))
-
-convert c:
-	static __inline__ Uint32 _SDLNet_Read32(const void *areap) {
-		return SDL_Swap32(*(const Uint32 *)areap);
-	}
-to fb: #define _SDLNet_Read32(areap) SDL_Swap32(*cptr(const Uint32 ptr, areap))
