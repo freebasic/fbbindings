@@ -25,10 +25,7 @@ ALL += cgiutil
 ALL += chipmunk
 ALL += clang
 ALL += crt
-
-# cl343_beta is offline.
-# TODO : update to cl344
-#ALL += cryptlib
+ALL += cryptlib
 
 ALL += cunit
 ALL += curl
