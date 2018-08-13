@@ -1,4 +1,4 @@
-﻿dim shared ids(any) as string
+dim shared ids(any) as string
 dim shared values(any) as string
 
 function lookupDefine(byref id as string) as integer
