@@ -1,7 +1,4 @@
-const FALSE = 0
-const TRUE = -1
-
-#include once "crt.bi"
+﻿#include once "crt.bi"
 
 const CH_TAB       = &h09
 const CH_LF        = &h0A
@@ -13,7 +10,7 @@ const CH_STAR      = asc("*")
 const CH_SLASH     = asc("/")
 const CH_BACKSLASH = asc($"\")
 
-function strStartsWith(byref s as string, byref lookfor as string) as integer
+function strStartsWith(byref s as string, byref lookfor as string) as Boolean
 	function = left(s, len(lookfor)) = lookfor
 end function
 
@@ -28,18 +25,18 @@ sub strSplit(byref s as string, byref delimiter as string, byref l as string, by
 	end if
 end sub
 
-function strIsJustWhiteSpace(byref s as string) as integer
+function strIsJustWhiteSpace(byref s as string) as Boolean
 	for i as integer = 0 to len(s) - 1
 		select case s[i]
 		case CH_TAB, CH_SPACE
 		case else
-			exit function
+			return FALSE
 		end select
 	next
-	function = TRUE
+	return TRUE
 end function
 
-function strIsNonEmptyLine(byref s as string) as integer
+function strIsNonEmptyLine(byref s as string) as Boolean
 	function = (len(s) > 0) andalso (not strIsJustWhiteSpace(s))
 end function
 
@@ -51,7 +48,7 @@ end function
 		count as integer
 		declare function append() as T ptr
 		declare sub append(byref x as T)
-		declare function inRange(byval i as integer) as integer
+		declare function inRange(byval i as integer) as Boolean
 		declare sub remove(byval i as integer)
 	end type
 #endmacro
@@ -69,7 +66,7 @@ end function
 		*append() = x
 	end sub
 
-	function Array(T).inRange(byval i as integer) as integer
+	function Array(T).inRange(byval i as integer) as Boolean
 		function = (i >= 0) and (i < count)
 	end function
 
@@ -90,11 +87,11 @@ defineArray(string)
 
 type Comment
 	lines as Array(string)
-	declare function lineIsEmpty(byval i as integer) as integer
-	declare function lineStartsWith(byval i as integer, byref s as string) as integer
-	declare function firstLineStartsWith(byref s as string) as integer
-	declare function linesStartWith(byval first as integer, byval last as integer, byref s as string) as integer
-	declare function allLinesStartWith(byref s as string) as integer
+	declare function lineIsEmpty(byval i as integer) as Boolean
+	declare function lineStartsWith(byval i as integer, byref s as string) as Boolean
+	declare function firstLineStartsWith(byref s as string) as Boolean
+	declare function linesStartWith(byval first as integer, byval last as integer, byref s as string) as Boolean
+	declare function allLinesStartWith(byref s as string) as Boolean
 	declare sub dropLine(byval i as integer)
 	declare sub cutLine(byval i as integer, byval n as integer)
 	declare sub cutLines(byval first as integer, byval last as integer, byval n as integer)
@@ -103,27 +100,27 @@ type Comment
 	declare sub emit()
 end type
 
-function Comment.lineIsEmpty(byval i as integer) as integer
+function Comment.lineIsEmpty(byval i as integer) as Boolean
 	assert(lines.inRange(i))
 	function = (not strIsNonEmptyLine(lines.p[i]))
 end function
 
-function Comment.lineStartsWith(byval i as integer, byref s as string) as integer
+function Comment.lineStartsWith(byval i as integer, byref s as string) as Boolean
 	function = lineIsEmpty(i) orelse strStartsWith(lines.p[i], s)
 end function
 
-function Comment.firstLineStartsWith(byref s as string) as integer
+function Comment.firstLineStartsWith(byref s as string) as Boolean
 	function = lineStartsWith(0, s)
 end function
 
-function Comment.linesStartWith(byval first as integer, byval last as integer, byref s as string) as integer
+function Comment.linesStartWith(byval first as integer, byval last as integer, byref s as string) as Boolean
 	for i as integer = first to last
-		if lineStartsWith(i, s) = FALSE then exit function
+		if lineStartsWith(i, s) = FALSE then return FALSE
 	next
-	function = TRUE
+	return TRUE
 end function
 
-function Comment.allLinesStartWith(byref s as string) as integer
+function Comment.allLinesStartWith(byref s as string) as Boolean
 	function = linesStartWith(0, lines.count - 1, s)
 end function
 
@@ -218,7 +215,7 @@ dim shared code as zstring ptr '' File content
 dim shared x as ubyte ptr      '' Current char, will always be <= limit
 
 '' Look-ahead and check whether the \ is an escaped EOL, and if yes, skip it
-private function hSkipEscapedEol() as integer
+private function hSkipEscapedEol() as Boolean
 	var i = 0
 	assert(x[0] = CH_BACKSLASH)
 	i += 1
@@ -241,7 +238,7 @@ private function hSkipEscapedEol() as integer
 	end select
 
 	x += i
-	function = TRUE
+	return TRUE
 end function
 
 '' // C++ comment
@@ -418,6 +415,12 @@ sub loadCommentsFromFile(byref filename as string)
 	loadFile(filename)
 	loadComments()
 end sub
+
+
+
+'----------------------------------------------------------------------
+' Main
+'----------------------------------------------------------------------
 
 if __FB_ARGC__ <= 1 then
 	print "extract comment text from C/C++ code"
