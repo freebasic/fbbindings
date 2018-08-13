@@ -1,6 +1,3 @@
-const FALSE = 0
-const TRUE = -1
-
 dim shared ids(any) as string
 dim shared values(any) as string
 
@@ -10,7 +7,7 @@ function lookupDefine(byref id as string) as integer
 			return i
 		end if
 	next
-	function = -1
+	return -1
 end function
 
 sub addDefine(byref id as string, byref value as string)
@@ -20,18 +17,26 @@ sub addDefine(byref id as string, byref value as string)
 	values(ubound(values)) = value
 end sub
 
-function strStartsWith(byref s as string, byref lookfor as string) as integer
+function strStartsWith(byref s as string, byref lookfor as string) as Boolean
 	function = left(s, len(lookfor)) = lookfor
 end function
 
-function strSplit(byref s as string, byref delimiter as string, byref l as string, byref r as string) as integer
+function strSplit(byref s as string, byref delimiter as string, byref l as string, byref r as string) as Boolean
 	var leftlen = instr(s, delimiter) - 1
 	if leftlen > 0 then
 		l = left(s, leftlen)
 		r = right(s, len(s) - leftlen - len(delimiter))
 		function = TRUE
+	else
+		function = FALSE
 	end if
 end function
+
+
+
+'----------------------------------------------------------------------
+' Main
+'----------------------------------------------------------------------
 
 for i as integer = 1 to __FB_ARGC__ - 1
 	var arg = *__FB_ARGV__[i]

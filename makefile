@@ -1,34 +1,120 @@
 FBFROG_VERSION := e07d699e8fdb604906e98c18c99973a9512d8f34
 
-ALL := allegro allegro4 allegro5 aspell atk
-ALL += bass bassmod bfd bzip2
-ALL += caca cairo cd cgiutil cgui chipmunk clang crt cryptlib cunit curl
-ALL += devil disphelper
+ALL := 
+
+# NB: write each package of ALL target on a separate line.
+# This makes it possible to disable packages in case of compilation error.
+
+ALL += allegro
+ALL += allegro4
+ALL += allegro5
+ALL += aspell
+ALL += atk
+ALL += bass
+ALL += bassmod
+ALL += bfd
+ALL += bzip2
+ALL += caca
+ALL += cairo
+ALL += cd
+ALL += cgiutil
+
+# 2.0.4 is offline.
+# TODO : update to 2.0.5
+#ALL += cgui
+ALL += chipmunk
+ALL += clang
+ALL += crt
+ALL += cryptlib
+ALL += cunit
+ALL += curl
+ALL += devil
+ALL += disphelper
 ALL += expat
-ALL += fastcgi ffi flite fontconfig freeglut freeimage freetype
-ALL += gd gdbm gdkpixbuf gdsl glib glfw glut gmp grx gsl gtk gtk2 gtk3 gtkglext
-ALL += iconv im iup
-ALL += jit jpeglib jsonc
-ALL += llvm lua
-ALL += mediainfo modplug mpg123 mxml
-ALL += ncurses newton
-ALL += ogg openal opengl opengl-mesa opengl-winapi
-ALL += pango pcre pdcurses png png12 png14 png15 png16 portaudio postgresql
+
+# http://www.fastcgi.com (broken link)
+#ALL += fastcgi
+
+ALL += ffi
+ALL += flite
+ALL += fontconfig
+ALL += freeglut
+ALL += freeimage
+ALL += freetype
+ALL += gd
+ALL += gdbm
+ALL += gdkpixbuf
+
+# gdsl is unmaintened (GNA is shut down)
+# and an old tarball is used
+# TODO : maybe remove it
+ALL += gdsl
+
+ALL += glib
+ALL += glfw
+ALL += glut
+ALL += gmp
+ALL += grx
+ALL += gsl
+ALL += gtk
+ALL += gtk2
+ALL += gtk3
+ALL += gtkglext
+ALL += iconv
+ALL += im
+ALL += iup
+ALL += jit
+ALL += jpeglib
+ALL += jsonc
+ALL += llvm
+ALL += lua
+ALL += mediainfo
+ALL += modplug
+ALL += mpg123
+ALL += mxml
+ALL += ncurses
+ALL += newton
+ALL += ogg
+ALL += openal
+ALL += opengl
+ALL += opengl-mesa
+ALL += opengl-winapi
+ALL += pango
+ALL += pcre
+ALL += pdcurses
+ALL += png
+ALL += png12
+ALL += png14
+ALL += png15
+ALL += png16
+ALL += portaudio
+ALL += postgresql
 ALL += quicklz
-ALL += sdl sdl1 sdl2 sndfile spidermonkey sqlite
+ALL += sdl
+ALL += sdl1
+ALL += sdl2
+ALL += sndfile
+ALL += sqlite
 ALL += tre
 ALL += uuid
-ALL += vlc vorbis
+ALL += vlc
+ALL += vorbis
 ALL += winapi
-ALL += x11 xcb xml2 xmp xz
-ALL += zip zlib zmq
+ALL += x11
+ALL += xcb
+ALL += xml2
+ALL += xmp
+ALL += xz
+ALL += zip
+ALL += zlib
+ALL += zmq
 
 EXEEXT := $(shell fbc -print x)
 LOCAL_FBFROG_DIR := extracted/fbfrog-$(FBFROG_VERSION)
 LOCAL_FBFROG := $(LOCAL_FBFROG_DIR)/fbfrog$(EXEEXT)
 FBFROG := $(LOCAL_FBFROG)
+FAKECONFIGURE := ./fake-configure$(EXEEXT)
 GETCOMMENT := ./getcomment$(EXEEXT)
-FAKE_CONFIGURE := ./fake-configure$(EXEEXT)
 
 .PHONY: all clean tests tests-winapi $(ALL)
 
@@ -37,19 +123,31 @@ all: $(ALL)
 clean:
 	rm -rf extracted/*
 
+dist-clean:
+
+# Remove temp directories and temp files
+	rm -rf extracted
+	rm -rf tarballs
+	rm -f *.tmp
+
+# Remove tools
+	rm -f getcomment
+	rm -f fake-configure
+	rm -f *.exe
+
 $(LOCAL_FBFROG_DIR):
 	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
 
 $(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) | $(LOCAL_FBFROG_DIR)
 	cd $(LOCAL_FBFROG_DIR) && make
 
+$(FAKECONFIGURE): fake-configure.bas
+	fbc $< -g -exx
+
 $(GETCOMMENT): getcomment.bas
 	fbc $< -g -exx
 
-$(FAKE_CONFIGURE): fake-configure.bas
-	fbc $< -g -exx
-
-tools: $(LOCAL_FBFROG) $(GETCOMMENT) $(FAKE_CONFIGURE)
+tools: $(LOCAL_FBFROG) $(FAKECONFIGURE) $(GETCOMMENT)
 
 tests:
 	lib/tests.sh
@@ -68,7 +166,7 @@ allegro4: tools
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
 	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "http://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
+		wget --no-verbose "https://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
 	fi
 	if [ ! -d extracted/$(ALPNG) ]; then \
 		mkdir -p extracted/$(ALPNG); \
@@ -79,19 +177,19 @@ allegro4: tools
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform
 
-	$(FAKE_CONFIGURE) ALLEGRO_DJGPP \
+	$(FAKECONFIGURE) ALLEGRO_DJGPP \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/dos/allegro/platform/alplatf.h
 
-	$(FAKE_CONFIGURE) ALLEGRO_UNIX \
+	$(FAKECONFIGURE) ALLEGRO_UNIX \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform/alplatf.h
 
-	$(FAKE_CONFIGURE) ALLEGRO_MINGW32 \
+	$(FAKECONFIGURE) ALLEGRO_MINGW32 \
 		< extracted/$(ALLEGRO4_TITLE)/include/allegro/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO4_TITLE)/include/windows/allegro/platform/alplatf.h
 
-	$(FAKE_CONFIGURE) \
+	$(FAKECONFIGURE) \
 		ALLEGRO_LITTLE_ENDIAN \
 		ALLEGRO_HAVE_INTTYPES_H \
 		ALLEGRO_HAVE_STDBOOL_H \
@@ -178,26 +276,26 @@ ALLEGRO5_TITLE := allegro-$(ALLEGRO5_VERSION)
 ALLEGRO5_LIB := -5.0.10-static-md
 ALLEGRO5_DLL := -5.0.10-md
 allegro5: tools
-	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "http://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
+	./get.sh $(ALLEGRO5_TITLE) $(ALLEGRO5_TITLE).tar.gz "https://sourceforge.net/projects/alleg/files/allegro/$(ALLEGRO5_VERSION)/$(ALLEGRO5_TITLE).tar.gz/download"
 
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform
 	mkdir -p extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform
 
 	# Other Unix (BSD/Cygwin)
-	$(FAKE_CONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
+	$(FAKECONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/unix/allegro5/platform/alplatf.h
 
 	# Linux
-	$(FAKE_CONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` `cat allegro5-config-linux.txt` \
+	$(FAKECONFIGURE) `cat allegro5-config.txt` `cat allegro5-config-unix.txt` `cat allegro5-config-linux.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/linux/allegro5/platform/alplatf.h
 
 	# Windows
-	$(FAKE_CONFIGURE) ALLEGRO_MINGW32 `cat allegro5-config.txt` \
+	$(FAKECONFIGURE) ALLEGRO_MINGW32 `cat allegro5-config.txt` \
 		< extracted/$(ALLEGRO5_TITLE)/include/allegro5/platform/alplatf.h.cmake \
 		> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
 	echo "#pragma once" >> extracted/$(ALLEGRO5_TITLE)/include/windows/allegro5/platform/alplatf.h
@@ -554,7 +652,7 @@ cairo: tools cairo-extract
 CD_VERSION := 5.8.2
 CD := cd-$(CD_VERSION)
 cd: tools
-	./get.sh $(CD) $(CD)_Sources.tar.gz http://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download createdir
+	./get.sh $(CD) $(CD)_Sources.tar.gz https://sourceforge.net/projects/canvasdraw/files/$(CD_VERSION)/Docs%20and%20Sources/$(CD)_Sources.tar.gz/download createdir
 	find extracted/$(CD)/cd/ -type d -exec chmod +x '{}' ';'
 
 	$(GETCOMMENT) --2 extracted/$(CD)/cd/include/cd.h | tail -n+2 | head -n-1 > cd.tmp
@@ -619,12 +717,15 @@ cgiutil: tools
 	rm *.tmp
 
 CGUI_VERSION := 2.0.4
-CGUI := cgui-$(CGUI_VERSION)
+CGUI_TITLE := cgui-$(CGUI_VERSION)
 cgui: tools
-	./get.sh $(CGUI) $(CGUI).tar.gz "http://cgui.cvs.sourceforge.net/viewvc/cgui/cgui/?view=tar&pathrev=Branch_CGUI_1-6-7"
+	./get.sh $(CGUI_TITLE) $(CGUI_TITLE).tar.gz "https://sourceforge.net/projects/cgui/files/$(CGUI_VERSION)/$(CGUI_TITLE).tar.gz/download"
+	if [ -d extracted/cgui ]; then \
+		mv extracted/cgui extracted/$(CGUI_TITLE); \
+	fi
 	echo "A C Graphical User Interface [add on to Allegro] by Christer Sandberg" > cgui.tmp
-	$(FBFROG) cgui.fbfrog -o inc extracted/cgui/include/cgui.h \
-		-title $(CGUI) cgui.tmp fbteam.txt
+	$(FBFROG) cgui.fbfrog -o inc extracted/$(CGUI_TITLE)/include/cgui.h \
+		-title $(CGUI_TITLE) cgui.tmp fbteam.txt
 	rm *.tmp
 
 CHIPMUNK := Chipmunk-7.0.1
@@ -720,9 +821,9 @@ crt: tools
 
 	rm *.tmp
 
-CRYPTLIB := cl343_beta
+CRYPTLIB := cl344
 cryptlib: tools
-	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip http://www.cypherpunks.to/~peter/$(CRYPTLIB).zip createdir
+	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip ftp://ftp.franken.de/pub/crypt/cryptlib/$(CRYPTLIB).zip createdir
 	tail -n+7 extracted/$(CRYPTLIB)/COPYING > cryptlib.tmp
 	$(FBFROG) cryptlib.fbfrog extracted/$(CRYPTLIB)/cryptlib.h \
 		-o inc/cryptlib.bi -inclib cl -title $(CRYPTLIB) cryptlib.tmp fbteam.txt
@@ -731,7 +832,7 @@ cryptlib: tools
 CUNIT_VERSION := 2.1-3
 CUNIT_TITLE := CUnit-$(CUNIT_VERSION)
 cunit: tools
-	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "http://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
+	./get.sh $(CUNIT_TITLE) $(CUNIT_TITLE).tar.bz2 "https://sourceforge.net/projects/cunit/files/CUnit/$(CUNIT_VERSION)/$(CUNIT_TITLE).tar.bz2/download"
 	cd extracted/$(CUNIT_TITLE)/CUnit/Headers && \
 		sed -e 's/@VERSION@-@RELEASE@/$(CUNIT_VERSION)/g' < CUnit.h.in > CUnit.h
 	$(GETCOMMENT) extracted/$(CUNIT_TITLE)/CUnit/Headers/CUnit.h > cunit.tmp
@@ -758,7 +859,7 @@ cunit: tools
 
 CURL_TITLE := curl-7.44.0
 curl: tools
-	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "http://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "https://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
@@ -800,7 +901,7 @@ devil: tools
 	rm *.tmp
 
 disphelper: tools
-	./get.sh disphelper_081 disphelper_081.zip http://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
+	./get.sh disphelper_081 disphelper_081.zip https://sourceforge.net/projects/disphelper/files/DispHelper/0.81/disphelper_081.zip/download createdir
 
 	$(GETCOMMENT) extracted/disphelper_081/source/disphelper.h > disphelper.tmp
 	$(GETCOMMENT) extracted/disphelper_081/source/convert.h > convert.tmp
@@ -818,7 +919,7 @@ disphelper: tools
 EXPAT_VERSION := 2.1.0
 EXPAT := expat-$(EXPAT_VERSION)
 expat: tools
-	./get.sh $(EXPAT) $(EXPAT).tar.gz http://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
+	./get.sh $(EXPAT) $(EXPAT).tar.gz https://sourceforge.net/projects/expat/files/expat/$(EXPAT_VERSION)/$(EXPAT).tar.gz/download
 	cp extracted/$(EXPAT)/COPYING expat.tmp
 	$(FBFROG) expat.fbfrog extracted/$(EXPAT)/lib/expat.h -o inc/expat.bi \
 		-title $(EXPAT) expat.tmp fbteam.txt
@@ -878,7 +979,7 @@ flite: tools
 
 FONTCONFIG := fontconfig-2.11.1
 fontconfig: tools
-	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "http://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
+	./get.sh $(FONTCONFIG) $(FONTCONFIG).tar.bz2 "https://www.freedesktop.org/software/fontconfig/release/$(FONTCONFIG).tar.bz2"
 
 	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fontconfig.h > fontconfig.tmp
 	$(GETCOMMENT) extracted/$(FONTCONFIG)/fontconfig/fcfreetype.h > fcfreetype.tmp
@@ -898,7 +999,7 @@ fontconfig: tools
 FREEGLUT_VERSION := 3.0.0
 FREEGLUT := freeglut-$(FREEGLUT_VERSION)
 freeglut: tools
-	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz http://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
+	./get.sh $(FREEGLUT) $(FREEGLUT).tar.gz https://sourceforge.net/projects/freeglut/files/freeglut/$(FREEGLUT_VERSION)/$(FREEGLUT).tar.gz/download
 
 	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut.h     > freeglut.tmp
 	$(GETCOMMENT) extracted/$(FREEGLUT)/include/GL/freeglut_ext.h > freeglut_ext.tmp
@@ -972,8 +1073,8 @@ GLFW3_VERSION := 3.1.1
 GLFW2 := glfw-$(GLFW2_VERSION)
 GLFW3 := glfw-$(GLFW3_VERSION)
 glfw: tools
-	./get.sh $(GLFW2) $(GLFW2).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
-	./get.sh $(GLFW3) $(GLFW3).tar.bz2 http://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+	./get.sh $(GLFW2) $(GLFW2).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
+	./get.sh $(GLFW3) $(GLFW3).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
 
 	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
 	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
@@ -1067,7 +1168,10 @@ gdkpixbuf: tools glib-extract gdkpixbuf-extract
 
 GDSL := gdsl-1.8
 gdsl: tools
-	./get.sh $(GDSL) $(GDSL).tar.gz http://download.gna.org/gdsl/$(GDSL).tar.gz
+	./get.sh $(GDSL) $(GDSL).zip https://github.com/zlongshen/gdsl/archive/master.zip
+	if [ -d extracted/gdsl-master ]; then \
+		mv extracted/gdsl-master extracted/$(GDSL); \
+	fi
 	cd extracted/$(GDSL) && \
 		if [ ! -d include  ]; then \
 			mkdir -p include/gdsl && mv src/*.h include/gdsl; \
@@ -1198,8 +1302,8 @@ glut: tools
 GIFLIB4 := giflib-4.2.3
 GIFLIB5 := giflib-5.1.1
 giflib: tools
-	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
-	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 http://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
+	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
+	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
 	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp
 	cp extracted/$(GIFLIB5)/COPYING giflib5.tmp
 	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
@@ -1422,7 +1526,7 @@ iconv: tools
 IM_VERSION := 3.9.1
 IM := im-$(IM_VERSION)
 im: tools
-	./get.sh $(IM) $(IM)_Sources.tar.gz http://sourceforge.net/projects/imtoolkit/files/$(IM_VERSION)/Docs%20and%20Sources/$(IM)_Sources.tar.gz/download createdir
+	./get.sh $(IM) $(IM)_Sources.tar.gz https://sourceforge.net/projects/imtoolkit/files/$(IM_VERSION)/Docs%20and%20Sources/$(IM)_Sources.tar.gz/download createdir
 	find extracted/$(IM)/im/ -type d -exec chmod +x '{}' ';'
 
 	# Headers with C++ classes/templates
@@ -1508,7 +1612,7 @@ im-update-test:
 IUP_VERSION := 3.15
 IUP_TITLE := iup-$(IUP_VERSION)
 iup: tools
-	./get.sh $(IUP_TITLE) $(IUP_TITLE)_Sources.tar.gz "http://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download" createdir
+	./get.sh $(IUP_TITLE) $(IUP_TITLE)_Sources.tar.gz "https://sourceforge.net/projects/iup/files/$(IUP_VERSION)/Docs%20and%20Sources/$(IUP_TITLE)_Sources.tar.gz/download" createdir
 	find extracted/$(IUP_TITLE)/iup/ -type d -exec chmod +x '{}' ';'
 
 	$(GETCOMMENT) --1 extracted/$(IUP_TITLE)/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
@@ -1648,10 +1752,10 @@ jpeglib: tools
 	# but in version 9 it actually gives a special boolean typedef that
 	# matters for the library's ABI, so at least because of that it's a good
 	# idea to actually use a more-or-less proper jconfig.h.
-	cd extracted/jpeg-6b && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-7  && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-8d && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
-	cd extracted/jpeg-9a && ../.$(FAKE_CONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-6b && ../.$(FAKECONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-7  && ../.$(FAKECONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-8d && ../.$(FAKECONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
+	cd extracted/jpeg-9a && ../.$(FAKECONFIGURE) $(JPEGLIB_CONF) < jconfig.cfg > jconfig.h
 
 	sed -n 102,146p extracted/jpeg-9a/README > jpeglib.tmp
 
@@ -1672,7 +1776,7 @@ JSONCDIR := json-c-$(JSONC)
 jsonc: tools
 	./get.sh $(JSONCDIR) $(JSONC).tar.gz https://github.com/json-c/json-c/archive/$(JSONC).tar.gz
 
-	$(FAKE_CONFIGURE) JSON_C_HAVE_INTTYPES_H \
+	$(FAKECONFIGURE) JSON_C_HAVE_INTTYPES_H \
 		< extracted/$(JSONCDIR)/json_config.h.in \
 		> extracted/$(JSONCDIR)/json_config.h
 
@@ -1745,7 +1849,7 @@ mediainfo: tools
 MODPLUG_VERSION := 0.8.8.5
 MODPLUG := libmodplug-$(MODPLUG_VERSION)
 modplug: tools
-	./get.sh $(MODPLUG) $(MODPLUG).tar.gz http://sourceforge.net/projects/modplug-xmms/files/libmodplug/$(MODPLUG_VERSION)/$(MODPLUG).tar.gz/download
+	./get.sh $(MODPLUG) $(MODPLUG).tar.gz https://sourceforge.net/projects/modplug-xmms/files/libmodplug/$(MODPLUG_VERSION)/$(MODPLUG).tar.gz/download
 	$(GETCOMMENT) extracted/$(MODPLUG)/src/modplug.h > modplug.tmp
 	$(FBFROG) modplug.fbfrog extracted/$(MODPLUG)/src/modplug.h \
 		-o inc/modplug.bi -title $(MODPLUG) modplug.tmp fbteam.txt
@@ -1754,7 +1858,7 @@ modplug: tools
 MPG123_VERSION := 1.22.4
 MPG123 := mpg123-$(MPG123_VERSION)
 mpg123: tools
-	./get.sh $(MPG123) $(MPG123).tar.bz2 http://sourceforge.net/projects/mpg123/files/mpg123/$(MPG123_VERSION)/$(MPG123).tar.bz2/download
+	./get.sh $(MPG123) $(MPG123).tar.bz2 https://sourceforge.net/projects/mpg123/files/mpg123/$(MPG123_VERSION)/$(MPG123).tar.bz2/download
 	sed -n 13,13p extracted/$(MPG123)/configure.ac | sed -e 's/API_VERSION=//g' > mpg123-apiversion.tmp
 	sed \
 		-e 's/@PACKAGE_VERSION@/$(MPG123_VERSION)/g' \
@@ -1770,7 +1874,7 @@ mpg123: tools
 
 MXML := mxml-2.9
 mxml: tools
-	./get.sh $(MXML) $(MXML).tar.gz http://www.msweet.org/files/project3/$(MXML).tar.gz
+	./get.sh $(MXML) $(MXML).tar.gz https://github.com/michaelrsweet/mxml/releases/download/release-2.9/$(MXML).tar.gz
 	$(GETCOMMENT) extracted/$(MXML)/mxml.h > mxml.tmp
 	echo >> mxml.tmp
 	sed -n 5,23p extracted/$(MXML)/COPYING >> mxml.tmp
@@ -1918,7 +2022,7 @@ MESA_VERSION := 10.6.4
 MESA := mesa-$(MESA_VERSION)
 GLU := glu-9.0.0
 opengl-mesa: tools
-	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/$(MESA_VERSION)/$(MESA).tar.xz
+	./get.sh $(MESA) $(MESA).tar.xz ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$(MESA_VERSION)/$(MESA).tar.xz
 	./get.sh $(GLU)  $(GLU).tar.bz2 ftp://ftp.freedesktop.org/pub/mesa/glu/$(GLU).tar.bz2
 
 	$(GETCOMMENT) extracted/$(MESA)/include/GL/gl.h    > mesa-gl.tmp
@@ -2018,8 +2122,8 @@ PCRE1 := pcre-$(PCRE1_VERSION)
 PCRE2_VERSION := 10.20
 PCRE2 := pcre2-$(PCRE2_VERSION)
 pcre: tools
-	./get.sh $(PCRE1) $(PCRE1).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre/$(PCRE1_VERSION)/$(PCRE1).tar.bz2/download
-	./get.sh $(PCRE2) $(PCRE2).tar.bz2 http://sourceforge.net/projects/pcre/files/pcre2/$(PCRE2_VERSION)/$(PCRE2).tar.bz2/download
+	./get.sh $(PCRE1) $(PCRE1).tar.bz2 https://sourceforge.net/projects/pcre/files/pcre/$(PCRE1_VERSION)/$(PCRE1).tar.bz2/download
+	./get.sh $(PCRE2) $(PCRE2).tar.bz2 https://sourceforge.net/projects/pcre/files/pcre2/$(PCRE2_VERSION)/$(PCRE2).tar.bz2/download
 
 	cd extracted/$(PCRE1) && \
 		cp config.h.generic config.h && \
@@ -2058,7 +2162,7 @@ pcre: tools
 PDCURSES_VERSION := 3.4
 PDCURSES := PDCurses-$(PDCURSES_VERSION)
 pdcurses: tools
-	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "http://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
+	./get.sh $(PDCURSES) $(PDCURSES).tar.gz "https://sourceforge.net/projects/pdcurses/files/pdcurses/$(PDCURSES_VERSION)/$(PDCURSES).tar.gz/download"
 	sed -n 15,25p extracted/$(PDCURSES)/README > pdcurses.tmp
 	mkdir -p inc/curses
 	$(FBFROG) pdcurses.fbfrog -o inc/curses/pdcurses.bi \
@@ -2196,7 +2300,7 @@ sdl1: tools
 	cd extracted/$(SDL1_MAIN)/include && \
 		mkdir -p unix windows && \
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
-	$(FAKE_CONFIGURE) \
+	$(FAKECONFIGURE) \
 		`cat unix-config.txt` \
 		SDL_HAS_64BIT_TYPE \
 		SDL_VIDEO_DRIVER_X11 \
@@ -2301,7 +2405,7 @@ sdl2: tools winapi-extract
 	cd extracted/$(SDL2_MAIN)/include && \
 		mkdir -p unix windows && \
 		if [ -f SDL_config.h ]; then mv SDL_config.h windows; fi
-	$(FAKE_CONFIGURE) \
+	$(FAKECONFIGURE) \
 		`cat unix-config.txt` \
 		SDL_HAS_64BIT_TYPE \
 		SDL_VIDEO_DRIVER_X11 \
@@ -2390,10 +2494,6 @@ sndfile: tools
 		-inclib sndfile \
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
-
-SPIDERMONKEY := mozjs-31.2.0
-spidermonkey: tools
-	./get.sh $(SPIDERMONKEY) $(SPIDERMONKEY).rc0.tar.bz2 https://people.mozilla.org/~sstangl/$(SPIDERMONKEY).rc0.tar.bz2
 
 SQLITE3_PRETTY := "SQLite 3.8.11.1"
 SQLITE3 := sqlite-amalgamation-3081101
@@ -2594,7 +2694,7 @@ WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/crt
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/include
 WINAPI_FLAGS += -incdir extracted/$(MINGWW64_TITLE)/mingw-w64-headers/direct-x/include
 winapi-extract:
-	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "http://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
+	./get.sh $(MINGWW64_TITLE) $(MINGWW64_TITLE).tar.bz2 "https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/$(MINGWW64_TITLE).tar.bz2/download"
 
 	cd extracted/$(MINGWW64_TITLE) && ../../winapi-patch.sh
 
@@ -3483,7 +3583,7 @@ xml2-update-test:
 XMP_VERSION := 4.3.9
 XMP := libxmp-$(XMP_VERSION)
 xmp: tools
-	./get.sh $(XMP) $(XMP).tar.gz http://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
+	./get.sh $(XMP) $(XMP).tar.gz https://sourceforge.net/projects/xmp/files/libxmp/$(XMP_VERSION)/$(XMP).tar.gz/download
 	sed -n 57,67p extracted/$(XMP)/README > xmp.tmp
 	./fsf-address-fix.sh xmp.tmp
 	$(FBFROG) xmp.fbfrog extracted/$(XMP)/include/xmp.h -o inc/xmp.bi \
@@ -3516,7 +3616,7 @@ zip: tools
 
 ZLIB_TITLE := zlib-1.2.8
 zlib: tools
-	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.xz "http://zlib.net/$(ZLIB_TITLE).tar.xz"
+	./get.sh $(ZLIB_TITLE) $(ZLIB_TITLE).tar.gz "http://zlib.net/fossils/$(ZLIB_TITLE).tar.gz"
 
 	$(GETCOMMENT) extracted/$(ZLIB_TITLE)/zlib.h > zlib.tmp
 	$(FBFROG) zlib.fbfrog -o inc extracted/$(ZLIB_TITLE)/zlib.h \
