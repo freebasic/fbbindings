@@ -17,6 +17,8 @@
 
 -setarraysize CodingHistory 1
 -setarraysize TagText 1
+-setarraysize CuePoints 1
+-setarraysize SampleLoops 1
 
 -convbodytokens EAX_PRESET_GENERIC
 -convbodytokens EAX_PRESET_PADDEDCELL
