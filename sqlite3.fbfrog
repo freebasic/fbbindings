@@ -2,16 +2,23 @@
 -removedefine SQLITE_API
 -removedefine SQLITE_CDECL
 -removedefine SQLITE_STDCALL
+-removedefine SQLITE_APICALL
+-removedefine SQLITE_CALLBACK
+-removedefine SQLITE_SYSAPI
 -removedefine SQLITE_DEPRECATED
 -removedefine SQLITE_EXPERIMENTAL
 -addforwarddecl sqlite3
 -addforwarddecl sqlite3_stmt
+-addforwarddecl sqlite3_value
 -addforwarddecl sqlite3_context
 -addforwarddecl sqlite3_blob
 -addforwarddecl sqlite3_mutex
 -addforwarddecl sqlite3_pcache
 -addforwarddecl sqlite3_backup
 -addforwarddecl sqlite3_aggregate_context
+-addforwarddecl sqlite3_str
+-addforwarddecl Fts5Context
+-addforwarddecl Fts5Tokenizer
 -fixunsizedarrays
 
 -replacements sqlite3.replacements
