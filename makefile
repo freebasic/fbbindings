@@ -851,9 +851,9 @@ cunit: tools
 		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
 	rm *.tmp
 
-CURL_TITLE := curl-7.44.0
+CURL_TITLE := curl-7.66.0
 curl: tools
-	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "https://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.gz "https://curl.haxx.se/download/$(CURL_TITLE).tar.gz"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
