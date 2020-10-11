@@ -2484,10 +2484,10 @@ sndfile: tools
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.30.0"
-SQLITE3 := sqlite-amalgamation-3300000
+SQLITE3 := sqlite-amalgamation-3330000
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
-	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2019/$(SQLITE3).zip
+	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2020/$(SQLITE3).zip
 	./get.sh $(SQLITE2) $(SQLITE2).tar.gz "http://www.sqlite.org/src/tarball/$(SQLITE2).tar.gz?uuid=47fee16ba9bd8ab2820fe97e89480528114825cd"
 
 	cd extracted/$(SQLITE2)/src && \
