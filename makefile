@@ -862,16 +862,16 @@ curl: tools
 		-title $(CURL_TITLE) curl.tmp fbteam.txt
 	rm *.tmp
 
-DEVIL_VERSION := 1.7.8
+DEVIL_VERSION := 1.8.0
 DEVIL := devil-$(DEVIL_VERSION)
 DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
-	./get.sh $(DEVIL) $(DEVIL).tar.gz http://downloads.sourceforge.net/openil/$(DEVIL_PRETTY).tar.gz
-
-	sed -n 476,488p extracted/$(DEVIL)/COPYING | cut -c5- > devil.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/il.h   > devil-il.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilu.h  > devil-ilu.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilut.h > devil-ilut.tmp
+	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
+# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.zip/download
+	sed -n 476,488p extracted/$(DEVIL)/DevIL/COPYING | cut -c5- > devil.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilut.h > devil-ilut.tmp
 	echo >> devil-il.tmp
 	echo >> devil-ilu.tmp
 	echo >> devil-ilut.tmp
@@ -881,7 +881,7 @@ devil: tools
 	./fsf-address-fix.sh *.tmp
 
 	mkdir -p inc/IL
-	$(FBFROG) devil.fbfrog -incdir extracted/$(DEVIL)/include \
+	$(FBFROG) devil.fbfrog -incdir extracted/$(DEVIL)/DevIL/DevIL/include \
 		-include IL/il.h \
 		-include IL/ilu.h \
 		-include IL/ilut.h \
