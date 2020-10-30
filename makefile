@@ -815,9 +815,9 @@ crt: tools
 
 	rm *.tmp
 
-CRYPTLIB := cl344
+CRYPTLIB := cl345
 cryptlib: tools
-	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip ftp://ftp.franken.de/pub/crypt/cryptlib/$(CRYPTLIB).zip createdir
+	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip http://cryptlib.com/downloads/$(CRYPTLIB).zip createdir
 	tail -n+7 extracted/$(CRYPTLIB)/COPYING > cryptlib.tmp
 	$(FBFROG) cryptlib.fbfrog extracted/$(CRYPTLIB)/cryptlib.h \
 		-o inc/cryptlib.bi -inclib cl -title $(CRYPTLIB) cryptlib.tmp fbteam.txt

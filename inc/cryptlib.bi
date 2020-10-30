@@ -1,4 +1,4 @@
-'' FreeBASIC binding for cl344
+'' FreeBASIC binding for cl345
 ''
 '' based on the C header files:
 ''   cryptlib is distributed under a dual license that allows free, open-source use
@@ -7,7 +7,7 @@
 ''   is given below.  Further details on this license are available from the
 ''   cryptlib home page.
 ''
-''     Copyright 1992-2016 Peter Gutmann. All rights reserved.
+''     Copyright 1992-2018 Peter Gutmann. All rights reserved.
 ''
 ''     Redistribution and use in source and binary forms, with or without
 ''     modification, are permitted provided that the following conditions are met:
@@ -57,7 +57,7 @@
 ''     public), contact the author for details if you think you qualify.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2018 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -72,7 +72,7 @@
 #endif
 
 #define _CRYPTLIB_DEFINED
-const CRYPTLIB_VERSION = 3440
+const CRYPTLIB_VERSION = 345
 
 type CRYPT_ALGO_TYPE as long
 enum
@@ -696,6 +696,10 @@ enum
 	CRYPT_SESSINFO_SSH_CHANNEL_ARG2
 	CRYPT_SESSINFO_SSH_CHANNEL_ACTIVE
 	CRYPT_SESSINFO_SSL_OPTIONS
+	CRYPT_SESSINFO_SSL_SUBPROTOCOL
+	CRYPT_SESSINFO_SSL_WSPROTOCOL
+	CRYPT_SESSINFO_SSL_EAPCHALLENGE
+	CRYPT_SESSINFO_SSL_EAPKEY
 	CRYPT_SESSINFO_TSP_MSGIMPRINT
 	CRYPT_SESSINFO_LAST
 	CRYPT_USERINFO_FIRST = 7000
@@ -925,6 +929,14 @@ enum
 	CRYPT_CERTACTION_EXPIRE_CERT
 	CRYPT_CERTACTION_CLEANUP
 	CRYPT_CERTACTION_LAST
+end enum
+
+type CRYPT_SUBPROTOCOL_TYPE as long
+enum
+	CRYPT_SUBPROTOCOL_NONE
+	CRYPT_SUBPROTOCOL_WEBSOCKETS
+	CRYPT_SUBPROTOCOL_EAPTTLS
+	CRYPT_SUBPROTOCOL_LAST
 end enum
 
 const CRYPT_SSLOPTION_NONE = &h000
@@ -1168,10 +1180,5 @@ declare function cryptDeviceQueryCapability(byval device as const CRYPT_DEVICE, 
 declare function cryptDeviceCreateContext(byval device as const CRYPT_DEVICE, byval cryptContext as CRYPT_CONTEXT ptr, byval cryptAlgo as const CRYPT_ALGO_TYPE) as long
 declare function cryptLogin(byval user as CRYPT_USER ptr, byval name as const zstring ptr, byval password as const zstring ptr) as long
 declare function cryptLogout(byval user as const CRYPT_USER) as long
-
-#ifdef __FB_WIN32__
-	declare function cryptUIGenerateKey(byval cryptDevice as const CRYPT_DEVICE, byval cryptContext as CRYPT_CONTEXT ptr, byval cryptCert as const CRYPT_CERTIFICATE, byval password as zstring ptr, byval hWnd as const HWND) as long
-	declare function cryptUIDisplayCert(byval cryptCert as const CRYPT_CERTIFICATE, byval hWnd as const HWND) as long
-#endif
 
 end extern
