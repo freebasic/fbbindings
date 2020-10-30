@@ -41,6 +41,7 @@
 -removedefine CURL_PULL_WS2TCPIP_H
 -removedefine CURL_TYPEOF_CURL_OFF_T
 -removedefine CURL_TYPEOF_CURL_SOCKLEN_T
+-removedefine CURL_WIN32
 
 -noexpand CURLOPTTYPE_LONG
 -noexpand CURLOPTTYPE_OBJECTPOINT
@@ -60,3 +61,5 @@
 -removedefine curl_multi_setopt
 
 -addforwarddecl curl_pushheaders
+-addforwarddecl curl_mime
+-addforwarddecl curl_mimepart
