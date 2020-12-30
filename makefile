@@ -477,7 +477,8 @@ bass: tools winapi-extract
 
 	$(GETCOMMENT) extracted/$(BASS)/c/bass.h > bass.tmp
 	echo >> bass.tmp
-	sed -n 639,655p extracted/$(BASS)/bass.txt >> bass.tmp
+	awk '/Licence/{f=1} /Commercial licensing/{f=0} f' extracted/$(BASS)/bass.txt \
+		| tail -n +3 | head -n -1 >> bass.tmp
 
 	$(FBFROG) bass.fbfrog \
 		-iftarget windows \
@@ -821,9 +822,9 @@ crt: tools
 
 	rm *.tmp
 
-CRYPTLIB := cl344
+CRYPTLIB := cl345
 cryptlib: tools
-	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip ftp://ftp.franken.de/pub/crypt/cryptlib/$(CRYPTLIB).zip createdir
+	./get.sh $(CRYPTLIB) $(CRYPTLIB).zip http://cryptlib.com/downloads/$(CRYPTLIB).zip createdir
 	tail -n+7 extracted/$(CRYPTLIB)/COPYING > cryptlib.tmp
 	$(FBFROG) cryptlib.fbfrog extracted/$(CRYPTLIB)/cryptlib.h \
 		-o inc/cryptlib.bi -inclib cl -title $(CRYPTLIB) cryptlib.tmp fbteam.txt
@@ -857,9 +858,9 @@ cunit: tools
 		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
 	rm *.tmp
 
-CURL_TITLE := curl-7.44.0
+CURL_TITLE := curl-7.73.0
 curl: tools
-	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.lzma "https://curl.haxx.se/download/$(CURL_TITLE).tar.lzma"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.gz "https://curl.haxx.se/download/$(CURL_TITLE).tar.gz"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
@@ -868,16 +869,16 @@ curl: tools
 		-title $(CURL_TITLE) curl.tmp fbteam.txt
 	rm *.tmp
 
-DEVIL_VERSION := 1.7.8
+DEVIL_VERSION := 1.8.0
 DEVIL := devil-$(DEVIL_VERSION)
 DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
-	./get.sh $(DEVIL) $(DEVIL).tar.gz http://downloads.sourceforge.net/openil/$(DEVIL_PRETTY).tar.gz
-
-	sed -n 476,488p extracted/$(DEVIL)/COPYING | cut -c5- > devil.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/il.h   > devil-il.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilu.h  > devil-ilu.tmp
-	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/include/IL/ilut.h > devil-ilut.tmp
+	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
+# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.zip/download
+	sed -n 476,488p extracted/$(DEVIL)/DevIL/COPYING | cut -c5- > devil.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
+	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilut.h > devil-ilut.tmp
 	echo >> devil-il.tmp
 	echo >> devil-ilu.tmp
 	echo >> devil-ilut.tmp
@@ -887,7 +888,7 @@ devil: tools
 	./fsf-address-fix.sh *.tmp
 
 	mkdir -p inc/IL
-	$(FBFROG) devil.fbfrog -incdir extracted/$(DEVIL)/include \
+	$(FBFROG) devil.fbfrog -incdir extracted/$(DEVIL)/DevIL/DevIL/include \
 		-include IL/il.h \
 		-include IL/ilu.h \
 		-include IL/ilut.h \
@@ -2251,7 +2252,7 @@ portaudio: tools
 		-title $(PORTAUDIO) portaudio.tmp fbteam.txt
 	rm *.tmp
 
-POSTGRESQL_VERSION := 9.4.4
+POSTGRESQL_VERSION := 12.0
 POSTGRESQL := postgresql-$(POSTGRESQL_VERSION)
 postgresql: tools
 	./get.sh $(POSTGRESQL) $(POSTGRESQL).tar.bz2 https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).tar.bz2
@@ -2495,11 +2496,11 @@ sndfile: tools
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
-SQLITE3_PRETTY := "SQLite 3.8.11.1"
-SQLITE3 := sqlite-amalgamation-3081101
+SQLITE3_PRETTY := "SQLite 3.30.0"
+SQLITE3 := sqlite-amalgamation-3330000
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
-	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2015/$(SQLITE3).zip
+	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2020/$(SQLITE3).zip
 	./get.sh $(SQLITE2) $(SQLITE2).tar.gz "http://www.sqlite.org/src/tarball/$(SQLITE2).tar.gz?uuid=47fee16ba9bd8ab2820fe97e89480528114825cd"
 
 	cd extracted/$(SQLITE2)/src && \

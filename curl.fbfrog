@@ -1,9 +1,6 @@
 -replacements curl.replacements
 -inclib curl
 
-# TODO: curl 7.39 doesn't support aarch64 yet; upgrade and enable
--target noarm
-
 -removeinclude sys/types.h
 -removeinclude sys/socket.h
 -removeinclude sys/time.h
@@ -13,6 +10,7 @@
 -removeinclude ws2tcpip.h
 -removeinclude typecheck-gcc.h
 -removeinclude osreldate.h
+-removeinclude windows.h
 
 -addinclude crt/sys/types.bi
 -addinclude crt/time.bi
@@ -27,6 +25,9 @@
 -renametypedef CURLMSG CURLMSG_
 -renameproc curl_multi_socket curl_multi_socket_
 
+-removedefine __has_declspec_attribute
+-removedefine CURL_DID_MEMORY_FUNC_TYPEDEFS
+
 -removedefine CFINIT
 -removedefine CINIT
 -removedefine CurlchkszEQ
@@ -40,6 +41,7 @@
 -removedefine CURL_PULL_WS2TCPIP_H
 -removedefine CURL_TYPEOF_CURL_OFF_T
 -removedefine CURL_TYPEOF_CURL_SOCKLEN_T
+-removedefine CURL_WIN32
 
 -noexpand CURLOPTTYPE_LONG
 -noexpand CURLOPTTYPE_OBJECTPOINT
@@ -49,6 +51,9 @@
 -noexpand CURLINFO_LONG
 -noexpand CURLINFO_DOUBLE
 -noexpand CURLINFO_SLIST
+-noexpand CURLINFO_PTR
+-noexpand CURLINFO_SOCKET
+-noexpand CURLINFO_OFF_T
 
 -removedefine curl_easy_setopt
 -removedefine curl_easy_getinfo
@@ -56,3 +61,5 @@
 -removedefine curl_multi_setopt
 
 -addforwarddecl curl_pushheaders
+-addforwarddecl curl_mime
+-addforwarddecl curl_mimepart
