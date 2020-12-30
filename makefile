@@ -2273,7 +2273,7 @@ SDL1_IMAGE := SDL_image-1.2.12
 SDL1_MIXER := SDL_mixer-1.2.12
 SDL1_NET := SDL_net-1.2.8
 SDL1_TTF := SDL_ttf-2.0.11
-SDL1_GFX := SDL_gfx-2.0.13
+SDL1_GFX := SDL_gfx-2.0.26
 sdl1: tools
 	./get.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
 	./get.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
@@ -2281,6 +2281,9 @@ sdl1: tools
 	./get.sh $(SDL1_NET)   $(SDL1_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL1_NET).tar.gz"
 	./get.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
 	./get.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
+
+	# TODO: FB's SDL/SDL.bi header includes emscripten-specific changes which we don't yet
+	# include here.
 
 	# SDL_config.h is target-specific, so we'll have to use two versions
 	# in separate incdirs, one for Windows (it's probably ok to just use the
