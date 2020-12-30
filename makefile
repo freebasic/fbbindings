@@ -471,7 +471,8 @@ bass: tools winapi-extract
 
 	$(GETCOMMENT) extracted/$(BASS)/c/bass.h > bass.tmp
 	echo >> bass.tmp
-	sed -n 639,655p extracted/$(BASS)/bass.txt >> bass.tmp
+	awk '/Licence/{f=1} /Commercial licensing/{f=0} f' extracted/$(BASS)/bass.txt \
+		| tail -n +3 | head -n -1 >> bass.tmp
 
 	$(FBFROG) bass.fbfrog \
 		-iftarget windows \
