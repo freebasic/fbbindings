@@ -2301,7 +2301,7 @@ sdl1: tools
 		> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
-	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
+	sed -n 5,26p extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h             > sdl1-gfx.tmp
 	$(GETCOMMENT) extracted/$(SDL1_IMAGE)/SDL_image.h                  > sdl1-image.tmp
 	$(GETCOMMENT) extracted/$(SDL1_MIXER)/SDL_mixer.h                  > sdl1-mixer.tmp
 	$(GETCOMMENT) extracted/$(SDL1_NET)/SDL_net.h                      > sdl1-net.tmp
