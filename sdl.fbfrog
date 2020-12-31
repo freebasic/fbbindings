@@ -313,6 +313,10 @@
 # already defined by crt/math.bi
 -removedefine M_PI
 
+# SDL_memset4 is defined separately in sdl.replacements
+-removedefine SDL_memset4
+-removeproc SDL_memset4
+
 -rename_ mod
 -rename_ unicode
 

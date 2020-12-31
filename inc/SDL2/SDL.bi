@@ -175,7 +175,11 @@ declare function SDL_memset(byval dst as any ptr, byval c as long, byval len as 
 #define SDL_zero(x) SDL_memset(@(x), 0, sizeof(x))
 #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
 #define SDL_zeroa(x) SDL_memset((x), 0, sizeof(x))
-#define SDL_memset4(dst, val, dwords) SDL_memset((dst), (val), (dwords) * 4)
+private sub SDL_memset4(byval dst as any ptr, byval value as ulong, byval length as uinteger)
+	for i as integer = 0 to length - 1
+		cast(ulong ptr, dst)[i] = value
+	next
+end sub
 
 declare function SDL_memcpy(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr
 declare function SDL_memmove(byval dst as any ptr, byval src as const any ptr, byval len as uinteger) as any ptr

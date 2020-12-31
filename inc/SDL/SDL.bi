@@ -120,7 +120,11 @@ end enum
 #define SDL_toupper(X) toupper(X)
 #define SDL_tolower(X) tolower(X)
 #define SDL_memset memset
-#define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
+private sub SDL_memset4(byval dst as any ptr, byval value as ulong, byval length as uinteger)
+	for i as integer = 0 to length - 1
+		cast(ulong ptr, dst)[i] = value
+	next
+end sub
 #define SDL_memcpy(dst, src, len) memcpy((dst), (src), (len))
 #define SDL_memcpy4(dst, src, len) SDL_memcpy((dst), (src), (len) * 4)
 

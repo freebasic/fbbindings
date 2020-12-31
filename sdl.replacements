@@ -4,72 +4,28 @@ to fb:     #define SDLCALL cdecl
 convert c: #define NULL ((void *)0)
 to c:      #define NULL 0
 
-convert c:
-	#define SDL_memset4(dst, val, len)				\
-	do {								\
-		int u0, u1, u2;						\
-		__asm__ __volatile__ (					\
-			"cld\n\t"					\
-			"rep ; stosl\n\t"				\
-			: "=&D" (u0), "=&a" (u1), "=&c" (u2)		\
-			: "0" (dst), "1" (val), "2" (SDL_static_cast(Uint32, len))	\
-			: "memory" );					\
-	} while(0)
-to c: #define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
+# Hack: instead indentical replacements for the 5 different versions of SDL_memset4
+# we just delete SDL_memset4 (in sdl.fbfrog) and put its replacement nearby.
 
-convert c:
-	#define SDL_memset4(dst, val, len)		\
-	do {						\
-		unsigned _count = (len);		\
-		unsigned _n = (_count + 3) / 4;		\
-		Uint32 *_p = SDL_static_cast(Uint32 *, dst);	\
-		Uint32 _val = (val);			\
-		if (len == 0) break;			\
-		switch (_count % 4) {			\
-		case 0: do {    *_p++ = _val;		\
-		case 3:         *_p++ = _val;		\
-		case 2:         *_p++ = _val;		\
-		case 1:         *_p++ = _val;		\
-			} while ( --_n );		\
-		}					\
-	} while(0)
-to c: #define SDL_memset4(dst, val, len) SDL_memset((dst), (val), (len) * 4)
+# SDL 1.2
+convert c: #define SDL_memset memset
+to fb:
+	#define SDL_memset memset
+	private sub SDL_memset4(byval dst as any ptr, byval value as ulong, byval length as uinteger)
+		for i as integer = 0 to length - 1
+			cast(ulong ptr, dst)[i] = value
+		next
+	end sub
 
-convert c:
-	__attribute__((always_inline)) static __inline__ void SDL_memset4(void *dst, Uint32 val, size_t dwords) {
-		int u0, u1, u2;
-		__asm__ __volatile__ (
-			"cld \n\t"
-			"rep ; stosl \n\t"
-			: "=&D" (u0), "=&a" (u1), "=&c" (u2)
-			: "0" (dst), "1" (val), "2" (((Uint32)(dwords)))
-			: "memory"
-		);
-	}
-to fb: #define SDL_memset4(dst, val, dwords) SDL_memset((dst), (val), (dwords) * 4)
-
-convert c:
-	__attribute__((always_inline)) static __inline__ void SDL_memset4(void *dst, Uint32 val, size_t dwords) {
-		size_t _n = (dwords + 3) / 4;
-		Uint32 *_p = ((Uint32 *)(dst));
-		Uint32 _val = (val);
-		if (dwords == 0)
-			return;
-		switch (dwords % 4) {
-			case 0: do {    *_p++ = _val;
-			case 3:         *_p++ = _val;
-			case 2:         *_p++ = _val;
-			case 1:         *_p++ = _val;
-			} while ( --_n );
-		}
-	}
-to fb: #define SDL_memset4(dst, val, dwords) SDL_memset((dst), (val), (dwords) * 4)
-
-convert c:
-	__attribute__((always_inline)) static __inline__ void SDL_memset4(void *dst, Uint32 val, size_t dwords) {
-		memset_pattern4(dst, &val, dwords * 4);
-	}
-to fb: #define SDL_memset4(dst, val, dwords) SDL_memset((dst), (val), (dwords) * 4)
+# SDL 2.0
+convert c: #define SDL_zeroa(x) SDL_memset((x), 0, sizeof((x)))
+to fb:
+	#define SDL_zeroa(x) SDL_memset((x), 0, sizeof(x))
+	private sub SDL_memset4(byval dst as any ptr, byval value as ulong, byval length as uinteger)
+		for i as integer = 0 to length - 1
+			cast(ulong ptr, dst)[i] = value
+		next
+	end sub
 
 convert c:
 	#define SDL_memcpy(dst, src, len)					  \
