@@ -28,7 +28,7 @@
 ''   		Public include file for X Color Management System
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2015 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -118,7 +118,7 @@ type XcmsPad
 end type
 
 union XcmsColor_spec
-	RGB as XcmsRGB
+	RGB_ as XcmsRGB
 	RGBi as XcmsRGBi
 	CIEXYZ as XcmsCIEXYZ
 	CIEuvY as XcmsCIEuvY

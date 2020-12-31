@@ -779,14 +779,23 @@ type sqlite3_loadext_entry as function(byval db as sqlite3 ptr, byval pzErrMsg a
 #define sqlite3_value_frombind sqlite3_api->value_frombind
 #undef sqlite3_drop_modules
 #define sqlite3_drop_modules sqlite3_api->drop_modules
+#undef sqlite3_hard_heap_limit64
 #define sqlite3_hard_heap_limit64 sqlite3_api->hard_heap_limit64
+#undef sqlite3_uri_key
 #define sqlite3_uri_key sqlite3_api->uri_key
+#undef sqlite3_filename_database
 #define sqlite3_filename_database sqlite3_api->filename_database
+#undef sqlite3_filename_journal
 #define sqlite3_filename_journal sqlite3_api->filename_journal
+#undef sqlite3_filename_wal
 #define sqlite3_filename_wal sqlite3_api->filename_wal
+#undef sqlite3_create_filename
 #define sqlite3_create_filename sqlite3_api->create_filename
+#undef sqlite3_free_filename
 #define sqlite3_free_filename sqlite3_api->free_filename
+#undef sqlite3_database_file_object
 #define sqlite3_database_file_object sqlite3_api->database_file_object
+#undef sqlite3_txn_state
 #define sqlite3_txn_state sqlite3_api->txn_state
 #define SQLITE_EXTENSION_INIT1 dim shared as const sqlite3_api_routines ptr sqlite3_api = 0
 #define SQLITE_EXTENSION_INIT2(v) sqlite3_api = v

@@ -247,3 +247,12 @@ sqlite3.fbfrog
 -undefbeforedecl sqlite3_stmt_isexplain
 -undefbeforedecl sqlite3_value_frombind
 -undefbeforedecl sqlite3_drop_modules
+-undefbeforedecl sqlite3_hard_heap_limit64
+-undefbeforedecl sqlite3_uri_key
+-undefbeforedecl sqlite3_filename_database
+-undefbeforedecl sqlite3_filename_journal
+-undefbeforedecl sqlite3_filename_wal
+-undefbeforedecl sqlite3_create_filename
+-undefbeforedecl sqlite3_free_filename
+-undefbeforedecl sqlite3_database_file_object
+-undefbeforedecl sqlite3_txn_state
