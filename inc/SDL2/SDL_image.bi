@@ -1,8 +1,8 @@
-'' FreeBASIC binding for SDL2_image-2.0.3
+'' FreeBASIC binding for SDL2_image-2.0.5
 ''
 '' based on the C header files:
 ''   SDL_image:  An example image loading library for use with SDL
-''   Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+''   Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 ''
 ''   This software is provided 'as-is', without any express or implied
 ''   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +21,7 @@
 ''   3. This notice may not be removed or altered from any source distribution.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2018 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -34,7 +34,7 @@ extern "C"
 #define SDL_IMAGE_H_
 const SDL_IMAGE_MAJOR_VERSION = 2
 const SDL_IMAGE_MINOR_VERSION = 0
-const SDL_IMAGE_PATCHLEVEL = 3
+const SDL_IMAGE_PATCHLEVEL = 5
 #macro SDL_IMAGE_VERSION(X)
 	scope
 		(X)->major = SDL_IMAGE_MAJOR_VERSION
