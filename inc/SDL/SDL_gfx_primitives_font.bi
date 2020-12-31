@@ -1,10 +1,10 @@
-'' FreeBASIC binding for SDL_gfx-2.0.13
+'' FreeBASIC binding for SDL_gfx-2.0.26
 ''
 '' based on the C header files:
-''    LGPL (c) A. Schiffler
+''   Copyright (C) 2001-2013  Andreas Schiffler
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2018 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 

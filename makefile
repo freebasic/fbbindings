@@ -729,7 +729,7 @@ cgui: tools
 		-title $(CGUI_TITLE) cgui.tmp fbteam.txt
 	rm *.tmp
 
-CHIPMUNK := Chipmunk-7.0.1
+CHIPMUNK := Chipmunk-7.0.3
 chipmunk: tools
 	./get.sh $(CHIPMUNK) $(CHIPMUNK).tgz http://chipmunk-physics.net/release/Chipmunk-7.x/$(CHIPMUNK).tgz
 
@@ -2285,7 +2285,7 @@ SDL1_IMAGE := SDL_image-1.2.12
 SDL1_MIXER := SDL_mixer-1.2.12
 SDL1_NET := SDL_net-1.2.8
 SDL1_TTF := SDL_ttf-2.0.11
-SDL1_GFX := SDL_gfx-2.0.13
+SDL1_GFX := SDL_gfx-2.0.26
 sdl1: tools
 	./get.sh $(SDL1_MAIN)  $(SDL1_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL1_MAIN).tar.gz"
 	./get.sh $(SDL1_IMAGE) $(SDL1_IMAGE).tar.gz "http://www.libsdl.org/projects/SDL_image/release/$(SDL1_IMAGE).tar.gz"
@@ -2293,6 +2293,9 @@ sdl1: tools
 	./get.sh $(SDL1_NET)   $(SDL1_NET).tar.gz   "http://www.libsdl.org/projects/SDL_net/release/$(SDL1_NET).tar.gz"
 	./get.sh $(SDL1_TTF)   $(SDL1_TTF).tar.gz   "http://www.libsdl.org/projects/SDL_ttf/release/$(SDL1_TTF).tar.gz"
 	./get.sh $(SDL1_GFX)   $(SDL1_GFX).tar.gz   "http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL1_GFX).tar.gz"
+
+	# TODO: FB's SDL/SDL.bi header includes emscripten-specific changes which we don't yet
+	# include here.
 
 	# SDL_config.h is target-specific, so we'll have to use two versions
 	# in separate incdirs, one for Windows (it's probably ok to just use the
@@ -2385,11 +2388,11 @@ sdl1: tools
 
 	rm *.tmp
 
-SDL2_MAIN := SDL2-2.0.8
-SDL2_IMAGE := SDL2_image-2.0.3
-SDL2_MIXER := SDL2_mixer-2.0.2
+SDL2_MAIN := SDL2-2.0.14
+SDL2_IMAGE := SDL2_image-2.0.5
+SDL2_MIXER := SDL2_mixer-2.0.4
 SDL2_NET := SDL2_net-2.0.1
-SDL2_TTF := SDL2_ttf-2.0.14
+SDL2_TTF := SDL2_ttf-2.0.15
 SDL2_GFX := SDL2_gfx-1.0.4
 sdl2: tools winapi-extract
 	./get.sh $(SDL2_MAIN)  $(SDL2_MAIN).tar.gz  "http://www.libsdl.org/release/$(SDL2_MAIN).tar.gz"
@@ -2496,8 +2499,26 @@ sndfile: tools
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
-SQLITE3_PRETTY := "SQLite 3.30.0"
-SQLITE3 := sqlite-amalgamation-3330000
+SOLOUD := soloud_20200207
+soloud: tools
+	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
+	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
+	# Has C and C++ APIs, ignore C++
+	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
+		-o inc/soloud.bi \
+		-selecttarget \
+		-case windows-x86 \
+			-inclib soloud_x86 \
+		-case windows-x86_64 \
+			-inclib soloud_x64 \
+		-caseelse \
+			-inclib soloud \
+		-endselect \
+		-title $(SOLOUD) soloud.tmp fbteam.txt
+	rm *.tmp
+
+SQLITE3_PRETTY := "SQLite 3.34.0"
+SQLITE3 := sqlite-amalgamation-3340000
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
 	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2020/$(SQLITE3).zip

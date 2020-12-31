@@ -30,6 +30,7 @@
 -removedefine _begin_code_h
 -removedefine C_LINKAGE
 -removedefine const
+-removedefine _DARWIN_C_SOURCE
 -removedefine DECLSPEC
 -removedefine DLLINTERFACE
 -removedefine __FREEBSD__
@@ -38,9 +39,14 @@
 -removedefine HAVE_ALLOCA_H
 -removedefine HAVE_ATOF
 -removedefine HAVE_ATOI
+-removedefine HAVE_AUDIOCLIENT_H
 -removedefine HAVE_BCOPY
 -removedefine HAVE_CALLOC
 -removedefine HAVE_CTYPE_H
+-removedefine HAVE_DDRAW_H
+-removedefine HAVE_DINPUT_H
+-removedefine HAVE_DSOUND_H
+-removedefine HAVE_DXGI_H
 -removedefine HAVE_FREE
 -removedefine HAVE_GETENV
 -removedefine HAVE_GETPAGESIZE
@@ -58,6 +64,7 @@
 -removedefine HAVE_MEMMOVE
 -removedefine HAVE_MEMORY_H
 -removedefine HAVE_MEMSET
+-removedefine HAVE_MMDEVICEAPI_H
 -removedefine HAVE_MPROTECT
 -removedefine HAVE_NANOSLEEP
 -removedefine HAVE_PUTENV
@@ -65,6 +72,7 @@
 -removedefine HAVE_REALLOC
 -removedefine HAVE_SA_SIGACTION
 -removedefine HAVE_SEM_TIMEDWAIT
+-removedefine HAVE_SENSORSAPI_H
 -removedefine HAVE_SETJMP
 -removedefine HAVE_SIGACTION
 -removedefine HAVE_SIGNAL_H
@@ -100,6 +108,7 @@
 -removedefine HAVE__ULTOA
 -removedefine HAVE_UNSETENV
 -removedefine HAVE_VSNPRINTF
+-removedefine HAVE_XINPUT_H
 -removedefine inline
 -removedefine int16_t
 -removedefine int32_t
@@ -141,6 +150,7 @@
 -removedefine SDL_AUDIO_DRIVER_QNXNTO
 -removedefine SDL_AUDIO_DRIVER_SNDMGR
 -removedefine SDL_AUDIO_DRIVER_SUNAUDIO
+-removedefine SDL_AUDIO_DRIVER_WASAPI
 -removedefine SDL_AUDIO_DRIVER_WAVEOUT
 -removedefine SDL_AUDIO_DRIVER_WINMM
 -removedefine SDL_AUDIO_DRIVER_XAUDIO2
@@ -161,12 +171,15 @@
 -removedefine SDL_CDROM_QNX
 -removedefine SDL_CDROM_WIN32
 -removedefine SDL_COMPILE_TIME_ASSERT
+-removedefine SDL_config_h_
+-removedefine SDL_config_windows_h_
 -removedefine SDL_const_cast
 -removedefine SDL_CPUINFO_DISABLED
 -removedefine SDL_EVENTS_DISABLED
 -removedefine SDL_FILE_DISABLED
 -removedefine SDL_FILESYSTEM_WINDOWS
 -removedefine SDL_HAPTIC_DINPUT
+-removedefine SDL_HAPTIC_XINPUT
 -removedefine SDL_HAS_64BIT_TYPE
 -removedefine SDL_HERMES_BLITTERS
 -removedefine SDL_INLINE
@@ -178,15 +191,19 @@
 -removedefine SDL_JOYSTICK_DINPUT
 -removedefine SDL_JOYSTICK_DISABLED
 -removedefine SDL_JOYSTICK_DUMMY
+-removedefine SDL_JOYSTICK_HIDAPI
 -removedefine SDL_JOYSTICK_IOKIT
 -removedefine SDL_JOYSTICK_LINUX
 -removedefine SDL_JOYSTICK_MACOS
 -removedefine SDL_JOYSTICK_MINT
 -removedefine SDL_JOYSTICK_OS2
+-removedefine SDL_JOYSTICK_RAWINPUT
 -removedefine SDL_JOYSTICK_RISCOS
 -removedefine SDL_JOYSTICK_USBHID
 -removedefine SDL_JOYSTICK_USBHID_MACHINE_JOYSTICK_H
+-removedefine SDL_JOYSTICK_VIRTUAL
 -removedefine SDL_JOYSTICK_WINMM
+-removedefine SDL_JOYSTICK_XINPUT
 -removedefine SDL_LOADSO_BEOS
 -removedefine SDL_LOADSO_DISABLED
 -removedefine SDL_LOADSO_DLCOMPAT
@@ -200,6 +217,7 @@
 -removedefine SDL_MAIN_AVAILABLE
 -removedefine SDL_POWER_WINDOWS
 -removedefine SDL_reinterpret_cast
+-removedefine SDL_SENSOR_WINDOWS
 -removedefine SDL_static_cast
 -removedefine SDL_TABLESIZE
 -removedefine SDL_THREAD_BEOS
@@ -279,6 +297,7 @@
 -removedefine SDL_VIDEO_RENDER_D3D11
 -removedefine SDL_VIDEO_RENDER_OGL
 -removedefine SDL_VIDEO_RENDER_OGL_ES2
+-removedefine SDL_VIDEO_VULKAN
 -removedefine SIZEOF_VOIDP
 -removedefine size_t
 -removedefine STDC_HEADERS
@@ -293,6 +312,10 @@
 
 # already defined by crt/math.bi
 -removedefine M_PI
+
+# SDL_memset4 is defined separately in sdl.replacements
+-removedefine SDL_memset4
+-removeproc SDL_memset4
 
 -rename_ mod
 -rename_ unicode

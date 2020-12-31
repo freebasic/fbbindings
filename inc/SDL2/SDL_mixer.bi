@@ -1,8 +1,8 @@
-'' FreeBASIC binding for SDL2_mixer-2.0.2
+'' FreeBASIC binding for SDL2_mixer-2.0.4
 ''
 '' based on the C header files:
 ''   SDL_mixer:  An audio mixer library based on the SDL library
-''   Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
+''   Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
 ''
 ''   This software is provided 'as-is', without any express or implied
 ''   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +21,7 @@
 ''   3. This notice may not be removed or altered from any source distribution.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2018 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -34,7 +34,7 @@ extern "C"
 #define SDL_MIXER_H_
 const SDL_MIXER_MAJOR_VERSION = 2
 const SDL_MIXER_MINOR_VERSION = 0
-const SDL_MIXER_PATCHLEVEL = 2
+const SDL_MIXER_PATCHLEVEL = 4
 #macro SDL_MIXER_VERSION(X)
 	scope
 		(X)->major = SDL_MIXER_MAJOR_VERSION
@@ -57,6 +57,7 @@ enum
 	MIX_INIT_MP3 = &h00000008
 	MIX_INIT_OGG = &h00000010
 	MIX_INIT_MID = &h00000020
+	MIX_INIT_OPUS = &h00000040
 end enum
 
 declare function Mix_Init(byval flags as long) as long
@@ -93,6 +94,7 @@ enum
 	MUS_MP3_MAD_UNUSED
 	MUS_FLAC
 	MUS_MODPLUG_UNUSED
+	MUS_OPUS
 end enum
 
 type Mix_Music as _Mix_Music

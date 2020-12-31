@@ -6,5 +6,6 @@
 -endif
 
 -rename_ gtk_check_version
+-rename_ rgb
 
 -rename TRUE CTRUE

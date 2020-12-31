@@ -18,3 +18,8 @@
 -addforwarddecl private_yuvhwfuncs
 -addforwarddecl private_yuvhwdata
 -addforwarddecl WMcursor
+
+-removedefine SDL_FRAMERATE_SCOPE
+-removedefine SDL_IMAGEFILTER_SCOPE
+-removedefine SDL_GFXPRIMITIVES_SCOPE
+-removedefine SDL_ROTOZOOM_SCOPE
