@@ -20,9 +20,19 @@
 
 -rename_ SDL_PRIX64
 
-# For Windows, SDL2 has a SDL_CreateThread() macro that wraps the SDL_CreateThread() function
+-rename SDL_SENSORUPDATE SDL_SENSORUPDATEEVENT
+
+-rename_ SDL_PIXELTYPE
+
+# For Windows & cygwin, SDL2 has SDL_CreateThread[WithStackSize]() macros that wrap
+# the SDL_CreateThread[WithStackSize]() functions
 -iftarget windows
 	-renameproc SDL_CreateThread SDL_CreateThread_
+	-renameproc SDL_CreateThreadWithStackSize SDL_CreateThreadWithStackSize_
+-endif
+-iftarget cygwin
+	-renameproc SDL_CreateThread SDL_CreateThread_
+	-renameproc SDL_CreateThreadWithStackSize SDL_CreateThreadWithStackSize_
 -endif
 
 -removedefine SDLMAIN_DECLSPEC

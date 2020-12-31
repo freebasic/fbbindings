@@ -43,10 +43,13 @@
 '' The following symbols have been renamed:
 ''     #define SDL_PRIX64 => SDL_PRIX64_
 ''     constant SDL_UNSUPPORTED => SDL_UNSUPPORTED_
-''     #ifdef __FB_WIN32__
+''     #if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
 ''         procedure SDL_CreateThread => SDL_CreateThread_
+''         procedure SDL_CreateThreadWithStackSize => SDL_CreateThreadWithStackSize_
 ''     #endif
+''     #define SDL_PIXELTYPE => SDL_PIXELTYPE_
 ''     constant SDL_QUIT => SDL_QUIT_
+''     constant SDL_SENSORUPDATE => SDL_SENSORUPDATEEVENT
 ''     procedure SDL_Log => SDL_Log_
 ''     #define SDL_VERSION => SDL_VERSION_
 
@@ -512,27 +515,14 @@ type SDL_ThreadFunction as function(byval data as any ptr) as long
 
 type SDL_Thread as SDL_Thread_
 
-#if defined(__FB_DARWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
+	declare function SDL_CreateThread_ alias "SDL_CreateThread"(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
+	declare function SDL_CreateThreadWithStackSize_ alias "SDL_CreateThreadWithStackSize"(byval fn as function(byval as any ptr) as long, byval name as const zstring ptr, byval stacksize as const uinteger, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
+	#define SDL_CreateThread(fn, name, data) SDL_CreateThread_(fn, name, data, cast(pfnSDL_CurrentBeginThread, SDL_beginthread), cast(pfnSDL_CurrentEndThread, SDL_endthread))
+	#define SDL_CreateThreadWithStackSize(fn, name, stacksize, data) SDL_CreateThreadWithStackSize_(fn, name, data, cast(pfnSDL_CurrentBeginThread, _beginthreadex), cast(pfnSDL_CurrentEndThread, SDL_endthread))
+#else
 	declare function SDL_CreateThread(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr) as SDL_Thread ptr
 	declare function SDL_CreateThreadWithStackSize(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval stacksize as const uinteger, byval data as any ptr) as SDL_Thread ptr
-#elseif defined(__FB_WIN32__)
-	declare function SDL_CreateThread_ alias "SDL_CreateThread"(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
-#else
-	declare function SDL_CreateThread(byval fn as SDL_ThreadFunction, byval name as const zstring ptr, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
-#endif
-
-#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
-	declare function SDL_CreateThreadWithStackSize(byval fn as function(byval as any ptr) as long, byval name as const zstring ptr, byval stacksize as const uinteger, byval data as any ptr, byval pfnBeginThread as pfnSDL_CurrentBeginThread, byval pfnEndThread as pfnSDL_CurrentEndThread) as SDL_Thread ptr
-#endif
-
-#ifdef __FB_WIN32__
-	#define SDL_CreateThread(fn, name, data) SDL_CreateThread_(fn, name, data, cast(pfnSDL_CurrentBeginThread, SDL_beginthread), cast(pfnSDL_CurrentEndThread, SDL_endthread))
-#elseif defined(__FB_CYGWIN__)
-	#define SDL_CreateThread(fn, name, data) SDL_CreateThread(fn, name, data, cast(pfnSDL_CurrentBeginThread, SDL_beginthread), cast(pfnSDL_CurrentEndThread, SDL_endthread))
-#endif
-
-#if defined(__FB_WIN32__) or defined(__FB_CYGWIN__)
-	#define SDL_CreateThreadWithStackSize(fn, name, stacksize, data) SDL_CreateThreadWithStackSize(fn, name, data, cast(pfnSDL_CurrentBeginThread, _beginthreadex), cast(pfnSDL_CurrentEndThread, SDL_endthread))
 #endif
 
 declare function SDL_GetThreadName(byval thread as SDL_Thread ptr) as const zstring ptr
@@ -867,14 +857,14 @@ end enum
 #define SDL_DEFINE_PIXELFOURCC(A, B, C, D) SDL_FOURCC(A, B, C, D)
 #define SDL_DEFINE_PIXELFORMAT(type, order, layout, bits, bytes) ((((((1 shl 28) or ((type) shl 24)) or ((order) shl 20)) or ((layout) shl 16)) or ((bits) shl 8)) or ((bytes) shl 0))
 #define SDL_PIXELFLAG(X) (((X) shr 28) and &h0F)
-#define SDL_PIXELTYPE(X) (((X) shr 24) and &h0F)
+#define SDL_PIXELTYPE_(X) (((X) shr 24) and &h0F)
 #define SDL_PIXELORDER(X) (((X) shr 20) and &h0F)
 #define SDL_PIXELLAYOUT(X) (((X) shr 16) and &h0F)
 #define SDL_BITSPERPIXEL(X) (((X) shr 8) and &hFF)
 #define SDL_BYTESPERPIXEL(X) iif(SDL_ISPIXELFORMAT_FOURCC(X), iif((((X) = SDL_PIXELFORMAT_YUY2) orelse ((X) = SDL_PIXELFORMAT_UYVY)) orelse ((X) = SDL_PIXELFORMAT_YVYU), 2, 1), ((X) shr 0) and &hFF)
-#define SDL_ISPIXELFORMAT_INDEXED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX1) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX4)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX8)))
-#define SDL_ISPIXELFORMAT_PACKED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED8) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED32)))
-#define SDL_ISPIXELFORMAT_ARRAY(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU8) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU32)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYF16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYF32)))
+#define SDL_ISPIXELFORMAT_INDEXED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX1) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX4)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX8)))
+#define SDL_ISPIXELFORMAT_PACKED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED8) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED32)))
+#define SDL_ISPIXELFORMAT_ARRAY(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU8) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU32)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYF16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYF32)))
 #define SDL_ISPIXELFORMAT_ALPHA(format) ((SDL_ISPIXELFORMAT_PACKED(format) andalso ((((SDL_PIXELORDER(format) = SDL_PACKEDORDER_ARGB) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_RGBA)) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_ABGR)) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_BGRA))) orelse (SDL_ISPIXELFORMAT_ARRAY(format) andalso ((((SDL_PIXELORDER(format) = SDL_ARRAYORDER_ARGB) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_RGBA)) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_ABGR)) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_BGRA))))
 #define SDL_ISPIXELFORMAT_FOURCC(format) ((format) andalso (SDL_PIXELFLAG(format) <> 1))
 
@@ -2329,7 +2319,7 @@ enum
 	SDL_DROPCOMPLETE
 	SDL_AUDIODEVICEADDED = &h1100
 	SDL_AUDIODEVICEREMOVED
-	SDL_SENSORUPDATE = &h1200
+	SDL_SENSORUPDATEEVENT = &h1200
 	SDL_RENDER_TARGETS_RESET = &h2000
 	SDL_RENDER_DEVICE_RESET
 	SDL_USEREVENT = &h8000
