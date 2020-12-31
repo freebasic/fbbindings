@@ -2487,6 +2487,24 @@ sndfile: tools
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
+SOLOUD := soloud_20200207
+soloud: tools
+	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
+	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
+	# Has C and C++ APIs, ignore C++
+	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
+		-o inc/soloud.bi \
+		-selecttarget \
+		-case windows-x86 \
+			-inclib soloud_x86 \
+		-case windows-x86_64 \
+			-inclib soloud_x64 \
+		-caseelse \
+			-inclib soloud \
+		-endselect \
+		-title $(SOLOUD) soloud.tmp fbteam.txt
+	rm *.tmp
+
 SQLITE3_PRETTY := "SQLite 3.34.0"
 SQLITE3 := sqlite-amalgamation-3340000
 SQLITE2 := SQLite-47fee16b

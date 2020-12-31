@@ -1,0 +1,5 @@
+-target nodos
+
+-removedefine M_PI
+-removedefine SOLOUD_C_H_INCLUDED
+-removedefine WINDOWS_VERSION
