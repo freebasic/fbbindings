@@ -1,4 +1,4 @@
-'' FreeBASIC binding for SQLite 3.30.0
+'' FreeBASIC binding for SQLite 3.34.0
 ''
 '' based on the C header files:
 ''   * 2006 June 7
@@ -18,7 +18,7 @@
 ''   * sqlite3.h.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2019 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -281,6 +281,7 @@ type sqlite3_api_routines
 	create_filename as function(byval as const zstring ptr, byval as const zstring ptr, byval as const zstring ptr, byval as long, byval as const zstring ptr ptr) as zstring ptr
 	free_filename as sub(byval as zstring ptr)
 	database_file_object as function(byval as const zstring ptr) as sqlite3_file ptr
+	txn_state as function(byval as sqlite3 ptr, byval as const zstring ptr) as long
 end type
 
 type sqlite3_loadext_entry as function(byval db as sqlite3 ptr, byval pzErrMsg as zstring ptr ptr, byval pThunk as const sqlite3_api_routines ptr) as long
@@ -786,6 +787,7 @@ type sqlite3_loadext_entry as function(byval db as sqlite3 ptr, byval pzErrMsg a
 #define sqlite3_create_filename sqlite3_api->create_filename
 #define sqlite3_free_filename sqlite3_api->free_filename
 #define sqlite3_database_file_object sqlite3_api->database_file_object
+#define sqlite3_txn_state sqlite3_api->txn_state
 #define SQLITE_EXTENSION_INIT1 dim shared as const sqlite3_api_routines ptr sqlite3_api = 0
 #define SQLITE_EXTENSION_INIT2(v) sqlite3_api = v
 #define SQLITE_EXTENSION_INIT3 extern as const sqlite3_api_routines ptr sqlite3_api

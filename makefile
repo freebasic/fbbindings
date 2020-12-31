@@ -2487,8 +2487,8 @@ sndfile: tools
 		-title $(SNDFILE) sndfile.tmp fbteam.txt
 	rm *.tmp
 
-SQLITE3_PRETTY := "SQLite 3.30.0"
-SQLITE3 := sqlite-amalgamation-3330000
+SQLITE3_PRETTY := "SQLite 3.34.0"
+SQLITE3 := sqlite-amalgamation-3340000
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
 	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2020/$(SQLITE3).zip
