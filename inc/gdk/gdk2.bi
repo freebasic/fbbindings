@@ -1049,9 +1049,9 @@ type _GdkRgbCmap
 end type
 
 declare sub gdk_rgb_init()
-declare function gdk_rgb_xpixel_from_rgb(byval rgb as guint32) as gulong
-declare sub gdk_rgb_gc_set_foreground(byval gc as GdkGC ptr, byval rgb as guint32)
-declare sub gdk_rgb_gc_set_background(byval gc as GdkGC ptr, byval rgb as guint32)
+declare function gdk_rgb_xpixel_from_rgb(byval rgb_ as guint32) as gulong
+declare sub gdk_rgb_gc_set_foreground(byval gc as GdkGC ptr, byval rgb_ as guint32)
+declare sub gdk_rgb_gc_set_background(byval gc as GdkGC ptr, byval rgb_ as guint32)
 declare sub gdk_rgb_find_color(byval colormap as GdkColormap ptr, byval color as GdkColor ptr)
 declare sub gdk_draw_rgb_image(byval drawable as GdkDrawable ptr, byval gc as GdkGC ptr, byval x as gint, byval y as gint, byval width as gint, byval height as gint, byval dith as GdkRgbDither, byval rgb_buf as const guchar ptr, byval rowstride as gint)
 declare sub gdk_draw_rgb_image_dithalign(byval drawable as GdkDrawable ptr, byval gc as GdkGC ptr, byval x as gint, byval y as gint, byval width as gint, byval height as gint, byval dith as GdkRgbDither, byval rgb_buf as const guchar ptr, byval rowstride as gint, byval xdith as gint, byval ydith as gint)
