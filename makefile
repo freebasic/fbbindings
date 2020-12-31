@@ -723,7 +723,7 @@ cgui: tools
 		-title $(CGUI_TITLE) cgui.tmp fbteam.txt
 	rm *.tmp
 
-CHIPMUNK := Chipmunk-7.0.1
+CHIPMUNK := Chipmunk-7.0.3
 chipmunk: tools
 	./get.sh $(CHIPMUNK) $(CHIPMUNK).tgz http://chipmunk-physics.net/release/Chipmunk-7.x/$(CHIPMUNK).tgz
 
