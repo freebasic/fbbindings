@@ -118,7 +118,7 @@ type XcmsPad
 end type
 
 union XcmsColor_spec
-	RGB_ as XcmsRGB
+	RGB as XcmsRGB
 	RGBi as XcmsRGBi
 	CIEXYZ as XcmsCIEXYZ
 	CIEuvY as XcmsCIEuvY

@@ -164,7 +164,6 @@
 -renamedefine Data Data_
 -rename_ new
 -rename_ delete
--rename_ RGB
 -renametypedef Select Select_
 
 -rename_ XK_KATAKANA
