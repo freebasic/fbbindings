@@ -2491,18 +2491,21 @@ SOLOUD := soloud_20200207
 soloud: tools
 	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
 	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
-	# Has C and C++ APIs, ignore C++
+	# soloud_c is the C API
 	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
-		-o inc/soloud.bi \
-		-selecttarget \
-		-case windows-x86 \
-			-inclib soloud_x86 \
-		-case windows-x86_64 \
-			-inclib soloud_x64 \
-		-caseelse \
-			-inclib soloud \
-		-endselect \
+		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
+	# The default soloud library name changes between static/dynamic builds,
+	# (libsoloud_static.a) OS, and arch, and static libs don't include the C
+	# API anyway. It's a mess left to users to deal with.
+		# -selecttarget \
+		# -case windows-x86 \
+		# 	-inclib soloud_x86 \
+		# -case windows-x86_64 \
+		# 	-inclib soloud_x64 \
+		# -caseelse \
+		# 	-inclib soloud \
+		# -endselect
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.34.0"
