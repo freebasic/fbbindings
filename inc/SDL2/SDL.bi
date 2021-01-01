@@ -47,7 +47,7 @@
 ''         procedure SDL_CreateThread => SDL_CreateThread_
 ''         procedure SDL_CreateThreadWithStackSize => SDL_CreateThreadWithStackSize_
 ''     #endif
-''     #define SDL_PIXELTYPE => SDL_PIXELTYPE_
+''     enum SDL_PixelType => SDL_PixelType_
 ''     constant SDL_QUIT => SDL_QUIT_
 ''     constant SDL_SENSORUPDATE => SDL_SENSORUPDATEEVENT
 ''     procedure SDL_Log => SDL_Log_
@@ -794,7 +794,7 @@ declare sub SDL_SIMDFree(byval ptr as any ptr)
 const SDL_ALPHA_OPAQUE = 255
 const SDL_ALPHA_TRANSPARENT = 0
 
-type SDL_PixelType as long
+type SDL_PixelType_ as long
 enum
 	SDL_PIXELTYPE_UNKNOWN
 	SDL_PIXELTYPE_INDEX1
@@ -857,14 +857,14 @@ end enum
 #define SDL_DEFINE_PIXELFOURCC(A, B, C, D) SDL_FOURCC(A, B, C, D)
 #define SDL_DEFINE_PIXELFORMAT(type, order, layout, bits, bytes) ((((((1 shl 28) or ((type) shl 24)) or ((order) shl 20)) or ((layout) shl 16)) or ((bits) shl 8)) or ((bytes) shl 0))
 #define SDL_PIXELFLAG(X) (((X) shr 28) and &h0F)
-#define SDL_PIXELTYPE_(X) (((X) shr 24) and &h0F)
+#define SDL_PIXELTYPE(X) (((X) shr 24) and &h0F)
 #define SDL_PIXELORDER(X) (((X) shr 20) and &h0F)
 #define SDL_PIXELLAYOUT(X) (((X) shr 16) and &h0F)
 #define SDL_BITSPERPIXEL(X) (((X) shr 8) and &hFF)
 #define SDL_BYTESPERPIXEL(X) iif(SDL_ISPIXELFORMAT_FOURCC(X), iif((((X) = SDL_PIXELFORMAT_YUY2) orelse ((X) = SDL_PIXELFORMAT_UYVY)) orelse ((X) = SDL_PIXELFORMAT_YVYU), 2, 1), ((X) shr 0) and &hFF)
-#define SDL_ISPIXELFORMAT_INDEXED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX1) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX4)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_INDEX8)))
-#define SDL_ISPIXELFORMAT_PACKED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED8) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_PACKED32)))
-#define SDL_ISPIXELFORMAT_ARRAY(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((((SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU8) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYU32)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYF16)) orelse (SDL_PIXELTYPE_(format) = SDL_PIXELTYPE_ARRAYF32)))
+#define SDL_ISPIXELFORMAT_INDEXED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX1) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX4)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_INDEX8)))
+#define SDL_ISPIXELFORMAT_PACKED(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED8) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_PACKED32)))
+#define SDL_ISPIXELFORMAT_ARRAY(format) ((SDL_ISPIXELFORMAT_FOURCC(format) = 0) andalso (((((SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU8) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYU32)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYF16)) orelse (SDL_PIXELTYPE(format) = SDL_PIXELTYPE_ARRAYF32)))
 #define SDL_ISPIXELFORMAT_ALPHA(format) ((SDL_ISPIXELFORMAT_PACKED(format) andalso ((((SDL_PIXELORDER(format) = SDL_PACKEDORDER_ARGB) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_RGBA)) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_ABGR)) orelse (SDL_PIXELORDER(format) = SDL_PACKEDORDER_BGRA))) orelse (SDL_ISPIXELFORMAT_ARRAY(format) andalso ((((SDL_PIXELORDER(format) = SDL_ARRAYORDER_ARGB) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_RGBA)) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_ABGR)) orelse (SDL_PIXELORDER(format) = SDL_ARRAYORDER_BGRA))))
 #define SDL_ISPIXELFORMAT_FOURCC(format) ((format) andalso (SDL_PIXELFLAG(format) <> 1))
 

@@ -875,7 +875,7 @@ DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
 	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
 # https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.zip/download
-	sed -n 476,488p extracted/$(DEVIL)/DevIL/COPYING | cut -c5- > devil.tmp
+	sed -n 476,489p extracted/$(DEVIL)/DevIL/LICENSE | cut -c5- > devil.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilut.h > devil-ilut.tmp
@@ -2313,7 +2313,7 @@ sdl1: tools
 		> extracted/$(SDL1_MAIN)/include/unix/SDL_config.h
 
 	$(GETCOMMENT) extracted/$(SDL1_MAIN)/include/SDL.h                 > sdl1.tmp
-	sed -n 5,5p   extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h | cut -c1- > sdl1-gfx.tmp
+	sed -n 5,26p extracted/$(SDL1_GFX)/SDL_gfxPrimitives.h             > sdl1-gfx.tmp
 	$(GETCOMMENT) extracted/$(SDL1_IMAGE)/SDL_image.h                  > sdl1-image.tmp
 	$(GETCOMMENT) extracted/$(SDL1_MIXER)/SDL_mixer.h                  > sdl1-mixer.tmp
 	$(GETCOMMENT) extracted/$(SDL1_NET)/SDL_net.h                      > sdl1-net.tmp
@@ -2503,18 +2503,21 @@ SOLOUD := soloud_20200207
 soloud: tools
 	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
 	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
-	# Has C and C++ APIs, ignore C++
+	# soloud_c is the C API
 	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
-		-o inc/soloud.bi \
-		-selecttarget \
-		-case windows-x86 \
-			-inclib soloud_x86 \
-		-case windows-x86_64 \
-			-inclib soloud_x64 \
-		-caseelse \
-			-inclib soloud \
-		-endselect \
+		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
+	# The default soloud library name changes between static/dynamic builds,
+	# (libsoloud_static.a) OS, and arch, and static libs don't include the C
+	# API anyway. It's a mess left to users to deal with.
+		# -selecttarget \
+		# -case windows-x86 \
+		# 	-inclib soloud_x86 \
+		# -case windows-x86_64 \
+		# 	-inclib soloud_x64 \
+		# -caseelse \
+		# 	-inclib soloud \
+		# -endselect
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.34.0"

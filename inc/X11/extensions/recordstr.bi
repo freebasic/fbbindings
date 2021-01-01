@@ -20,7 +20,7 @@
 ''   OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2020 FreeBASIC development team
+''   Copyright © 2015 FreeBASIC development team
 
 #pragma once
 

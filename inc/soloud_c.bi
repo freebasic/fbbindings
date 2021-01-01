@@ -28,13 +28,8 @@
 
 #pragma once
 
-#ifdef __FB_UNIX__
-	#inclib "soloud"
-#elseif defined(__FB_WIN32__) and (not defined(__FB_64BIT__))
-	#inclib "soloud_x86"
-#else
-	#inclib "soloud_x64"
-#endif
+'' The following symbols have been renamed:
+''     typedef File => SLFile
 
 extern "C"
 
@@ -148,7 +143,7 @@ type Vizsn as any ptr
 type Wav as any ptr
 type WaveShaperFilter as any ptr
 type WavStream as any ptr
-type File as any ptr
+type SLFile as any ptr
 
 declare sub Soloud_destroy(byval aSoloud as Soloud ptr)
 declare function Soloud_create() as Soloud ptr
@@ -360,7 +355,7 @@ declare function Monotone_setParamsEx(byval aMonotone as Monotone ptr, byval aHa
 declare function Monotone_load(byval aMonotone as Monotone ptr, byval aFilename as const zstring ptr) as long
 declare function Monotone_loadMem(byval aMonotone as Monotone ptr, byval aMem as const ubyte ptr, byval aLength as ulong) as long
 declare function Monotone_loadMemEx(byval aMonotone as Monotone ptr, byval aMem as const ubyte ptr, byval aLength as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
-declare function Monotone_loadFile(byval aMonotone as Monotone ptr, byval aFile as File ptr) as long
+declare function Monotone_loadFile(byval aMonotone as Monotone ptr, byval aFile as SLFile ptr) as long
 declare sub Monotone_setVolume(byval aMonotone as Monotone ptr, byval aVolume as single)
 declare sub Monotone_setLooping(byval aMonotone as Monotone ptr, byval aLoop as long)
 declare sub Monotone_set3dMinMaxDistance(byval aMonotone as Monotone ptr, byval aMinDistance as single, byval aMaxDistance as single)
@@ -400,7 +395,7 @@ declare function Openmpt_create() as Openmpt ptr
 declare function Openmpt_load(byval aOpenmpt as Openmpt ptr, byval aFilename as const zstring ptr) as long
 declare function Openmpt_loadMem(byval aOpenmpt as Openmpt ptr, byval aMem as const ubyte ptr, byval aLength as ulong) as long
 declare function Openmpt_loadMemEx(byval aOpenmpt as Openmpt ptr, byval aMem as const ubyte ptr, byval aLength as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
-declare function Openmpt_loadFile(byval aOpenmpt as Openmpt ptr, byval aFile as File ptr) as long
+declare function Openmpt_loadFile(byval aOpenmpt as Openmpt ptr, byval aFile as SLFile ptr) as long
 declare sub Openmpt_setVolume(byval aOpenmpt as Openmpt ptr, byval aVolume as single)
 declare sub Openmpt_setLooping(byval aOpenmpt as Openmpt ptr, byval aLoop as long)
 declare sub Openmpt_set3dMinMaxDistance(byval aOpenmpt as Openmpt ptr, byval aMinDistance as single, byval aMaxDistance as single)
@@ -453,7 +448,7 @@ declare sub Sfxr_resetParams(byval aSfxr as Sfxr ptr)
 declare function Sfxr_loadParams(byval aSfxr as Sfxr ptr, byval aFilename as const zstring ptr) as long
 declare function Sfxr_loadParamsMem(byval aSfxr as Sfxr ptr, byval aMem as ubyte ptr, byval aLength as ulong) as long
 declare function Sfxr_loadParamsMemEx(byval aSfxr as Sfxr ptr, byval aMem as ubyte ptr, byval aLength as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
-declare function Sfxr_loadParamsFile(byval aSfxr as Sfxr ptr, byval aFile as File ptr) as long
+declare function Sfxr_loadParamsFile(byval aSfxr as Sfxr ptr, byval aFile as SLFile ptr) as long
 declare function Sfxr_loadPreset(byval aSfxr as Sfxr ptr, byval aPresetNo as long, byval aRandSeed as long) as long
 declare sub Sfxr_setVolume(byval aSfxr as Sfxr ptr, byval aVolume as single)
 declare sub Sfxr_setLooping(byval aSfxr as Sfxr ptr, byval aLoop as long)
@@ -496,8 +491,8 @@ declare function TedSid_load(byval aTedSid as TedSid ptr, byval aFilename as con
 declare function TedSid_loadToMem(byval aTedSid as TedSid ptr, byval aFilename as const zstring ptr) as long
 declare function TedSid_loadMem(byval aTedSid as TedSid ptr, byval aMem as const ubyte ptr, byval aLength as ulong) as long
 declare function TedSid_loadMemEx(byval aTedSid as TedSid ptr, byval aMem as const ubyte ptr, byval aLength as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
-declare function TedSid_loadFileToMem(byval aTedSid as TedSid ptr, byval aFile as File ptr) as long
-declare function TedSid_loadFile(byval aTedSid as TedSid ptr, byval aFile as File ptr) as long
+declare function TedSid_loadFileToMem(byval aTedSid as TedSid ptr, byval aFile as SLFile ptr) as long
+declare function TedSid_loadFile(byval aTedSid as TedSid ptr, byval aFile as SLFile ptr) as long
 declare sub TedSid_setVolume(byval aTedSid as TedSid ptr, byval aVolume as single)
 declare sub TedSid_setLooping(byval aTedSid as TedSid ptr, byval aLoop as long)
 declare sub TedSid_set3dMinMaxDistance(byval aTedSid as TedSid ptr, byval aMinDistance as single, byval aMaxDistance as single)
@@ -557,7 +552,7 @@ declare function Wav_create() as Wav ptr
 declare function Wav_load(byval aWav as Wav ptr, byval aFilename as const zstring ptr) as long
 declare function Wav_loadMem(byval aWav as Wav ptr, byval aMem as const ubyte ptr, byval aLength as ulong) as long
 declare function Wav_loadMemEx(byval aWav as Wav ptr, byval aMem as const ubyte ptr, byval aLength as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
-declare function Wav_loadFile(byval aWav as Wav ptr, byval aFile as File ptr) as long
+declare function Wav_loadFile(byval aWav as Wav ptr, byval aFile as SLFile ptr) as long
 declare function Wav_loadRawWave8(byval aWav as Wav ptr, byval aMem as ubyte ptr, byval aLength as ulong) as long
 declare function Wav_loadRawWave8Ex(byval aWav as Wav ptr, byval aMem as ubyte ptr, byval aLength as ulong, byval aSamplerate as single, byval aChannels as ulong) as long
 declare function Wav_loadRawWave16(byval aWav as Wav ptr, byval aMem as short ptr, byval aLength as ulong) as long
@@ -594,8 +589,8 @@ declare function WavStream_load(byval aWavStream as WavStream ptr, byval aFilena
 declare function WavStream_loadMem(byval aWavStream as WavStream ptr, byval aData as const ubyte ptr, byval aDataLen as ulong) as long
 declare function WavStream_loadMemEx(byval aWavStream as WavStream ptr, byval aData as const ubyte ptr, byval aDataLen as ulong, byval aCopy as long, byval aTakeOwnership as long) as long
 declare function WavStream_loadToMem(byval aWavStream as WavStream ptr, byval aFilename as const zstring ptr) as long
-declare function WavStream_loadFile(byval aWavStream as WavStream ptr, byval aFile as File ptr) as long
-declare function WavStream_loadFileToMem(byval aWavStream as WavStream ptr, byval aFile as File ptr) as long
+declare function WavStream_loadFile(byval aWavStream as WavStream ptr, byval aFile as SLFile ptr) as long
+declare function WavStream_loadFileToMem(byval aWavStream as WavStream ptr, byval aFile as SLFile ptr) as long
 declare function WavStream_getLength(byval aWavStream as WavStream ptr) as double
 declare sub WavStream_setVolume(byval aWavStream as WavStream ptr, byval aVolume as single)
 declare sub WavStream_setLooping(byval aWavStream as WavStream ptr, byval aLoop as long)
