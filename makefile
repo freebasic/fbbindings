@@ -550,10 +550,10 @@ include bfd.mk
 
 ################################################################################
 
-BZIP2_VERSION := 1.0.6
+BZIP2_VERSION := 1.0.8
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2: tools
-	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
+	./get.sh $(BZIP2) $(BZIP2).tar.gz https://sourceware.org/pub/bzip2/$(BZIP2).tar.gz
 
 	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
 	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
