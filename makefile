@@ -2489,10 +2489,10 @@ sndfile: tools
 
 SOLOUD := soloud_20200207
 soloud: tools
-	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
-	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
+	./get-clean.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip
+	$(GETCOMMENT) extracted/$(SOLOUD)/include/soloud.h > soloud.tmp
 	# soloud_c is the C API
-	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
+	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/include/soloud_c.h \
 		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
 	# The default soloud library name changes between static/dynamic builds,
