@@ -4,3 +4,4 @@
 #include "chipmunk/cpMarch.bi"
 #include "chipmunk/cpPolyline.bi"
 #include "chipmunk/cpRobust.bi"
+#include "chipmunk/chipmunk_structs.bi"
