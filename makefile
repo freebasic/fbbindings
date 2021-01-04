@@ -20,7 +20,7 @@ ALL += cd
 ALL += cgiutil
 
 # 2.0.4 is offline.
-# TODO : update to 2.0.5
+# TODO : update to 2.1.0
 #ALL += cgui
 ALL += chipmunk
 ALL += clang
@@ -91,6 +91,7 @@ ALL += sdl
 ALL += sdl1
 ALL += sdl2
 ALL += sndfile
+ALL += soloud
 ALL += sqlite
 ALL += tre
 ALL += uuid
@@ -864,8 +865,8 @@ DEVIL_VERSION := 1.8.0
 DEVIL := devil-$(DEVIL_VERSION)
 DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
-	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
-# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.zip/download
+	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).zip/download createdir
+# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.tar.gz/download currently not downloading
 	sed -n 476,489p extracted/$(DEVIL)/DevIL/LICENSE | cut -c5- > devil.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
@@ -1928,16 +1929,16 @@ ogg: ogg-extract
 	rm *.tmp
 
 # There are 2 "versions" of OpenAL:
-#  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
+#  * Creative OpenAL SDK 1.1 (no longer developed)
 #     * I'm not sure whether the license allows making bindings...
 #     * has EFX-Utils header/lib
 #  * OpenAL Soft, free fork, mostly used on Linux
-# freealut seems to be unavailable currently too, as openal.org is down.
+# freealut used to be hosted on the old openal.org, but is missing from the new site.
 OPENALSOFT := openal-soft-1.16.0
 FREEALUT_TAG := freealut_1_1_0
 FREEALUT := freealut-$(FREEALUT_TAG)
 openal: tools
-	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 http://kcat.strangesoft.net/openal-releases/$(OPENALSOFT).tar.bz2
+	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 https://openal-soft.org/openal-releases/$(OPENALSOFT).tar.bz2
 	# Downloading freealut from unofficial mirror
 	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
 
@@ -2256,9 +2257,10 @@ postgresql: tools
 	rm *.tmp
 
 quicklz: tools
+	# You get a cute "406 Security Incident" error if there's an unacceptable User-Agent header
 	if [ ! -d extracted/quicklz ]; then \
 		mkdir -p extracted/quicklz && \
-		wget http://www.quicklz.com/quicklz.h -O extracted/quicklz/quicklz.h; \
+		wget http://www.quicklz.com/quicklz.h --header 'User-Agent: wget' -O extracted/quicklz/quicklz.h; \
 	fi
 	$(GETCOMMENT) -1-14 extracted/quicklz/quicklz.h > quicklz.tmp
 	#$(FBFROG) quicklz.fbfrog extracted/quicklz/quicklz.h -o inc/quicklz.bi \
