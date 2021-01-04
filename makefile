@@ -31,10 +31,7 @@ ALL += curl
 ALL += devil
 ALL += disphelper
 ALL += expat
-
-# http://www.fastcgi.com (broken link)
-#ALL += fastcgi
-
+ALL += fastcgi
 ALL += ffi
 ALL += flite
 ALL += fontconfig
@@ -920,9 +917,11 @@ expat: tools
 		-title $(EXPAT) expat.tmp fbteam.txt
 	rm *.tmp
 
-FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
+# For the moment, using a mirror of the original at http://www.fastcgi.com to match
+# existing bindings, but likely want to switch to a fork elsewhere.
+FASTCGI_TITLE := fcgi-2.4.1-SNAP-0910052249
 fastcgi: tools
-	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz https://github.com/FastCGI-Archives/FastCGI.com/raw/master/original_snapshot/$(FASTCGI_TITLE).tar.gz
 	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
 	echo                                         >> fastcgi.tmp
 	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> fastcgi.tmp
