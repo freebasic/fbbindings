@@ -1,16 +1,23 @@
 #!/bin/bash
+#
+# If not already extracted, download a .tar.gz or .zip to tarballs/ and extract it to extracted/.
+# These names can include a subdirectory prefix.
+#
 set -ex
 
-dirname="extracted/$1"
+output="extracted/$1"
 tarball="tarballs/$2"
 url="$3"
 createdir="$4"
 
-if [ -d "$dirname" ]; then
+if [ -d "$output" ]; then
 	exit
 fi
 
-mkdir -p tarballs/ extracted/
+outputdir=$(dirname "$output")
+tarballdir=$(dirname "$tarball")
+
+mkdir -p "$outputdir" "$tarballdir"  # Usually tarballs extracted
 
 # If the download failed previously, try to resume it.
 # (WARNING: if the file is modified and increases in length,
@@ -22,14 +29,14 @@ mkdir -p tarballs/ extracted/
 wget -c --max-redirect=30 "$url" -O "$tarball" || exit 1
 
 if [ "$createdir" = "createdir" ]; then
-	mkdir "$dirname"
+	mkdir "$output"
 	case "$tarball" in
-	*.zip) unzip -q -d "$dirname/" "$tarball";;
-	*)     tar xf "$tarball" -C "$dirname/";;
+	*.zip) unzip -q -d "$output/" "$tarball";;
+	*)     tar xf "$tarball" -C "$output/";;
 	esac
 else
 	case "$tarball" in
-	*.zip) unzip -q -d extracted/ "$tarball";;
-	*)     tar xf "$tarball" -C extracted/;;
+	*.zip) unzip -q -d "$outputdir/" "$tarball";;
+	*)     tar xf "$tarball" -C "$outputdir/";;
 	esac
 fi
