@@ -1,8 +1,8 @@
-'' FreeBASIC binding for bzip2-1.0.6
+'' FreeBASIC binding for bzip2-1.0.8
 ''
 '' based on the C header files:
 ''   This program, "bzip2", the associated library "libbzip2", and all
-''   documentation, are copyright (C) 1996-2010 Julian R Seward.  All
+''   documentation, are copyright (C) 1996-2019 Julian R Seward.  All
 ''   rights reserved.
 ''
 ''   Redistribution and use in source and binary forms, with or without
@@ -36,8 +36,8 @@
 ''   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ''   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''
-''   Julian Seward, jseward@bzip.org
-''   bzip2/libbzip2 version 1.0.6 of 6 September 2010
+''   Julian Seward, jseward@acm.org
+''   bzip2/libbzip2 version 1.0.8 of 13 July 2019
 ''
 '' translated to FreeBASIC by:
 ''   Copyright © 2015 FreeBASIC development team

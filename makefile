@@ -20,7 +20,7 @@ ALL += cd
 ALL += cgiutil
 
 # 2.0.4 is offline.
-# TODO : update to 2.0.5
+# TODO : update to 2.1.0
 #ALL += cgui
 ALL += chipmunk
 ALL += clang
@@ -31,10 +31,7 @@ ALL += curl
 ALL += devil
 ALL += disphelper
 ALL += expat
-
-# http://www.fastcgi.com (broken link)
-#ALL += fastcgi
-
+ALL += fastcgi
 ALL += ffi
 ALL += flite
 ALL += fontconfig
@@ -94,6 +91,7 @@ ALL += sdl
 ALL += sdl1
 ALL += sdl2
 ALL += sndfile
+ALL += soloud
 ALL += sqlite
 ALL += tre
 ALL += uuid
@@ -556,10 +554,10 @@ include bfd.mk
 
 ################################################################################
 
-BZIP2_VERSION := 1.0.6
+BZIP2_VERSION := 1.0.8
 BZIP2 := bzip2-$(BZIP2_VERSION)
 bzip2: tools
-	./get.sh $(BZIP2) $(BZIP2).tar.gz http://www.bzip.org/$(BZIP2_VERSION)/$(BZIP2).tar.gz
+	./get.sh $(BZIP2) $(BZIP2).tar.gz https://sourceware.org/pub/bzip2/$(BZIP2).tar.gz
 
 	sed -n 4,40p extracted/$(BZIP2)/LICENSE > bzip2.tmp
 	$(FBFROG) bzip2.fbfrog extracted/$(BZIP2)/bzlib.h -o inc -inclib bz2 \
@@ -741,11 +739,13 @@ chipmunk: tools
 		-incdir extracted/$(CHIPMUNK)/include \
 		-include chipmunk.h \
 		-include chipmunk_unsafe.h \
+		-include chipmunk_structs.h \
 		-include cpHastySpace.h \
 		-include cpMarch.h \
 		-include cpPolyline.h \
 		-include cpRobust.h \
 		-emit '*/chipmunk_unsafe.h'  inc/chipmunk/chipmunk_unsafe.bi \
+		-emit '*/chipmunk_structs.h' inc/chipmunk/chipmunk_structs.bi \
 		-emit '*/cpHastySpace.h'     inc/chipmunk/cpHastySpace.bi \
 		-emit '*/cpMarch.h'          inc/chipmunk/cpMarch.bi \
 		-emit '*/cpPolyline.h'       inc/chipmunk/cpPolyline.bi \
@@ -873,8 +873,8 @@ DEVIL_VERSION := 1.8.0
 DEVIL := devil-$(DEVIL_VERSION)
 DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
-	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
-# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.zip/download
+	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).zip/download createdir
+# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.tar.gz/download currently not downloading
 	sed -n 476,489p extracted/$(DEVIL)/DevIL/LICENSE | cut -c5- > devil.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
@@ -926,9 +926,11 @@ expat: tools
 		-title $(EXPAT) expat.tmp fbteam.txt
 	rm *.tmp
 
-FASTCGI_TITLE := fcgi-2.4.1-SNAP-0311112127
+# For the moment, using a mirror of the original at http://www.fastcgi.com to match
+# existing bindings, but likely want to switch to a fork elsewhere.
+FASTCGI_TITLE := fcgi-2.4.1-SNAP-0910052249
 fastcgi: tools
-	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz "http://www.fastcgi.com/dist/fcgi.tar.gz"
+	./get.sh $(FASTCGI_TITLE) $(FASTCGI_TITLE).tar.gz https://github.com/FastCGI-Archives/FastCGI.com/raw/master/original_snapshot/$(FASTCGI_TITLE).tar.gz
 	sed -n 7,7p extracted/$(FASTCGI_TITLE)/include/fastcgi.h | cut -c4- > fastcgi.tmp
 	echo                                         >> fastcgi.tmp
 	cat extracted/$(FASTCGI_TITLE)/LICENSE.TERMS >> fastcgi.tmp
@@ -1941,16 +1943,16 @@ ogg: ogg-extract
 	rm *.tmp
 
 # There are 2 "versions" of OpenAL:
-#  * Creative OpenAL SDK 1.1 (no longer developed, openal.org down?)
+#  * Creative OpenAL SDK 1.1 (no longer developed)
 #     * I'm not sure whether the license allows making bindings...
 #     * has EFX-Utils header/lib
 #  * OpenAL Soft, free fork, mostly used on Linux
-# freealut seems to be unavailable currently too, as openal.org is down.
+# freealut used to be hosted on the old openal.org, but is missing from the new site.
 OPENALSOFT := openal-soft-1.16.0
 FREEALUT_TAG := freealut_1_1_0
 FREEALUT := freealut-$(FREEALUT_TAG)
 openal: tools
-	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 http://kcat.strangesoft.net/openal-releases/$(OPENALSOFT).tar.bz2
+	./get.sh $(OPENALSOFT) $(OPENALSOFT).tar.bz2 https://openal-soft.org/openal-releases/$(OPENALSOFT).tar.bz2
 	# Downloading freealut from unofficial mirror
 	./get.sh $(FREEALUT) $(FREEALUT_TAG).tar.gz https://github.com/vancegroup/freealut/archive/$(FREEALUT_TAG).tar.gz
 
@@ -2269,9 +2271,10 @@ postgresql: tools
 	rm *.tmp
 
 quicklz: tools
+	# You get a cute "406 Security Incident" error if there's an unacceptable User-Agent header
 	if [ ! -d extracted/quicklz ]; then \
 		mkdir -p extracted/quicklz && \
-		wget http://www.quicklz.com/quicklz.h -O extracted/quicklz/quicklz.h; \
+		wget http://www.quicklz.com/quicklz.h --header 'User-Agent: wget' -O extracted/quicklz/quicklz.h; \
 	fi
 	$(GETCOMMENT) -1-14 extracted/quicklz/quicklz.h > quicklz.tmp
 	#$(FBFROG) quicklz.fbfrog extracted/quicklz/quicklz.h -o inc/quicklz.bi \
@@ -2501,10 +2504,10 @@ sndfile: tools
 
 SOLOUD := soloud_20200207
 soloud: tools
-	./get.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip createdir
-	$(GETCOMMENT) extracted/$(SOLOUD)/soloud*/include/soloud.h > soloud.tmp
+	./get-clean.sh $(SOLOUD) $(SOLOUD)_lite.zip https://sol.gfxile.net/soloud/$(SOLOUD)_lite.zip
+	$(GETCOMMENT) extracted/$(SOLOUD)/include/soloud.h > soloud.tmp
 	# soloud_c is the C API
-	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/soloud*/include/soloud_c.h \
+	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/include/soloud_c.h \
 		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
 	# The default soloud library name changes between static/dynamic builds,
@@ -3109,40 +3112,40 @@ include x11-titles-internal-generated.mk
 x11: tools
 	mkdir -p extracted/xorg
 	mkdir -p tarballs/xorg
-	./getxorg.sh $(X11_ICE)      $(X11_ICE).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_ICE).tar.bz2"
-	./getxorg.sh $(X11_SM)       $(X11_SM).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_SM).tar.bz2"
-	./getxorg.sh $(X11_XAU)      $(X11_XAU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XAU).tar.bz2"
-	./getxorg.sh $(X11_X11)      $(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
-	./getxorg.sh $(X11_XT)       $(X11_XT).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XT).tar.bz2"
-	./getxorg.sh $(X11_XEXT)     $(X11_XEXT).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XEXT).tar.bz2"
-	./getxorg.sh $(X11_XPM)      $(X11_XPM).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XPM).tar.bz2"
-	./getxorg.sh $(X11_XRENDER)  $(X11_XRENDER).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRENDER).tar.bz2"
-	./getxorg.sh $(X11_XRANDR)   $(X11_XRANDR).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRANDR).tar.bz2"
-	./getxorg.sh $(X11_XI)       $(X11_XI).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XI).tar.bz2"
-	./getxorg.sh $(X11_XDMCP)    $(X11_XDMCP).tar.bz2     "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XDMCP).tar.bz2"
-	./getxorg.sh $(X11_XXF86DGA) $(X11_XXF86DGA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86DGA).tar.bz2"
-	./getxorg.sh $(X11_XXF86VM)  $(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
-	./getxorg.sh $(X11_XV)       $(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
-	./getxorg.sh $(X11_XFT)      $(X11_XFT).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFT).tar.bz2"
-	./getxorg.sh $(X11_XCURSOR)  $(X11_XCURSOR).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XCURSOR).tar.bz2"
-	./getxorg.sh $(X11_XMU)      $(X11_XMU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XMU).tar.bz2"
-	./getxorg.sh $(X11_XTST)     $(X11_XTST).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTST).tar.bz2"
-	./getxorg.sh $(X11_XFIXES)   $(X11_XFIXES).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFIXES).tar.bz2"
-	./getxorg.sh $(X11_XINERAMA) $(X11_XINERAMA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XINERAMA).tar.bz2"
-	./getxorg.sh $(X11_LBXUTIL)  $(X11_LBXUTIL).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_LBXUTIL).tar.bz2"
-	./getxorg.sh $(X11_XTRANS)   $(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
-	./getxorg.sh $(X11_XPROTO)           $(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
-	./getxorg.sh $(X11_XEXTPROTO)        $(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
-	./getxorg.sh $(X11_RENDERPROTO)      $(X11_RENDERPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RENDERPROTO).tar.bz2"
-	./getxorg.sh $(X11_RANDRPROTO)       $(X11_RANDRPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RANDRPROTO).tar.bz2"
-	./getxorg.sh $(X11_KBPROTO)          $(X11_KBPROTO).tar.bz2          "http://xorg.freedesktop.org/releases/individual/proto/$(X11_KBPROTO).tar.bz2"
-	./getxorg.sh $(X11_INPUTPROTO)       $(X11_INPUTPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_INPUTPROTO).tar.bz2"
-	./getxorg.sh $(X11_DRI2PROTO)        $(X11_DRI2PROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_DRI2PROTO).tar.bz2"
-	./getxorg.sh $(X11_XF86DGAPROTO)     $(X11_XF86DGAPROTO).tar.bz2     "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86DGAPROTO).tar.bz2"
-	./getxorg.sh $(X11_XF86VIDMODEPROTO) $(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
-	./getxorg.sh $(X11_VIDEOPROTO)       $(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
-	./getxorg.sh $(X11_FIXESPROTO)       $(X11_FIXESPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_FIXESPROTO).tar.bz2"
-	./getxorg.sh $(X11_RECORDPROTO)      $(X11_RECORDPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RECORDPROTO).tar.bz2"
+	./get.sh xorg/$(X11_ICE)      xorg/$(X11_ICE).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_ICE).tar.bz2"
+	./get.sh xorg/$(X11_SM)       xorg/$(X11_SM).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_SM).tar.bz2"
+	./get.sh xorg/$(X11_XAU)      xorg/$(X11_XAU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XAU).tar.bz2"
+	./get.sh xorg/$(X11_X11)      xorg/$(X11_X11).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_X11).tar.bz2"
+	./get.sh xorg/$(X11_XT)       xorg/$(X11_XT).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XT).tar.bz2"
+	./get.sh xorg/$(X11_XEXT)     xorg/$(X11_XEXT).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XEXT).tar.bz2"
+	./get.sh xorg/$(X11_XPM)      xorg/$(X11_XPM).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XPM).tar.bz2"
+	./get.sh xorg/$(X11_XRENDER)  xorg/$(X11_XRENDER).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRENDER).tar.bz2"
+	./get.sh xorg/$(X11_XRANDR)   xorg/$(X11_XRANDR).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XRANDR).tar.bz2"
+	./get.sh xorg/$(X11_XI)       xorg/$(X11_XI).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XI).tar.bz2"
+	./get.sh xorg/$(X11_XDMCP)    xorg/$(X11_XDMCP).tar.bz2     "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XDMCP).tar.bz2"
+	./get.sh xorg/$(X11_XXF86DGA) xorg/$(X11_XXF86DGA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86DGA).tar.bz2"
+	./get.sh xorg/$(X11_XXF86VM)  xorg/$(X11_XXF86VM).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XXF86VM).tar.bz2"
+	./get.sh xorg/$(X11_XV)       xorg/$(X11_XV).tar.bz2        "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XV).tar.bz2"
+	./get.sh xorg/$(X11_XFT)      xorg/$(X11_XFT).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFT).tar.bz2"
+	./get.sh xorg/$(X11_XCURSOR)  xorg/$(X11_XCURSOR).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XCURSOR).tar.bz2"
+	./get.sh xorg/$(X11_XMU)      xorg/$(X11_XMU).tar.bz2       "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XMU).tar.bz2"
+	./get.sh xorg/$(X11_XTST)     xorg/$(X11_XTST).tar.bz2      "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTST).tar.bz2"
+	./get.sh xorg/$(X11_XFIXES)   xorg/$(X11_XFIXES).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XFIXES).tar.bz2"
+	./get.sh xorg/$(X11_XINERAMA) xorg/$(X11_XINERAMA).tar.bz2  "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XINERAMA).tar.bz2"
+	./get.sh xorg/$(X11_LBXUTIL)  xorg/$(X11_LBXUTIL).tar.bz2   "http://xorg.freedesktop.org/releases/individual/lib/$(X11_LBXUTIL).tar.bz2"
+	./get.sh xorg/$(X11_XTRANS)   xorg/$(X11_XTRANS).tar.bz2    "http://xorg.freedesktop.org/releases/individual/lib/$(X11_XTRANS).tar.bz2"
+	./get.sh xorg/$(X11_XPROTO)           xorg/$(X11_XPROTO).tar.bz2           "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XPROTO).tar.bz2"
+	./get.sh xorg/$(X11_XEXTPROTO)        xorg/$(X11_XEXTPROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XEXTPROTO).tar.bz2"
+	./get.sh xorg/$(X11_RENDERPROTO)      xorg/$(X11_RENDERPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RENDERPROTO).tar.bz2"
+	./get.sh xorg/$(X11_RANDRPROTO)       xorg/$(X11_RANDRPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RANDRPROTO).tar.bz2"
+	./get.sh xorg/$(X11_KBPROTO)          xorg/$(X11_KBPROTO).tar.bz2          "http://xorg.freedesktop.org/releases/individual/proto/$(X11_KBPROTO).tar.bz2"
+	./get.sh xorg/$(X11_INPUTPROTO)       xorg/$(X11_INPUTPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_INPUTPROTO).tar.bz2"
+	./get.sh xorg/$(X11_DRI2PROTO)        xorg/$(X11_DRI2PROTO).tar.bz2        "http://xorg.freedesktop.org/releases/individual/proto/$(X11_DRI2PROTO).tar.bz2"
+	./get.sh xorg/$(X11_XF86DGAPROTO)     xorg/$(X11_XF86DGAPROTO).tar.bz2     "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86DGAPROTO).tar.bz2"
+	./get.sh xorg/$(X11_XF86VIDMODEPROTO) xorg/$(X11_XF86VIDMODEPROTO).tar.bz2 "http://xorg.freedesktop.org/releases/individual/proto/$(X11_XF86VIDMODEPROTO).tar.bz2"
+	./get.sh xorg/$(X11_VIDEOPROTO)       xorg/$(X11_VIDEOPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_VIDEOPROTO).tar.bz2"
+	./get.sh xorg/$(X11_FIXESPROTO)       xorg/$(X11_FIXESPROTO).tar.bz2       "http://xorg.freedesktop.org/releases/individual/proto/$(X11_FIXESPROTO).tar.bz2"
+	./get.sh xorg/$(X11_RECORDPROTO)      xorg/$(X11_RECORDPROTO).tar.bz2      "http://xorg.freedesktop.org/releases/individual/proto/$(X11_RECORDPROTO).tar.bz2"
 
 	# Xt: X11/Shell.h and X11/StringDefs.h are generated during the build process
 	cd extracted/xorg/$(X11_XT) && \
