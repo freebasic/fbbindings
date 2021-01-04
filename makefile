@@ -733,11 +733,13 @@ chipmunk: tools
 		-incdir extracted/$(CHIPMUNK)/include \
 		-include chipmunk.h \
 		-include chipmunk_unsafe.h \
+		-include chipmunk_structs.h \
 		-include cpHastySpace.h \
 		-include cpMarch.h \
 		-include cpPolyline.h \
 		-include cpRobust.h \
 		-emit '*/chipmunk_unsafe.h'  inc/chipmunk/chipmunk_unsafe.bi \
+		-emit '*/chipmunk_structs.h' inc/chipmunk/chipmunk_structs.bi \
 		-emit '*/cpHastySpace.h'     inc/chipmunk/cpHastySpace.bi \
 		-emit '*/cpMarch.h'          inc/chipmunk/cpMarch.bi \
 		-emit '*/cpPolyline.h'       inc/chipmunk/cpPolyline.bi \
