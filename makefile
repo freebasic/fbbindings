@@ -1704,15 +1704,17 @@ iup: tools
 
 	rm *.tmp
 
+# TODO: this old snapshot doesn't even compile with recent GCC, should update to 0.1.4
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit: tools
 	./get.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
 
 	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
-	# jit-opcode.h (and jit-opcode-x86.h) during its build process.
+	# jit-opcode.h and jit-defs.h during its build process.
 	cd extracted/$(JIT_TITLE) && \
 		if [ ! -f include/jit/jit-opcode.h ]; then \
-			./auto_gen.sh && ./configure && make; \
+			./auto_gen.sh && ./configure && \
+			make -C tools all && make -C include/jit jit-opcode.h; \
 		fi
 
 	cd extracted/$(JIT_TITLE)/include/jit && \
