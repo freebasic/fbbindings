@@ -652,6 +652,7 @@ cd: tools
 
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
+		extracted/$(CD)/cd/include/cd.h \
 		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdcairo.h'      inc/cd/cdcairo.bi \
 		-emit '*/cdcgm.h'        inc/cd/cdcgm.bi \
@@ -688,6 +689,7 @@ cd: tools
 		-inclib cdpdf   inc/cd/cdpdf.bi
 
 	$(FBFROG) iuplua.fbfrog \
+		extracted/$(CD)/cd/include/cd.h \
 		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdlua3_private.h' inc/cd/cdlua3_private.bi \
 		-emit '*/cdlua5_private.h' inc/cd/cdlua5_private.bi \
@@ -1609,7 +1611,12 @@ iup: tools
 	$(GETCOMMENT) --1 extracted/$(IUP_TITLE)/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
 
 	mkdir -p inc/IUP
+	# Most IUP headers don't include iup.h although they do depend on it.
+	# There is some dependency on input file order, e.g. because _cdCanvas
+	# is defined in both iup_plot.h and iupcbs.h (needs manual fixup)
 	$(FBFROG) iup.fbfrog \
+		extracted/$(IUP_TITLE)/iup/include/iup.h \
+		extracted/$(IUP_TITLE)/iup/include/iup_plot.h \
 		extracted/$(IUP_TITLE)/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
 		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
