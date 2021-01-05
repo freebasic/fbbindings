@@ -658,6 +658,7 @@ cd: tools
 
 	mkdir -p inc/cd
 	$(FBFROG) cd.fbfrog \
+		extracted/$(CD)/cd/include/cd.h \
 		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdcairo.h'      inc/cd/cdcairo.bi \
 		-emit '*/cdcgm.h'        inc/cd/cdcgm.bi \
@@ -694,6 +695,7 @@ cd: tools
 		-inclib cdpdf   inc/cd/cdpdf.bi
 
 	$(FBFROG) iuplua.fbfrog \
+		extracted/$(CD)/cd/include/cd.h \
 		extracted/$(CD)/cd/include/*.h \
 		-emit '*/cdlua3_private.h' inc/cd/cdlua3_private.bi \
 		-emit '*/cdlua5_private.h' inc/cd/cdlua5_private.bi \
@@ -1621,7 +1623,12 @@ iup: tools
 	$(GETCOMMENT) --1 extracted/$(IUP_TITLE)/iup/include/iup.h | tail -n+2 | head -n-1 | cut -c2- > iup.tmp
 
 	mkdir -p inc/IUP
+	# Most IUP headers don't include iup.h although they do depend on it.
+	# There is some dependency on input file order, e.g. because _cdCanvas
+	# is defined in both iup_plot.h and iupcbs.h (needs manual fixup)
 	$(FBFROG) iup.fbfrog \
+		extracted/$(IUP_TITLE)/iup/include/iup.h \
+		extracted/$(IUP_TITLE)/iup/include/iup_plot.h \
 		extracted/$(IUP_TITLE)/iup/include/*.h \
 		-emit '*/iupcb.h'            inc/IUP/iupcb.bi            \
 		-emit '*/iupcbox.h'          inc/IUP/iupcbox.bi          \
@@ -1709,15 +1716,17 @@ iup: tools
 
 	rm *.tmp
 
+# TODO: this old snapshot doesn't even compile with recent GCC, should update to 0.1.4
 JIT_TITLE := libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
 jit: tools
 	./get.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
 
 	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
-	# jit-opcode.h (and jit-opcode-x86.h) during its build process.
+	# jit-opcode.h and jit-defs.h during its build process.
 	cd extracted/$(JIT_TITLE) && \
 		if [ ! -f include/jit/jit-opcode.h ]; then \
-			./auto_gen.sh && ./configure && make; \
+			./auto_gen.sh && ./configure && \
+			make -C tools all && make -C include/jit jit-opcode.h; \
 		fi
 
 	cd extracted/$(JIT_TITLE)/include/jit && \
