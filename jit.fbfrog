@@ -8,6 +8,18 @@
 	-replacements jit-generic.replacements
 -endselect
 
+# JIT_NATIVE_INT32/64 is generated in include/jit/jit-defs.h by the build system
+# depending on host.
+-removedefine JIT_NATIVE_INT32
+-removedefine JIT_NATIVE_INT64
+-iftarget 64bit
+        -define JIT_NATIVE_INT64 1
+-else
+        -define JIT_NATIVE_INT32 1
+-endif
+
+-addinclude crt/longdouble.bi inc/jit.bi
+
 -inclib jit
 
 -removedefine JIT_EXPORT_DATA

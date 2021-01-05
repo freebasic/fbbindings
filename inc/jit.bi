@@ -18,7 +18,7 @@
 ''   <http://www.gnu.org/licenses/>.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2015 FreeBASIC development team
+''   Copyright © 2020 FreeBASIC development team
 
 #pragma once
 
@@ -52,16 +52,19 @@ type jit_short as short
 type jit_ushort as ushort
 type jit_int as long
 type jit_uint as ulong
-type jit_nint as long
-type jit_nuint as ulong
+type jit_nint as integer
+type jit_nuint as uinteger
 type jit_long as longint
 type jit_ulong as ulongint
 type jit_float32 as single
 type jit_float64 as double
-type jit_nfloat as clongdouble
+#ifdef __FB_WIN32__
+	type jit_nfloat as double
+#else
+	type jit_nfloat as clongdouble
+#endif
 type jit_ptr as any ptr
 
-const JIT_NATIVE_INT32 = 1
 #define JIT_NOTHROW
 #define jit_min_int (cast(jit_int, 1) shl ((sizeof(jit_int) * 8) - 1))
 #define jit_max_int cast(jit_int, not jit_min_int)
@@ -1508,9 +1511,17 @@ const JIT_OPCODE_OPER_SHR = &h01200000
 const JIT_OPCODE_OPER_SHR_UN = &h01300000
 const JIT_OPCODE_OPER_COPY = &h01400000
 const JIT_OPCODE_OPER_ADDRESS_OF = &h01500000
-const JIT_OPCODE_DEST_PTR = JIT_OPCODE_DEST_INT
-const JIT_OPCODE_SRC1_PTR = JIT_OPCODE_SRC1_INT
-const JIT_OPCODE_SRC2_PTR = JIT_OPCODE_SRC2_INT
+
+#if defined(__FB_64BIT__) and (defined(__FB_WIN32__) or defined(__FB_UNIX__))
+	const JIT_OPCODE_DEST_PTR = JIT_OPCODE_DEST_LONG
+	const JIT_OPCODE_SRC1_PTR = JIT_OPCODE_SRC1_LONG
+	const JIT_OPCODE_SRC2_PTR = JIT_OPCODE_SRC2_LONG
+#else
+	const JIT_OPCODE_DEST_PTR = JIT_OPCODE_DEST_INT
+	const JIT_OPCODE_SRC1_PTR = JIT_OPCODE_SRC1_INT
+	const JIT_OPCODE_SRC2_PTR = JIT_OPCODE_SRC2_INT
+#endif
+
 extern jit_opcodes(0 to 438) as const jit_opcode_info_t
 #define _JIT_OPCODE_COMPAT_H
 const JIT_OP_FEQ_INV = JIT_OP_FEQ
