@@ -152,18 +152,12 @@ allegro: allegro4 allegro5
 ALLEGRO4_VERSION := 4.4.2
 ALLEGRO4_TITLE := allegro-$(ALLEGRO4_VERSION)
 ALGIF := algif_1.3
+ALPNG_VERSION := 1.3
 ALPNG := alpng13
-ALPNG_TARBALL := tarballs/$(ALPNG).tar.gz
 allegro4: tools
 	./get.sh $(ALLEGRO4_TITLE) $(ALLEGRO4_TITLE).tar.gz "http://cdn.allegro.cc/file/library/allegro/$(ALLEGRO4_VERSION)/$(ALLEGRO4_TITLE).tar.gz"
 	./get.sh $(ALGIF) $(ALGIF).zip "http://prdownloads.sourceforge.net/algif/$(ALGIF).zip?download"
-	if [ ! -f "$(ALPNG_TARBALL)" ]; then \
-		wget --no-verbose "https://sourceforge.net/projects/alpng/files/alpng/1.3/$(ALPNG).tar.gz/download" -O "$(ALPNG_TARBALL)"; \
-	fi
-	if [ ! -d extracted/$(ALPNG) ]; then \
-		mkdir -p extracted/$(ALPNG); \
-		tar xf "$(ALPNG_TARBALL)" -C extracted/$(ALPNG); \
-	fi
+	./get.sh $(ALPNG) $(ALPNG).tar.gz "https://sourceforge.net/projects/alpng/files/alpng/$(ALPNG_VERSION)/$(ALPNG).tar.gz/download" createdir
 
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/dos/allegro/platform
 	mkdir -p extracted/$(ALLEGRO4_TITLE)/include/unix/allegro/platform
