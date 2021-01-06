@@ -24,6 +24,7 @@
 
 #inclib "jit"
 
+#include once "crt/stdio.bi"
 #include once "crt/longdouble.bi"
 
 '' The following symbols have been renamed:
@@ -1710,5 +1711,29 @@ end type
 
 #define jit_declare_crawl_mark(name) dim as jit_crawl_mark_t name = {0}
 declare function jit_frame_contains_crawl_mark(byval frame as any ptr, byval mark as jit_crawl_mark_t ptr) as long
+#define _JIT_DUMP_H
+declare sub jit_dump_type(byval stream as FILE ptr, byval type as jit_type_t)
+declare sub jit_dump_value(byval stream as FILE ptr, byval func as jit_function_t, byval value as jit_value_t, byval prefix as const zstring ptr)
+declare sub jit_dump_insn(byval stream as FILE ptr, byval func as jit_function_t, byval insn as jit_insn_t)
+declare sub jit_dump_function(byval stream as FILE ptr, byval func as jit_function_t, byval name as const zstring ptr)
+#define _JIT_DYNAMIC_H
+type jit_dynlib_handle_t as any ptr
+declare function jit_dynlib_open(byval name as const zstring ptr) as jit_dynlib_handle_t
+declare sub jit_dynlib_close(byval handle as jit_dynlib_handle_t)
+declare function jit_dynlib_get_symbol(byval handle as jit_dynlib_handle_t, byval symbol as const zstring ptr) as any ptr
+declare function jit_dynlib_get_suffix() as const zstring ptr
+declare sub jit_dynlib_set_debug(byval flag as long)
+const JIT_MANGLE_PUBLIC = &h0001
+const JIT_MANGLE_PROTECTED = &h0002
+const JIT_MANGLE_PRIVATE = &h0003
+const JIT_MANGLE_STATIC = &h0008
+const JIT_MANGLE_VIRTUAL = &h0010
+const JIT_MANGLE_CONST = &h0020
+const JIT_MANGLE_EXPLICIT_THIS = &h0040
+const JIT_MANGLE_IS_CTOR = &h0080
+const JIT_MANGLE_IS_DTOR = &h0100
+const JIT_MANGLE_BASE = &h0200
+declare function jit_mangle_global_function(byval name as const zstring ptr, byval signature as jit_type_t, byval form as long) as zstring ptr
+declare function jit_mangle_member_function(byval class_name as const zstring ptr, byval name as const zstring ptr, byval signature as jit_type_t, byval form as long, byval flags as long) as zstring ptr
 
 end extern

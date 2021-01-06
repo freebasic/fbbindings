@@ -1721,7 +1721,10 @@ jit: tools
 
 	$(GETCOMMENT) extracted/$(JIT_TITLE)/include/jit/jit.h | tail -n+3 > jit.tmp
 
+	# Current libjit git versions do #include jit-dump.h from jit.h
 	$(FBFROG) jit.fbfrog -o inc extracted/$(JIT_TITLE)/include/jit/jit.h   \
+		extracted/$(JIT_TITLE)/include/jit/jit-dump.h                  \
+		extracted/$(JIT_TITLE)/include/jit/jit-dynamic.h               \
 		-incdir extracted/$(JIT_TITLE)/include                         \
 		-selecttarget                                                  \
 		-case x86    -incdir extracted/$(JIT_TITLE)/include/jit/x86    \
