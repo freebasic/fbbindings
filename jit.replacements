@@ -28,6 +28,20 @@ convert c: typedef unsigned long long jit_nuint;
 to c:      typedef size_t jit_nuint;
 
 
+convert c: typedef int jit_int;
+to c:      typedef int32_t jit_int;
+
+convert c: typedef long jit_int;
+to c:      typedef int32_t jit_int;
+
+
+convert c: typedef unsigned int jit_uint;
+to c:      typedef uint32_t jit_uint;
+
+convert c: typedef unsigned long jit_uint;
+to c:      typedef uint32_t jit_uint;
+
+
 convert c: typedef int jit_long;
 to c:      typedef long long jit_long;
 
