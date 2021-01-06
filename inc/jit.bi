@@ -1,4 +1,4 @@
-'' FreeBASIC binding for libjit-a8293e141b79c28734a3633a81a43f92f29fc2d7
+'' FreeBASIC binding for libjit-0.1.4
 ''
 '' based on the C header files:
 ''   Copyright (C) 2004  Southern Storm Software, Pty Ltd.
@@ -229,6 +229,7 @@ enum
 	jit_abi_fastcall
 end enum
 
+const JIT_INVALID_NAME = culng(not culng(0))
 declare function jit_type_copy(byval type as jit_type_t) as jit_type_t
 declare sub jit_type_free(byval type as jit_type_t)
 declare function jit_type_create_struct(byval fields as jit_type_t ptr, byval num_fields as ulong, byval incref as long) as jit_type_t
@@ -242,11 +243,11 @@ declare sub jit_type_set_offset(byval type as jit_type_t, byval field_index as u
 declare function jit_type_get_kind(byval type as jit_type_t) as long
 declare function jit_type_get_size(byval type as jit_type_t) as jit_nuint
 declare function jit_type_get_alignment(byval type as jit_type_t) as jit_nuint
+declare function jit_type_best_alignment() as jit_nuint
 declare function jit_type_num_fields(byval type as jit_type_t) as ulong
 declare function jit_type_get_field(byval type as jit_type_t, byval field_index as ulong) as jit_type_t
 declare function jit_type_get_offset(byval type as jit_type_t, byval field_index as ulong) as jit_nuint
 declare function jit_type_get_name(byval type as jit_type_t, byval index as ulong) as const zstring ptr
-const JIT_INVALID_NAME = culng(not culng(0))
 declare function jit_type_find_name(byval type as jit_type_t, byval name as const zstring ptr) as ulong
 declare function jit_type_num_params(byval type as jit_type_t) as ulong
 declare function jit_type_get_return(byval type as jit_type_t) as jit_type_t
@@ -264,9 +265,8 @@ declare function jit_type_is_union(byval type as jit_type_t) as long
 declare function jit_type_is_signature(byval type as jit_type_t) as long
 declare function jit_type_is_pointer(byval type as jit_type_t) as long
 declare function jit_type_is_tagged(byval type as jit_type_t) as long
-declare function jit_type_best_alignment() as jit_nuint
-declare function jit_type_normalize(byval type as jit_type_t) as jit_type_t
 declare function jit_type_remove_tags(byval type as jit_type_t) as jit_type_t
+declare function jit_type_normalize(byval type as jit_type_t) as jit_type_t
 declare function jit_type_promote_int(byval type as jit_type_t) as jit_type_t
 declare function jit_type_return_via_pointer(byval type as jit_type_t) as long
 declare function jit_type_has_tag(byval type as jit_type_t, byval kind as long) as long
@@ -506,10 +506,10 @@ declare function jit_insn_get_name(byval insn as jit_insn_t) as const zstring pt
 declare function jit_insn_get_signature(byval insn as jit_insn_t) as jit_type_t
 declare function jit_insn_dest_is_value(byval insn as jit_insn_t) as long
 declare function jit_insn_label(byval func as jit_function_t, byval label as jit_label_t ptr) as long
+declare function jit_insn_label_tight(byval func as jit_function_t, byval label as jit_label_t ptr) as long
 declare function jit_insn_new_block(byval func as jit_function_t) as long
 declare function jit_insn_load(byval func as jit_function_t, byval value as jit_value_t) as jit_value_t
 declare function jit_insn_dup(byval func as jit_function_t, byval value as jit_value_t) as jit_value_t
-declare function jit_insn_load_small(byval func as jit_function_t, byval value as jit_value_t) as jit_value_t
 declare function jit_insn_store(byval func as jit_function_t, byval dest as jit_value_t, byval value as jit_value_t) as long
 declare function jit_insn_load_relative(byval func as jit_function_t, byval value as jit_value_t, byval offset as jit_nint, byval type as jit_type_t) as jit_value_t
 declare function jit_insn_store_relative(byval func as jit_function_t, byval dest as jit_value_t, byval offset as jit_nint, byval value as jit_value_t) as long
@@ -518,6 +518,7 @@ declare function jit_insn_load_elem(byval func as jit_function_t, byval base_add
 declare function jit_insn_load_elem_address(byval func as jit_function_t, byval base_addr as jit_value_t, byval index as jit_value_t, byval elem_type as jit_type_t) as jit_value_t
 declare function jit_insn_store_elem(byval func as jit_function_t, byval base_addr as jit_value_t, byval index as jit_value_t, byval value as jit_value_t) as long
 declare function jit_insn_check_null(byval func as jit_function_t, byval value as jit_value_t) as long
+declare function jit_insn_nop(byval func as jit_function_t) as long
 declare function jit_insn_add(byval func as jit_function_t, byval value1 as jit_value_t, byval value2 as jit_value_t) as jit_value_t
 declare function jit_insn_add_ovf(byval func as jit_function_t, byval value1 as jit_value_t, byval value2 as jit_value_t) as jit_value_t
 declare function jit_insn_sub(byval func as jit_function_t, byval value1 as jit_value_t, byval value2 as jit_value_t) as jit_value_t
