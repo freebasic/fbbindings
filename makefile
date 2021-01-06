@@ -1,4 +1,4 @@
-FBFROG_VERSION := e07d699e8fdb604906e98c18c99973a9512d8f34
+FBFROG_VERSION := aed66ab78f5aa35dad88d16fe390aeda7424c9e3
 
 ALL := 
 
@@ -137,7 +137,7 @@ $(LOCAL_FBFROG_DIR):
 	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
 
 $(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) | $(LOCAL_FBFROG_DIR)
-	cd $(LOCAL_FBFROG_DIR) && make
+	cd $(LOCAL_FBFROG_DIR) && make FBFLAGS="-gen gcc -O 3"
 
 $(FAKECONFIGURE): fake-configure.bas
 	fbc $< -g -exx

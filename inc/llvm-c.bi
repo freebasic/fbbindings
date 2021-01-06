@@ -1030,7 +1030,7 @@ const LLVM_USE_OPROFILE = 0
 const LLVM_VERSION_MAJOR = 5
 const LLVM_VERSION_MINOR = 0
 const LLVM_VERSION_PATCH = 0
-#define LLVM_VERSION_STRING "5.0.0git-ca6ec475"
+#define LLVM_VERSION_STRING "5.0.0git-209bfbe4"
 
 type LLVMByteOrdering as long
 enum
