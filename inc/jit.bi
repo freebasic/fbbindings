@@ -66,7 +66,7 @@ type jit_float64 as double
 type jit_ptr as any ptr
 
 #define JIT_NOTHROW
-#define jit_min_int (cast(jit_int, 1) shl ((sizeof(jit_int) * 8) - 1))
+#define jit_min_int clng(cast(jit_int, 1) shl ((sizeof(jit_int) * 8) - 1))
 #define jit_max_int cast(jit_int, not jit_min_int)
 const jit_max_uint = cast(jit_uint, not cast(jit_uint, 0))
 #define jit_min_long (cast(jit_long, 1) shl ((sizeof(jit_long) * 8) - 1))
@@ -82,7 +82,7 @@ type jit_value_t as _jit_value ptr
 type jit_type_t as _jit_type ptr
 type jit_stack_trace_t as jit_stack_trace ptr
 type jit_label_t as jit_nuint
-const jit_label_undefined = cast(jit_label_t, not cast(jit_uint, 0))
+const jit_label_undefined = cast(jit_label_t, culng(not cast(jit_uint, 0)))
 const JIT_NO_OFFSET = culng(not culng(0))
 type jit_meta_free_func as sub(byval data as any ptr)
 type jit_on_demand_func as function(byval func as jit_function_t) as long
