@@ -1,7 +1,25 @@
 -removedefine RMDEF
 
-# Instead of RAYMATH_STANDALONE, just use ifndefs
+# Instead of end-users having to define RAYMATH_STANDALONE, we just use ifndefs.
+# This define ensures all defines present in raymath.bi.
 -define RAYMATH_STANDALONE
+
+# The RAYMATH_HEADER_ONLY and RAYMATH_IMPLEMENTATION defines in raymath.h don't
+# work for us because fbfrog always emits functions with bodies as private, and
+# C and FB's inline/static function semantics differ anyway.
+# (We could support RAYMATH_IMPLEMENTATION only by editing the .bi.)
+# By default raymath.h uses "inline" which allows the C compiler to either inline
+# or call an external implementation in libraylib. We act compatibly: if
+# raylib.bi has been included then we call external implementations, if not
+# or if RAYMATH_HEADER_ONLY is defined, then use private implementations.
+-declarebool RAYMATH_HEADER_ONLY
+-declarebool RAYLIB_H
+-ifdef RAYMATH_HEADER_ONLY
+-else
+	-ifdef RAYLIB_H
+		-nofunctionbodies
+	-endif
+-endif
 
 -rename_ left
 -rename_ right
