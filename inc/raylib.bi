@@ -47,7 +47,7 @@
 #elseif defined(__FB_DARWIN__)
 	#inclib "OpenGL"
 	#inclib "Cocoa"
-#else
+#elseif defined(__FB_WIN32__)
 	#inclib "opengl32"
 	#inclib "gdi32"
 	#inclib "winmm"
