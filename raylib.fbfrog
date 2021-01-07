@@ -1,5 +1,6 @@
+-replacements raylib.replacements
+
 -removedefine RLAPI
--removedefine RMDEF
 -removedefine CLITERAL
 
 -fbfroginclude stdbool.h
@@ -10,5 +11,11 @@
 -noexpand RAD2DEG
 
 -rename_ end
+
+# Needed because RAYMATH_STANDALONE used. Unlike C, allows raymath.bi to be included before raylib.bi
+-ifndefdecl Vector2
+-ifndefdecl Vector3
+-ifndefdecl Quaternion
+-ifndefdecl Matrix
 
 -addforwarddecl rAudioBuffer

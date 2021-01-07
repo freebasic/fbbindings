@@ -1,5 +1,9 @@
+-removedefine RMDEF
+
+# Instead of RAYMATH_STANDALONE, just use ifndefs
 -define RAYMATH_STANDALONE
 
 -rename_ left
 -rename_ right
 -rename_ to
+
