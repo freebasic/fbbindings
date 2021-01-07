@@ -2284,15 +2284,46 @@ raylib:
 	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h createdir
 	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h createdir
 
-	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- >> raylib.tmp
+	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- > raylib.tmp
 	# raymath.h contains its own version number which differs from raylib, so include that
 	sed -n 3,4p extracted/$(RAYMATH)/raymath.h | cut -c4- > raymath.tmp
 	sed -n 21,38p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
+
+	# List of libraries (for static linking) taken from raylib's
+	# examples/Makefile. It's documented as requiring various X11 libs but
+	# the Makefile states "NOTE: It seems additional libraries are not
+	# required any more, latest GLFW just dlopen them"
 
 	$(FBFROG) raylib.fbfrog \
 		extracted/$(RAYLIB)/raylib.h \
 		-o inc/raylib.bi \
 		-inclib raylib \
+		-selecttarget \
+		-case windows \
+			-inclib opengl32 \
+			-inclib gdi32 \
+			-inclib winmm \
+		-case cygwin \
+			-inclib opengl32 \
+			-inclib gdi32 \
+			-inclib winmm \
+		-case linux \
+			-inclib GL \
+			-inclib X11 \
+			-inclib dl \
+			-inclib rt \
+		-case darwin \
+			-inclib OpenGL \
+			-inclib Cocoa \
+		-caseelse \
+			-inclib GL \
+			-inclib X11 \
+			-inclib Xrandr \
+			-inclib Xinerama \
+			-inclib Xi \
+			-inclib Xxf86vm \
+			-inclib Xcursor \
+		-endselect \
 		-title $(RAYLIB) raylib.tmp fbteam.txt
 
 	$(FBFROG) raylib.fbfrog raymath.fbfrog \

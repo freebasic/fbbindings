@@ -1,3 +1,5 @@
+-target nodos
+
 -replacements raylib.replacements
 
 -removedefine RLAPI
