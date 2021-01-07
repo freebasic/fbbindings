@@ -88,6 +88,7 @@ ALL += png16
 ALL += portaudio
 ALL += postgresql
 ALL += quicklz
+ALL += raylib
 ALL += sdl
 ALL += sdl1
 ALL += sdl2
@@ -2274,6 +2275,30 @@ quicklz: tools
 	$(GETCOMMENT) -1-14 extracted/quicklz/quicklz.h > quicklz.tmp
 	#$(FBFROG) quicklz.fbfrog extracted/quicklz/quicklz.h -o inc/quicklz.bi \
 	#	-inclib quicklz -title QuickLZ quicklz.tmp fbteam.txt
+	rm *.tmp
+
+RAYLIB_VERSION := 3.0.0
+RAYLIB := raylib-$(RAYLIB_VERSION)
+RAYMATH := raymath-$(RAYLIB_VERSION)
+raylib:
+	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h createdir
+	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h createdir
+
+	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- >> raylib.tmp
+	# raymath.h contains its own version number which differs from raylib, so include that
+	sed -n 3,4p extracted/$(RAYMATH)/raymath.h | cut -c4- > raymath.tmp
+	sed -n 21,38p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
+
+	$(FBFROG) raylib.fbfrog \
+		extracted/$(RAYLIB)/raylib.h \
+		-o inc/raylib.bi \
+		-inclib raylib \
+		-title $(RAYLIB) raylib.tmp fbteam.txt
+
+	$(FBFROG) raylib.fbfrog raymath.fbfrog \
+		extracted/$(RAYMATH)/raymath.h \
+		-o inc/raymath.bi \
+		-title "raymath from $(RAYLIB)" raymath.tmp fbteam.txt
 	rm *.tmp
 
 sdl: sdl1 sdl2
