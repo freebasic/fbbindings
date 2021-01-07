@@ -30,7 +30,7 @@
 
 #inclib "raylib"
 
-#if defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#if defined(__FB_CYGWIN__) or defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#inclib "GL"
 	#inclib "X11"
 #endif
@@ -38,7 +38,7 @@
 #ifdef __FB_LINUX__
 	#inclib "dl"
 	#inclib "rt"
-#elseif defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+#elseif defined(__FB_CYGWIN__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
 	#inclib "Xrandr"
 	#inclib "Xinerama"
 	#inclib "Xi"
