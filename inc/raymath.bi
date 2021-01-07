@@ -849,10 +849,10 @@ private function QuaternionSlerp(byval q1 as Quaternion, byval q2 as Quaternion,
 	return result
 end function
 
-private function QuaternionFromVector3ToVector3(byval from as Vector3, byval to as Vector3) as Quaternion
+private function QuaternionFromVector3ToVector3(byval from as Vector3, byval to_ as Vector3) as Quaternion
 	dim result as Quaternion = (0)
-	dim cos2Theta as single = Vector3DotProduct(from, to)
-	dim cross as Vector3 = Vector3CrossProduct(from, to)
+	dim cos2Theta as single = Vector3DotProduct(from, to_)
+	dim cross as Vector3 = Vector3CrossProduct(from, to_)
 	result.x = cross.x
 	result.y = cross.y
 	result.z = cross.y
