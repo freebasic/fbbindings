@@ -1,0 +1,5 @@
+-define RAYMATH_STANDALONE
+
+-rename_ left
+-rename_ right
+-rename_ to

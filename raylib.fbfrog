@@ -1,0 +1,14 @@
+-removedefine RLAPI
+-removedefine RMDEF
+-removedefine CLITERAL
+
+-fbfroginclude stdbool.h
+-removeinclude stdbool.h
+
+-noexpand PI
+-noexpand DEG2RAD
+-noexpand RAD2DEG
+
+-rename_ end
+
+-addforwarddecl rAudioBuffer
