@@ -38,42 +38,50 @@ const RAD2DEG = 180.0f / PI
 #define MatrixToFloat(mat) MatrixToFloatV(mat).v
 #define Vector3ToFloat(vec) Vector3ToFloatV(vec).v
 
-type Vector2
-	x as single
-	y as single
-end type
+#ifndef Vector2
+	type Vector2
+		x as single
+		y as single
+	end type
+#endif
 
-type Vector3
-	x as single
-	y as single
-	z as single
-end type
+#ifndef Vector3
+	type Vector3
+		x as single
+		y as single
+		z as single
+	end type
+#endif
 
-type Quaternion
-	x as single
-	y as single
-	z as single
-	w as single
-end type
+#ifndef Quaternion
+	type Quaternion
+		x as single
+		y as single
+		z as single
+		w as single
+	end type
+#endif
 
-type Matrix
-	m0 as single
-	m4 as single
-	m8 as single
-	m12 as single
-	m1 as single
-	m5 as single
-	m9 as single
-	m13 as single
-	m2 as single
-	m6 as single
-	m10 as single
-	m14 as single
-	m3 as single
-	m7 as single
-	m11 as single
-	m15 as single
-end type
+#ifndef Matrix
+	type Matrix
+		m0 as single
+		m4 as single
+		m8 as single
+		m12 as single
+		m1 as single
+		m5 as single
+		m9 as single
+		m13 as single
+		m2 as single
+		m6 as single
+		m10 as single
+		m14 as single
+		m3 as single
+		m7 as single
+		m11 as single
+		m15 as single
+	end type
+#endif
 
 type float3
 	v(0 to 2) as single

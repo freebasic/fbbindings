@@ -36,7 +36,7 @@
 extern "C"
 
 #define RAYLIB_H
-const PI = 3.14159265358979323846f
+const PI = 3.14159265358979323846
 const DEG2RAD = PI / 180.0f
 const RAD2DEG = 180.0f / PI
 const MAX_TOUCH_POINTS = 10
@@ -72,16 +72,20 @@ const MAX_TOUCH_POINTS = 10
 #define MAGENTA      type<Color>( 255, 0, 255, 255 )
 #define RAYWHITE     type<Color>( 245, 245, 245, 255 )
 
-type Vector2
-	x as single
-	y as single
-end type
+#ifndef Vector2
+	type Vector2
+		x as single
+		y as single
+	end type
+#endif
 
-type Vector3
-	x as single
-	y as single
-	z as single
-end type
+#ifndef Vector3
+	type Vector3
+		x as single
+		y as single
+		z as single
+	end type
+#endif
 
 type Vector4
 	x as single
@@ -90,26 +94,30 @@ type Vector4
 	w as single
 end type
 
-type Quaternion as Vector4
+#ifndef Quaternion
+	type Quaternion as Vector4
+#endif
 
-type Matrix
-	m0 as single
-	m4 as single
-	m8 as single
-	m12 as single
-	m1 as single
-	m5 as single
-	m9 as single
-	m13 as single
-	m2 as single
-	m6 as single
-	m10 as single
-	m14 as single
-	m3 as single
-	m7 as single
-	m11 as single
-	m15 as single
-end type
+#ifndef Matrix
+	type Matrix
+		m0 as single
+		m4 as single
+		m8 as single
+		m12 as single
+		m1 as single
+		m5 as single
+		m9 as single
+		m13 as single
+		m2 as single
+		m6 as single
+		m10 as single
+		m14 as single
+		m3 as single
+		m7 as single
+		m11 as single
+		m15 as single
+	end type
+#endif
 
 type Color
 	r as ubyte
