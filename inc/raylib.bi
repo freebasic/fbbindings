@@ -30,6 +30,29 @@
 
 #inclib "raylib"
 
+#if defined(__FB_LINUX__) or defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+	#inclib "GL"
+	#inclib "X11"
+#endif
+
+#ifdef __FB_LINUX__
+	#inclib "dl"
+	#inclib "rt"
+#elseif defined(__FB_FREEBSD__) or defined(__FB_OPENBSD__) or defined(__FB_NETBSD__)
+	#inclib "Xrandr"
+	#inclib "Xinerama"
+	#inclib "Xi"
+	#inclib "Xxf86vm"
+	#inclib "Xcursor"
+#elseif defined(__FB_DARWIN__)
+	#inclib "OpenGL"
+	#inclib "Cocoa"
+#else
+	#inclib "opengl32"
+	#inclib "gdi32"
+	#inclib "winmm"
+#endif
+
 #include once "crt/long.bi"
 #include once "crt/stdarg.bi"
 
