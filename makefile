@@ -47,6 +47,7 @@ ALL += gdkpixbuf
 # TODO : maybe remove it
 ALL += gdsl
 
+ALL += giflib
 ALL += glib
 ALL += glfw
 ALL += glut
@@ -1061,49 +1062,6 @@ freetype: tools
 
 	rm *.tmp
 
-GLFW2_VERSION := 2.7.9
-GLFW3_VERSION := 3.1.1
-GLFW2 := glfw-$(GLFW2_VERSION)
-GLFW3 := glfw-$(GLFW3_VERSION)
-glfw: tools
-	./get.sh $(GLFW2) $(GLFW2).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
-	./get.sh $(GLFW3) $(GLFW3).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
-
-	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
-	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
-
-	mkdir -p inc/GL inc/GLFW
-
-	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
-		-iftarget windows \
-			-ifdef GLFW_DLL \
-				-inclib glfwdll \
-			-else \
-				-inclib glfw \
-				-inclib user32 \
-				-inclib gdi32 \
-			-endif \
-		-else \
-			-inclib glfw \
-		-endif \
-		-title $(GLFW2) glfw2.tmp fbteam.txt
-
-	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
-		-iftarget windows \
-			-ifdef GLFW_DLL \
-				-inclib glfw3dll \
-			-else \
-				-inclib glfw3 \
-				-inclib user32 \
-				-inclib gdi32 \
-			-endif \
-		-else \
-			-inclib glfw \
-		-endif\
-		-title $(GLFW3) glfw3.tmp fbteam.txt
-
-	rm *.tmp
-
 GD := gd-2.1.1
 GDDIR := libgd-$(GD)
 gd: tools
@@ -1213,6 +1171,61 @@ gdsl: tools
 			-title $(GDSL) gdsl.tmp fbteam.txt
 	rm *.tmp
 
+GIFLIB4 := giflib-4.2.3
+GIFLIB5 := giflib-5.1.1
+giflib: tools
+	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
+	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
+	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp
+	cp extracted/$(GIFLIB5)/COPYING giflib5.tmp
+	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
+	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB5)/lib/gif_lib.h -o inc/gif_lib5.bi -title $(GIFLIB5) giflib5.tmp fbteam.txt
+	rm *.tmp
+
+GLFW2_VERSION := 2.7.9
+GLFW3_VERSION := 3.1.1
+GLFW2 := glfw-$(GLFW2_VERSION)
+GLFW3 := glfw-$(GLFW3_VERSION)
+glfw: tools
+	./get.sh $(GLFW2) $(GLFW2).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW2_VERSION)/$(GLFW2).tar.bz2/download
+	./get.sh $(GLFW3) $(GLFW3).tar.bz2 https://sourceforge.net/projects/glfw/files/glfw/$(GLFW3_VERSION)/$(GLFW3).tar.bz2/download
+
+	$(GETCOMMENT) extracted/$(GLFW2)/include/GL/glfw.h    > glfw2.tmp
+	$(GETCOMMENT) extracted/$(GLFW3)/include/GLFW/glfw3.h > glfw3.tmp
+
+	mkdir -p inc/GL inc/GLFW
+
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW2)/include/GL/glfw.h -o inc/GL/glfw.bi \
+		-iftarget windows \
+			-ifdef GLFW_DLL \
+				-inclib glfwdll \
+			-else \
+				-inclib glfw \
+				-inclib user32 \
+				-inclib gdi32 \
+			-endif \
+		-else \
+			-inclib glfw \
+		-endif \
+		-title $(GLFW2) glfw2.tmp fbteam.txt
+
+	$(FBFROG) glfw.fbfrog extracted/$(GLFW3)/include/GLFW/glfw3.h -o inc/GLFW/glfw3.bi \
+		-iftarget windows \
+			-ifdef GLFW_DLL \
+				-inclib glfw3dll \
+			-else \
+				-inclib glfw3 \
+				-inclib user32 \
+				-inclib gdi32 \
+			-endif \
+		-else \
+			-inclib glfw \
+		-endif\
+		-title $(GLFW3) glfw3.tmp fbteam.txt
+
+	rm *.tmp
+
+
 GLIB_MAJOR := 2
 GLIB_MINOR := 44
 GLIB_MICRO := 1
@@ -1290,17 +1303,6 @@ glut: tools
 		-endselect \
 		-title $(GLUT) glut.tmp fbteam.txt
 
-	rm *.tmp
-
-GIFLIB4 := giflib-4.2.3
-GIFLIB5 := giflib-5.1.1
-giflib: tools
-	./get.sh $(GIFLIB4) $(GIFLIB4).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-4.x/$(GIFLIB4).tar.bz2/download
-	./get.sh $(GIFLIB5) $(GIFLIB5).tar.bz2 https://sourceforge.net/projects/giflib/files/giflib-5.1.1.tar.bz2/download
-	cp extracted/$(GIFLIB4)/COPYING giflib4.tmp
-	cp extracted/$(GIFLIB5)/COPYING giflib5.tmp
-	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB4)/lib/gif_lib.h -o inc/gif_lib4.bi -title $(GIFLIB4) giflib4.tmp fbteam.txt
-	$(FBFROG) giflib.fbfrog extracted/$(GIFLIB5)/lib/gif_lib.h -o inc/gif_lib5.bi -title $(GIFLIB5) giflib5.tmp fbteam.txt
 	rm *.tmp
 
 GMPPACKAGE := gmp-6.0.0a
