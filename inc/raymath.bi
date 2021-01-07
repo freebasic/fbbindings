@@ -355,10 +355,10 @@ private function Vector3Barycenter(byval p as Vector3, byval a as Vector3, byval
 end function
 
 private function Vector3ToFloatV(byval v as Vector3) as float3
-	dim buffer as float3 = (0)
-	buffer.v[0] = v.x
-	buffer.v[1] = v.y
-	buffer.v[2] = v.z
+	dim buffer as float3
+	buffer.v(0) = v.x
+	buffer.v(1) = v.y
+	buffer.v(2) = v.z
 	return buffer
 end function
 
@@ -389,7 +389,7 @@ private function MatrixTrace(byval mat as Matrix) as single
 end function
 
 private function MatrixTranspose(byval mat as Matrix) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	result.m0 = mat.m0
 	result.m1 = mat.m4
 	result.m2 = mat.m8
@@ -410,7 +410,7 @@ private function MatrixTranspose(byval mat as Matrix) as Matrix
 end function
 
 private function MatrixInvert(byval mat as Matrix) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim a00 as single = mat.m0
 	dim a01 as single = mat.m1
 	dim a02 as single = mat.m2
@@ -460,7 +460,7 @@ private function MatrixInvert(byval mat as Matrix) as Matrix
 end function
 
 private function MatrixNormalize(byval mat as Matrix) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim det as single = MatrixDeterminant(mat)
 	result.m0 = mat.m0 / det
 	result.m1 = mat.m1 / det
@@ -534,7 +534,7 @@ private function MatrixTranslate(byval x as single, byval y as single, byval z a
 end function
 
 private function MatrixRotate(byval axis as Vector3, byval angle as single) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim x as single = axis.x
 	dim y as single = axis.y
 	dim z as single = axis.z
@@ -626,7 +626,7 @@ private function MatrixScale(byval x as single, byval y as single, byval z as si
 end function
 
 private function MatrixMultiply(byval left_ as Matrix, byval right_ as Matrix) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	result.m0 = (((left_.m0 * right_.m0) + (left_.m1 * right_.m4)) + (left_.m2 * right_.m8)) + (left_.m3 * right_.m12)
 	result.m1 = (((left_.m0 * right_.m1) + (left_.m1 * right_.m5)) + (left_.m2 * right_.m9)) + (left_.m3 * right_.m13)
 	result.m2 = (((left_.m0 * right_.m2) + (left_.m1 * right_.m6)) + (left_.m2 * right_.m10)) + (left_.m3 * right_.m14)
@@ -647,7 +647,7 @@ private function MatrixMultiply(byval left_ as Matrix, byval right_ as Matrix) a
 end function
 
 private function MatrixFrustum(byval left_ as double, byval right_ as double, byval bottom as double, byval top as double, byval near as double, byval far as double) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim rl as single = csng(right_ - left_)
 	dim tb as single = csng(top - bottom)
 	dim fn as single = csng(far - near)
@@ -678,7 +678,7 @@ private function MatrixPerspective(byval fovy as double, byval aspect as double,
 end function
 
 private function MatrixOrtho(byval left_ as double, byval right_ as double, byval bottom as double, byval top as double, byval near as double, byval far as double) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim rl as single = csng(right_ - left_)
 	dim tb as single = csng(top - bottom)
 	dim fn as single = csng(far - near)
@@ -702,7 +702,7 @@ private function MatrixOrtho(byval left_ as double, byval right_ as double, byva
 end function
 
 private function MatrixLookAt(byval eye as Vector3, byval target as Vector3, byval up as Vector3) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim z as Vector3 = Vector3Subtract(eye, target)
 	z = Vector3Normalize(z)
 	dim x as Vector3 = Vector3CrossProduct(up, z)
@@ -730,23 +730,23 @@ private function MatrixLookAt(byval eye as Vector3, byval target as Vector3, byv
 end function
 
 private function MatrixToFloatV(byval mat as Matrix) as float16
-	dim buffer as float16 = (0)
-	buffer.v[0] = mat.m0
-	buffer.v[1] = mat.m1
-	buffer.v[2] = mat.m2
-	buffer.v[3] = mat.m3
-	buffer.v[4] = mat.m4
-	buffer.v[5] = mat.m5
-	buffer.v[6] = mat.m6
-	buffer.v[7] = mat.m7
-	buffer.v[8] = mat.m8
-	buffer.v[9] = mat.m9
-	buffer.v[10] = mat.m10
-	buffer.v[11] = mat.m11
-	buffer.v[12] = mat.m12
-	buffer.v[13] = mat.m13
-	buffer.v[14] = mat.m14
-	buffer.v[15] = mat.m15
+	dim buffer as float16
+	buffer.v(0) = mat.m0
+	buffer.v(1) = mat.m1
+	buffer.v(2) = mat.m2
+	buffer.v(3) = mat.m3
+	buffer.v(4) = mat.m4
+	buffer.v(5) = mat.m5
+	buffer.v(6) = mat.m6
+	buffer.v(7) = mat.m7
+	buffer.v(8) = mat.m8
+	buffer.v(9) = mat.m9
+	buffer.v(10) = mat.m10
+	buffer.v(11) = mat.m11
+	buffer.v(12) = mat.m12
+	buffer.v(13) = mat.m13
+	buffer.v(14) = mat.m14
+	buffer.v(15) = mat.m15
 	return buffer
 end function
 
@@ -761,7 +761,7 @@ private function QuaternionLength(byval q as Quaternion) as single
 end function
 
 private function QuaternionNormalize(byval q as Quaternion) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	dim length as single
 	dim ilength as single
 	length = QuaternionLength(q)
@@ -791,7 +791,7 @@ private function QuaternionInvert(byval q as Quaternion) as Quaternion
 end function
 
 private function QuaternionMultiply(byval q1 as Quaternion, byval q2 as Quaternion) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	dim qax as single = q1.x
 	dim qay as single = q1.y
 	dim qaz as single = q1.z
@@ -808,7 +808,7 @@ private function QuaternionMultiply(byval q1 as Quaternion, byval q2 as Quaterni
 end function
 
 private function QuaternionLerp(byval q1 as Quaternion, byval q2 as Quaternion, byval amount as single) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	result.x = q1.x + (amount * (q2.x - q1.x))
 	result.y = q1.y + (amount * (q2.y - q1.y))
 	result.z = q1.z + (amount * (q2.z - q1.z))
@@ -823,7 +823,7 @@ private function QuaternionNlerp(byval q1 as Quaternion, byval q2 as Quaternion,
 end function
 
 private function QuaternionSlerp(byval q1 as Quaternion, byval q2 as Quaternion, byval amount as single) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	dim cosHalfTheta as single = (((q1.x * q2.x) + (q1.y * q2.y)) + (q1.z * q2.z)) + (q1.w * q2.w)
 	if fabs(cosHalfTheta) >= 1.0f then
 		result = q1
@@ -850,7 +850,7 @@ private function QuaternionSlerp(byval q1 as Quaternion, byval q2 as Quaternion,
 end function
 
 private function QuaternionFromVector3ToVector3(byval from as Vector3, byval to_ as Vector3) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	dim cos2Theta as single = Vector3DotProduct(from, to_)
 	dim cross as Vector3 = Vector3CrossProduct(from, to_)
 	result.x = cross.x
@@ -862,7 +862,7 @@ private function QuaternionFromVector3ToVector3(byval from as Vector3, byval to_
 end function
 
 private function QuaternionFromMatrix(byval mat as Matrix) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	dim trace as single = MatrixTrace(mat)
 	if trace > 0.0f then
 		dim s as single = sqrtf(trace + 1) * 2.0f
@@ -902,7 +902,7 @@ private function QuaternionFromMatrix(byval mat as Matrix) as Quaternion
 end function
 
 private function QuaternionToMatrix(byval q as Quaternion) as Matrix
-	dim result as Matrix = (0)
+	dim result as Matrix
 	dim x as single = q.x
 	dim y as single = q.y
 	dim z as single = q.z
@@ -975,7 +975,7 @@ private sub QuaternionToAxisAngle(byval q as Quaternion, byval outAxis as Vector
 end sub
 
 private function QuaternionFromEuler(byval roll as single, byval pitch as single, byval yaw as single) as Quaternion
-	dim q as Quaternion = (0)
+	dim q as Quaternion
 	dim x0 as single = cosf(roll * 0.5f)
 	dim x1 as single = sinf(roll * 0.5f)
 	dim y0 as single = cosf(pitch * 0.5f)
@@ -990,7 +990,7 @@ private function QuaternionFromEuler(byval roll as single, byval pitch as single
 end function
 
 private function QuaternionToEuler(byval q as Quaternion) as Vector3
-	dim result as Vector3 = (0)
+	dim result as Vector3
 	dim x0 as single = 2.0f * ((q.w * q.x) + (q.y * q.z))
 	dim x1 as single = 1.0f - (2.0f * ((q.x * q.x) + (q.y * q.y)))
 	result.x = atan2f(x0, x1) * RAD2DEG
@@ -1005,7 +1005,7 @@ private function QuaternionToEuler(byval q as Quaternion) as Vector3
 end function
 
 private function QuaternionTransform(byval q as Quaternion, byval mat as Matrix) as Quaternion
-	dim result as Quaternion = (0)
+	dim result as Quaternion
 	result.x = (((mat.m0 * q.x) + (mat.m4 * q.y)) + (mat.m8 * q.z)) + (mat.m12 * q.w)
 	result.y = (((mat.m1 * q.x) + (mat.m5 * q.y)) + (mat.m9 * q.z)) + (mat.m13 * q.w)
 	result.z = (((mat.m2 * q.x) + (mat.m6 * q.y)) + (mat.m10 * q.z)) + (mat.m14 * q.w)

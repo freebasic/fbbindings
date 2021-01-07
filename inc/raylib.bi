@@ -45,32 +45,32 @@ const MAX_TOUCH_POINTS = 10
 #define RL_REALLOC(ptr, sz) realloc(ptr, sz)
 #define RL_FREE(ptr) free(ptr)
 
-'' TODO: #define LIGHTGRAY CLITERAL(Color){ 200, 200, 200, 255 }
-'' TODO: #define GRAY CLITERAL(Color){ 130, 130, 130, 255 }
-'' TODO: #define DARKGRAY CLITERAL(Color){ 80, 80, 80, 255 }
-'' TODO: #define YELLOW CLITERAL(Color){ 253, 249, 0, 255 }
-'' TODO: #define GOLD CLITERAL(Color){ 255, 203, 0, 255 }
-'' TODO: #define ORANGE CLITERAL(Color){ 255, 161, 0, 255 }
-'' TODO: #define PINK CLITERAL(Color){ 255, 109, 194, 255 }
-'' TODO: #define RED CLITERAL(Color){ 230, 41, 55, 255 }
-'' TODO: #define MAROON CLITERAL(Color){ 190, 33, 55, 255 }
-'' TODO: #define GREEN CLITERAL(Color){ 0, 228, 48, 255 }
-'' TODO: #define LIME CLITERAL(Color){ 0, 158, 47, 255 }
-'' TODO: #define DARKGREEN CLITERAL(Color){ 0, 117, 44, 255 }
-'' TODO: #define SKYBLUE CLITERAL(Color){ 102, 191, 255, 255 }
-'' TODO: #define BLUE CLITERAL(Color){ 0, 121, 241, 255 }
-'' TODO: #define DARKBLUE CLITERAL(Color){ 0, 82, 172, 255 }
-'' TODO: #define PURPLE CLITERAL(Color){ 200, 122, 255, 255 }
-'' TODO: #define VIOLET CLITERAL(Color){ 135, 60, 190, 255 }
-'' TODO: #define DARKPURPLE CLITERAL(Color){ 112, 31, 126, 255 }
-'' TODO: #define BEIGE CLITERAL(Color){ 211, 176, 131, 255 }
-'' TODO: #define BROWN CLITERAL(Color){ 127, 106, 79, 255 }
-'' TODO: #define DARKBROWN CLITERAL(Color){ 76, 63, 47, 255 }
-'' TODO: #define WHITE CLITERAL(Color){ 255, 255, 255, 255 }
-'' TODO: #define BLACK CLITERAL(Color){ 0, 0, 0, 255 }
-'' TODO: #define BLANK CLITERAL(Color){ 0, 0, 0, 0 }
-'' TODO: #define MAGENTA CLITERAL(Color){ 255, 0, 255, 255 }
-'' TODO: #define RAYWHITE CLITERAL(Color){ 245, 245, 245, 255 }
+#define LIGHTGRAY    type<Color>( 200, 200, 200, 255 )
+#define GRAY         type<Color>( 130, 130, 130, 255 )
+#define DARKGRAY     type<Color>( 80, 80, 80, 255 )
+#define YELLOW       type<Color>( 253, 249, 0, 255 )
+#define GOLD         type<Color>( 255, 203, 0, 255 )
+#define ORANGE       type<Color>( 255, 161, 0, 255 )
+#define PINK         type<Color>( 255, 109, 194, 255 )
+#define RED          type<Color>( 230, 41, 55, 255 )
+#define MAROON       type<Color>( 190, 33, 55, 255 )
+#define GREEN        type<Color>( 0, 228, 48, 255 )
+#define LIME         type<Color>( 0, 158, 47, 255 )
+#define DARKGREEN    type<Color>( 0, 117, 44, 255 )
+#define SKYBLUE      type<Color>( 102, 191, 255, 255 )
+#define BLUE         type<Color>( 0, 121, 241, 255 )
+#define DARKBLUE     type<Color>( 0, 82, 172, 255 )
+#define PURPLE       type<Color>( 200, 122, 255, 255 )
+#define VIOLET       type<Color>( 135, 60, 190, 255 )
+#define DARKPURPLE   type<Color>( 112, 31, 126, 255 )
+#define BEIGE        type<Color>( 211, 176, 131, 255 )
+#define BROWN        type<Color>( 127, 106, 79, 255 )
+#define DARKBROWN    type<Color>( 76, 63, 47, 255 )
+#define WHITE        type<Color>( 255, 255, 255, 255 )
+#define BLACK        type<Color>( 0, 0, 0, 255 )
+#define BLANK        type<Color>( 0, 0, 0, 0 )
+#define MAGENTA      type<Color>( 255, 0, 255, 255 )
+#define RAYWHITE     type<Color>( 245, 245, 245, 255 )
 
 type Vector2
 	x as single
@@ -111,7 +111,7 @@ type Matrix
 	m15 as single
 end type
 
-type Color '' TODO
+type Color
 	r as ubyte
 	g as ubyte
 	b as ubyte
