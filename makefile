@@ -2280,9 +2280,10 @@ quicklz: tools
 RAYLIB_VERSION := 3.0.0
 RAYLIB := raylib-$(RAYLIB_VERSION)
 RAYMATH := raymath-$(RAYLIB_VERSION)
-raylib:
-	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h createdir
-	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h createdir
+raylib: tools
+	rm -f tarballs/ray*.h  # Avoid issue w/ previous get.sh version. Remove, eventually
+	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h
+	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h
 
 	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- > raylib.tmp
 	# raymath.h contains its own version number which differs from raylib, so include that
@@ -2290,9 +2291,9 @@ raylib:
 	sed -n 21,38p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
 
 	# List of libraries (for static linking) taken from raylib's
-	# examples/Makefile. It's documented as requiring various X11 libs but
-	# the Makefile states "NOTE: It seems additional libraries are not
-	# required any more, latest GLFW just dlopen them"
+	# examples/Makefile. It's documented as requiring various X11 libs on
+	# GNU/Linux but the Makefile states "NOTE: It seems additional libraries
+	# are not required any more, latest GLFW just dlopen them"
 
 	$(FBFROG) raylib.fbfrog \
 		extracted/$(RAYLIB)/raylib.h \
