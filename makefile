@@ -2558,17 +2558,6 @@ soloud: tools
 	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/include/soloud_c.h \
 		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
-	# The default soloud library name changes between static/dynamic builds,
-	# (libsoloud_static.a) OS, and arch, and static libs don't include the C
-	# API anyway. It's a mess left to users to deal with.
-		# -selecttarget \
-		# -case windows-x86 \
-		# 	-inclib soloud_x86 \
-		# -case windows-x86_64 \
-		# 	-inclib soloud_x64 \
-		# -caseelse \
-		# 	-inclib soloud \
-		# -endselect
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.34.0"

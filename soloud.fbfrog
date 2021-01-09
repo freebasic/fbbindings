@@ -3,3 +3,22 @@
 -removedefine WINDOWS_VERSION
 
 -rename File SLFile
+
+# The default soloud library name changes between static/dynamic builds,
+# (libsoloud_static.a) OS, and arch, and static libs don't include the C
+# API anyway. It's a mess left to users to deal with.
+
+-declarebool SOLOUD_STATIC
+-ifdef SOLOUD_STATIC
+	-inclib soloud_static
+	-inclib supc++
+-else
+	-selecttarget
+	-case windows-x86
+		-inclib soloud_x86
+	-case windows-x86_64
+		-inclib soloud_x64
+	-caseelse
+		-inclib soloud
+	-endselect
+-endif
