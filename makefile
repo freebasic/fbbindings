@@ -2292,9 +2292,10 @@ quicklz: tools
 RAYLIB_VERSION := 3.0.0
 RAYLIB := raylib-$(RAYLIB_VERSION)
 RAYMATH := raymath-$(RAYLIB_VERSION)
-raylib:
-	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h createdir
-	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h createdir
+raylib: tools
+	rm -f tarballs/ray*.h  # Avoid issue w/ previous get.sh version. Remove, eventually
+	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h
+	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h
 
 	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- > raylib.tmp
 	# raymath.h contains its own version number which differs from raylib, so include that
@@ -2302,9 +2303,9 @@ raylib:
 	sed -n 21,38p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
 
 	# List of libraries (for static linking) taken from raylib's
-	# examples/Makefile. It's documented as requiring various X11 libs but
-	# the Makefile states "NOTE: It seems additional libraries are not
-	# required any more, latest GLFW just dlopen them"
+	# examples/Makefile. It's documented as requiring various X11 libs on
+	# GNU/Linux but the Makefile states "NOTE: It seems additional libraries
+	# are not required any more, latest GLFW just dlopen them"
 
 	$(FBFROG) raylib.fbfrog \
 		extracted/$(RAYLIB)/raylib.h \
@@ -2569,17 +2570,6 @@ soloud: tools
 	$(FBFROG) soloud.fbfrog extracted/$(SOLOUD)/include/soloud_c.h \
 		-o inc/soloud_c.bi \
 		-title $(SOLOUD) soloud.tmp fbteam.txt
-	# The default soloud library name changes between static/dynamic builds,
-	# (libsoloud_static.a) OS, and arch, and static libs don't include the C
-	# API anyway. It's a mess left to users to deal with.
-		# -selecttarget \
-		# -case windows-x86 \
-		# 	-inclib soloud_x86 \
-		# -case windows-x86_64 \
-		# 	-inclib soloud_x64 \
-		# -caseelse \
-		# 	-inclib soloud \
-		# -endselect
 	rm *.tmp
 
 SQLITE3_PRETTY := "SQLite 3.34.0"
