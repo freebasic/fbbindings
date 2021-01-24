@@ -869,11 +869,11 @@ curl: tools
 	rm *.tmp
 
 DEVIL_VERSION := 1.8.0
-DEVIL := devil-$(DEVIL_VERSION)
+DEVIL := DevIL-$(DEVIL_VERSION)
 DEVIL_PRETTY := DevIL-$(DEVIL_VERSION)
 devil: tools
-	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).zip/download createdir
-# https://sourceforge.net/projects/openil/files/DevIL/1.8.0/DevIL-1.8.0.tar.gz/download currently not downloading
+	./get.sh $(DEVIL) $(DEVIL).tar.gz https://sourceforge.net/projects/openil/files/DevIL/$(DEVIL_VERSION)/$(DEVIL_PRETTY).tar.gz/download createdir
+
 	sed -n 476,489p extracted/$(DEVIL)/DevIL/LICENSE | cut -c5- > devil.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/il.h   > devil-il.tmp
 	$(GETCOMMENT) -3-9 extracted/$(DEVIL)/DevIL/DevIL/include/IL/ilu.h  > devil-ilu.tmp
