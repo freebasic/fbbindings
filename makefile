@@ -30,7 +30,10 @@ ALL += cunit
 ALL += curl
 ALL += devil
 ALL += disphelper
-ALL += expat
+
+# current version of expat has been removed due to security issues
+# TODO : update to latest version
+# ALL += expat
 ALL += fastcgi
 ALL += ffi
 ALL += flite
@@ -95,7 +98,9 @@ ALL += sdl2
 ALL += sndfile
 ALL += soloud
 ALL += sqlite
-ALL += tre
+
+# laurikari.net certificate expired
+# ALL += tre
 ALL += uuid
 ALL += vlc
 ALL += vorbis
@@ -757,6 +762,7 @@ chipmunk: tools
 CLANG_VERSION := 5.0.0
 CLANG_TITLE := cfe-$(CLANG_VERSION).src
 clang: tools
+	# requires: cmake
 	./get.sh $(CLANG_TITLE) $(CLANG_TITLE).tar.xz "http://llvm.org/releases/$(CLANG_VERSION)/$(CLANG_TITLE).tar.xz"
 	sed -n 4,43p extracted/$(CLANG_TITLE)/LICENSE.TXT > clang.tmp
 	$(FBFROG) -o inc/clang-c.bi \
@@ -1717,6 +1723,7 @@ JIT_TITLE := libjit-0.1.4
 jit: tools
 	./get.sh $(JIT_TITLE) $(JIT_TITLE).tar.gz "http://git.savannah.gnu.org/cgit/libjit.git/snapshot/$(JIT_TITLE).tar.gz"
 
+	# requires: autoconf libtool bison flex
 	# libjit symlinks jit-arch.h to jit-arch-{x86|x86-64}.h and generates
 	# jit-opcode.h and jit-defs.h during its build process.
 	cd extracted/$(JIT_TITLE) && \
@@ -1851,6 +1858,7 @@ lzo: tools
 MEDIAINFO_VERSION := 0.7.77
 MEDIAINFO := libmediainfo_$(MEDIAINFO_VERSION)
 mediainfo: tools
+	# requires: lynx
 	./get.sh $(MEDIAINFO) $(MEDIAINFO).tar.xz http://mediaarea.net/download/source/libmediainfo/$(MEDIAINFO_VERSION)/$(MEDIAINFO).tar.xz createdir
 	sed -n 11,35p extracted/$(MEDIAINFO)/MediaInfoLib/License.html | cut -c5- | lynx -stdin -force_html -dump -nolist > mediainfo.tmp
 	$(FBFROG) mediainfo.fbfrog extracted/$(MEDIAINFO)/MediaInfoLib/Source/MediaInfoDLL/MediaInfoDLL_Static.h \

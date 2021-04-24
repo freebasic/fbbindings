@@ -39,13 +39,13 @@ if [ "$createdir" = "createdir" ]; then
 	mkdir "$output"
 	case "$download" in
 	*.zip)  unzip -q -d "$output/" "$download";;
-	*.tar*) tar xf "$download" -C "$output/";;
+	*.tar*|*.tgz) tar xf "$download" -C "$output/";;
 	*)      mv "$download" "$output/";;
 	esac
 else
 	case "$download" in
 	*.zip)  unzip -q -d "$outputdir/" "$download";;
-	*.tar*) tar xf "$download" -C "$outputdir/";;
+	*.tar*|*.tgz) tar xf "$download" -C "$outputdir/";;
 	*)      mkdir "$output";  # Always createdir
 		mv "$download" "$output/";;
 	esac
