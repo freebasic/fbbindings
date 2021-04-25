@@ -23,7 +23,7 @@
 ''      3. This notice may not be removed or altered from any source distribution.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2020 FreeBASIC development team
+''   Copyright © 2021 FreeBASIC development team
 
 #pragma once
 
