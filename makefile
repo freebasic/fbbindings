@@ -2258,7 +2258,7 @@ portaudio: tools
 		-title $(PORTAUDIO) portaudio.tmp fbteam.txt
 	rm *.tmp
 
-POSTGRESQL_VERSION := 12.0
+POSTGRESQL_VERSION := 14.0
 POSTGRESQL := postgresql-$(POSTGRESQL_VERSION)
 postgresql: tools
 	./get.sh $(POSTGRESQL) $(POSTGRESQL).tar.bz2 https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).tar.bz2
