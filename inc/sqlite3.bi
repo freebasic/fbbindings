@@ -1,4 +1,4 @@
-'' FreeBASIC binding for SQLite 3.34.0
+'' FreeBASIC binding for SQLite 3.36.0
 ''
 '' based on the C header files:
 ''   * 2001-09-15
@@ -33,7 +33,7 @@
 ''   * part of the build process.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2020 FreeBASIC development team
+''   Copyright © 2021 FreeBASIC development team
 
 #pragma once
 
@@ -45,9 +45,9 @@
 extern "C"
 
 #define SQLITE3_H
-#define SQLITE_VERSION "3.34.0"
-const SQLITE_VERSION_NUMBER = 3034000
-#define SQLITE_SOURCE_ID "2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089fed5b"
+#define SQLITE_VERSION "3.36.0"
+const SQLITE_VERSION_NUMBER = 3036000
+#define SQLITE_SOURCE_ID "2021-06-18 18:36:39 5c9a6c06871cb9fe42814af9c039eb6da5427a6ec28f187af7ebfb62eafa66e5"
 extern __sqlite3_version alias "sqlite3_version" as const byte
 #define sqlite3_version (*cptr(const zstring ptr, @__sqlite3_version))
 
@@ -284,6 +284,8 @@ const SQLITE_FCNTL_SIZE_LIMIT = 36
 const SQLITE_FCNTL_CKPT_DONE = 37
 const SQLITE_FCNTL_RESERVE_BYTES = 38
 const SQLITE_FCNTL_CKPT_START = 39
+const SQLITE_FCNTL_EXTERNAL_READER = 40
+const SQLITE_FCNTL_CKSM_FILE = 41
 const SQLITE_GET_LOCKPROXYFILE = SQLITE_FCNTL_GET_LOCKPROXYFILE
 const SQLITE_SET_LOCKPROXYFILE = SQLITE_FCNTL_SET_LOCKPROXYFILE
 const SQLITE_LAST_ERRNO = SQLITE_FCNTL_LAST_ERRNO
@@ -850,7 +852,9 @@ const SQLITE_TESTCTRL_RESULT_INTREAL = 27
 const SQLITE_TESTCTRL_PRNG_SEED = 28
 const SQLITE_TESTCTRL_EXTRA_SCHEMA_CHECKS = 29
 const SQLITE_TESTCTRL_SEEK_COUNT = 30
-const SQLITE_TESTCTRL_LAST = 30
+const SQLITE_TESTCTRL_TRACEFLAGS = 31
+const SQLITE_TESTCTRL_TUNE = 32
+const SQLITE_TESTCTRL_LAST = 32
 
 declare function sqlite3_keyword_count() as long
 declare function sqlite3_keyword_name(byval as long, byval as const zstring ptr ptr, byval as long ptr) as long

@@ -1,4 +1,4 @@
-'' FreeBASIC binding for SQLite 3.34.0
+'' FreeBASIC binding for SQLite 3.36.0
 ''
 '' based on the C header files:
 ''   * 2006 June 7
@@ -18,7 +18,7 @@
 ''   * sqlite3.h.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2020 FreeBASIC development team
+''   Copyright © 2021 FreeBASIC development team
 
 #pragma once
 
