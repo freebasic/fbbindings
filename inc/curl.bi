@@ -1,7 +1,7 @@
-'' FreeBASIC binding for curl-7.73.0
+'' FreeBASIC binding for curl-7.79.1
 ''
 '' based on the C header files:
-''   Copyright (c) 1996 - 2020, Daniel Stenberg, <daniel@haxx.se>, and many
+''   Copyright (c) 1996 - 2021, Daniel Stenberg, <daniel@haxx.se>, and many
 ''   contributors, see the THANKS file.
 ''
 ''   All rights reserved.
@@ -23,7 +23,7 @@
 ''   in this Software without prior written authorization of the copyright holder.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2020 FreeBASIC development team
+''   Copyright © 2021 FreeBASIC development team
 
 #pragma once
 
@@ -51,13 +51,13 @@ extern "C"
 
 #define CURLINC_CURL_H
 #define CURLINC_CURLVER_H
-#define LIBCURL_COPYRIGHT "1996 - 2020 Daniel Stenberg, <daniel@haxx.se>."
-#define LIBCURL_VERSION "7.73.0"
+#define LIBCURL_COPYRIGHT "1996 - 2021 Daniel Stenberg, <daniel@haxx.se>."
+#define LIBCURL_VERSION "7.79.1"
 const LIBCURL_VERSION_MAJOR = 7
-const LIBCURL_VERSION_MINOR = 73
-const LIBCURL_VERSION_PATCH = 0
-const LIBCURL_VERSION_NUM = &h074900
-#define LIBCURL_TIMESTAMP "2020-10-14"
+const LIBCURL_VERSION_MINOR = 79
+const LIBCURL_VERSION_PATCH = 1
+const LIBCURL_VERSION_NUM = &h074f01
+#define LIBCURL_TIMESTAMP "2021-09-22"
 #define CURL_VERSION_BITS(x, y, z) ((((x) shl 16) or ((y) shl 8)) or (z))
 #define CURL_AT_LEAST_VERSION(x, y, z) (LIBCURL_VERSION_NUM >= CURL_VERSION_BITS(x, y, z))
 #define CURLINC_SYSTEM_H
@@ -117,6 +117,7 @@ enum
 	CURLSSLBACKEND_MBEDTLS = 11
 	CURLSSLBACKEND_MESALINK = 12
 	CURLSSLBACKEND_BEARSSL = 13
+	CURLSSLBACKEND_RUSTLS = 14
 end enum
 
 const CURLSSLBACKEND_LIBRESSL = CURLSSLBACKEND_OPENSSL
@@ -338,7 +339,7 @@ enum
 	CURLE_OBSOLETE46
 	CURLE_TOO_MANY_REDIRECTS
 	CURLE_UNKNOWN_OPTION
-	CURLE_TELNET_OPTION_SYNTAX
+	CURLE_SETOPT_OPTION_SYNTAX
 	CURLE_OBSOLETE50
 	CURLE_OBSOLETE51
 	CURLE_GOT_NOTHING
@@ -387,6 +388,7 @@ enum
 	CURLE_HTTP3
 	CURLE_QUIC_CONNECT_ERROR
 	CURLE_PROXY
+	CURLE_SSL_CLIENTCERT
 	CURL_LAST
 end enum
 
@@ -396,6 +398,7 @@ const CURLE_OBSOLETE12 = CURLE_FTP_ACCEPT_TIMEOUT
 const CURLE_FTP_WEIRD_SERVER_REPLY = CURLE_WEIRD_SERVER_REPLY
 const CURLE_SSL_CACERT = CURLE_PEER_FAILED_VERIFICATION
 const CURLE_UNKNOWN_TELNET_OPTION = CURLE_UNKNOWN_OPTION
+const CURLE_TELNET_OPTION_SYNTAX = CURLE_SETOPT_OPTION_SYNTAX
 const CURLE_SSL_PEER_CERTIFICATE = CURLE_PEER_FAILED_VERIFICATION
 const CURLE_OBSOLETE = CURLE_OBSOLETE50
 const CURLE_BAD_PASSWORD_ENTERED = CURLE_OBSOLETE46
@@ -488,6 +491,7 @@ const CURLAUTH_NTLM = cast(culong, 1) shl 3
 const CURLAUTH_DIGEST_IE = cast(culong, 1) shl 4
 const CURLAUTH_NTLM_WB = cast(culong, 1) shl 5
 const CURLAUTH_BEARER = cast(culong, 1) shl 6
+const CURLAUTH_AWS_SIGV4 = cast(culong, 1) shl 7
 const CURLAUTH_ONLY = cast(culong, 1) shl 31
 const CURLAUTH_ANY = not CURLAUTH_DIGEST_IE
 const CURLAUTH_ANYSAFE = not (CURLAUTH_BASIC or CURLAUTH_DIGEST_IE)
@@ -555,6 +559,7 @@ const CURLSSLOPT_NO_REVOKE = 1 shl 1
 const CURLSSLOPT_NO_PARTIALCHAIN = 1 shl 2
 const CURLSSLOPT_REVOKE_BEST_EFFORT = 1 shl 3
 const CURLSSLOPT_NATIVE_CA = 1 shl 4
+const CURLSSLOPT_AUTO_CLIENT_CERT = 1 shl 5
 const CURL_HET_DEFAULT = cast(clong, 200)
 const CURL_UPKEEP_INTERVAL_DEFAULT = cast(clong, 60000)
 const CURLFTPSSL_NONE = CURLUSESSL_NONE
@@ -599,11 +604,34 @@ end enum
 
 const CURLHEADER_UNIFIED = 0
 const CURLHEADER_SEPARATE = 1 shl 0
-const CURLALTSVC_IMMEDIATELY = 1 shl 0
 const CURLALTSVC_READONLYFILE = 1 shl 2
 const CURLALTSVC_H1 = 1 shl 3
 const CURLALTSVC_H2 = 1 shl 4
 const CURLALTSVC_H3 = 1 shl 5
+
+type curl_hstsentry
+	name as zstring ptr
+	namelen as uinteger
+	includeSubDomains : 1 as ulong
+	expire as zstring * 18
+end type
+
+type curl_index
+	index as uinteger
+	total as uinteger
+end type
+
+type CURLSTScode as long
+enum
+	CURLSTS_OK
+	CURLSTS_DONE
+	CURLSTS_FAIL
+end enum
+
+type curl_hstsread_callback as function(byval easy as CURL ptr, byval e as curl_hstsentry ptr, byval userp as any ptr) as CURLSTScode
+type curl_hstswrite_callback as function(byval easy as CURL ptr, byval e as curl_hstsentry ptr, byval i as curl_index ptr, byval userp as any ptr) as CURLSTScode
+const CURLHSTS_ENABLE = cast(clong, 1 shl 0)
+const CURLHSTS_READONLYFILE = cast(clong, 1 shl 1)
 const CURLPROTO_HTTP = 1 shl 0
 const CURLPROTO_HTTPS = 1 shl 1
 const CURLPROTO_FTP = 1 shl 2
@@ -633,6 +661,7 @@ const CURLPROTO_GOPHER = 1 shl 25
 const CURLPROTO_SMB = 1 shl 26
 const CURLPROTO_SMBS = 1 shl 27
 const CURLPROTO_MQTT = 1 shl 28
+const CURLPROTO_GOPHERS = 1 shl 29
 const CURLPROTO_ALL = not 0
 const CURLOPTTYPE_LONG = 0
 const CURLOPTTYPE_OBJECTPOINT = 10000
@@ -919,14 +948,26 @@ enum
 	CURLOPT_MAXAGE_CONN = CURLOPTTYPE_LONG + 288
 	CURLOPT_SASL_AUTHZID = CURLOPTTYPE_OBJECTPOINT + 289
 	CURLOPT_MAIL_RCPT_ALLLOWFAILS = CURLOPTTYPE_LONG + 290
-	CURLOPT_SSLCERT_BLOB = 40000 + 291
-	CURLOPT_SSLKEY_BLOB = 40000 + 292
-	CURLOPT_PROXY_SSLCERT_BLOB = 40000 + 293
-	CURLOPT_PROXY_SSLKEY_BLOB = 40000 + 294
-	CURLOPT_ISSUERCERT_BLOB = 40000 + 295
+	CURLOPT_SSLCERT_BLOB = CURLOPTTYPE_BLOB + 291
+	CURLOPT_SSLKEY_BLOB = CURLOPTTYPE_BLOB + 292
+	CURLOPT_PROXY_SSLCERT_BLOB = CURLOPTTYPE_BLOB + 293
+	CURLOPT_PROXY_SSLKEY_BLOB = CURLOPTTYPE_BLOB + 294
+	CURLOPT_ISSUERCERT_BLOB = CURLOPTTYPE_BLOB + 295
 	CURLOPT_PROXY_ISSUERCERT = CURLOPTTYPE_OBJECTPOINT + 296
-	CURLOPT_PROXY_ISSUERCERT_BLOB = 40000 + 297
+	CURLOPT_PROXY_ISSUERCERT_BLOB = CURLOPTTYPE_BLOB + 297
 	CURLOPT_SSL_EC_CURVES = CURLOPTTYPE_OBJECTPOINT + 298
+	CURLOPT_HSTS_CTRL = CURLOPTTYPE_LONG + 299
+	CURLOPT_HSTS = CURLOPTTYPE_OBJECTPOINT + 300
+	CURLOPT_HSTSREADFUNCTION = CURLOPTTYPE_FUNCTIONPOINT + 301
+	CURLOPT_HSTSREADDATA = CURLOPTTYPE_OBJECTPOINT + 302
+	CURLOPT_HSTSWRITEFUNCTION = CURLOPTTYPE_FUNCTIONPOINT + 303
+	CURLOPT_HSTSWRITEDATA = CURLOPTTYPE_OBJECTPOINT + 304
+	CURLOPT_AWS_SIGV4 = CURLOPTTYPE_OBJECTPOINT + 305
+	CURLOPT_DOH_SSL_VERIFYPEER = CURLOPTTYPE_LONG + 306
+	CURLOPT_DOH_SSL_VERIFYHOST = CURLOPTTYPE_LONG + 307
+	CURLOPT_DOH_SSL_VERIFYSTATUS = CURLOPTTYPE_LONG + 308
+	CURLOPT_CAINFO_BLOB = CURLOPTTYPE_BLOB + 309
+	CURLOPT_PROXY_CAINFO_BLOB = CURLOPTTYPE_BLOB + 310
 	CURLOPT_LASTENTRY
 end enum
 
@@ -1220,7 +1261,8 @@ enum
 	CURLINFO_RETRY_AFTER = CURLINFO_OFF_T + 57
 	CURLINFO_EFFECTIVE_METHOD = CURLINFO_STRING + 58
 	CURLINFO_PROXY_ERROR = CURLINFO_LONG + 59
-	CURLINFO_LASTONE = 59
+	CURLINFO_REFERER = CURLINFO_STRING + 60
+	CURLINFO_LASTONE = 60
 end enum
 
 const CURLINFO_HTTP_CODE = CURLINFO_RESPONSE_CODE
@@ -1302,10 +1344,12 @@ enum
 	CURLVERSION_SIXTH
 	CURLVERSION_SEVENTH
 	CURLVERSION_EIGHTH
+	CURLVERSION_NINTH
+	CURLVERSION_TENTH
 	CURLVERSION_LAST
 end enum
 
-const CURLVERSION_NOW = CURLVERSION_EIGHTH
+const CURLVERSION_NOW = CURLVERSION_TENTH
 
 type curl_version_info_data
 	age as CURLversion
@@ -1331,6 +1375,8 @@ type curl_version_info_data
 	capath as const zstring ptr
 	zstd_ver_num as ulong
 	zstd_version as const zstring ptr
+	hyper_version as const zstring ptr
+	gsasl_version as const zstring ptr
 end type
 
 const CURL_VERSION_IPV6 = 1 shl 0
@@ -1361,6 +1407,8 @@ const CURL_VERSION_ALTSVC = 1 shl 24
 const CURL_VERSION_HTTP3 = 1 shl 25
 const CURL_VERSION_ZSTD = 1 shl 26
 const CURL_VERSION_UNICODE = 1 shl 27
+const CURL_VERSION_HSTS = 1 shl 28
+const CURL_VERSION_GSASL = 1 shl 29
 
 declare function curl_version_info(byval as CURLversion) as curl_version_info_data ptr
 declare function curl_easy_strerror(byval as CURLcode) as const zstring ptr
@@ -1562,6 +1610,7 @@ const CURLU_URLENCODE = 1 shl 7
 const CURLU_APPENDQUERY = 1 shl 8
 const CURLU_GUESS_SCHEME = 1 shl 9
 const CURLU_NO_AUTHORITY = 1 shl 10
+const CURLU_ALLOW_SPACE = 1 shl 11
 type CURLU as Curl_URL
 
 declare function curl_url() as CURLU ptr
