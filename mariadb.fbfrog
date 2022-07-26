@@ -1,0 +1,14 @@
+-inclib mariadb
+-target nodos
+-iftarget windows
+	-inclib kernel32
+-endif
+-removedefine STDCALL
+-removedefine MYSQL_CLIENT_PLUGIN_HEADER 
+-rename_ mysql_port
+-rename_ CHARSET_DIR
+-addforwarddecl st_mariadb_net_extension
+-addforwarddecl st_mysql_options_extension
+-addforwarddecl st_mariadb_extension
+-addforwarddecl st_dynamic_array
+-replacements mariadb.replacements

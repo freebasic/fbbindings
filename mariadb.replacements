@@ -1,0 +1,4 @@
+convert c: extern const MARIADB_CHARSET_INFO  mariadb_compiled_charsets[];
+to c:      extern const MARIADB_CHARSET_INFO *mariadb_compiled_charsets;
+
+

@@ -69,6 +69,7 @@ ALL += jpeglib
 ALL += jsonc
 ALL += llvm
 ALL += lua
+ALL += mariadb
 ALL += mediainfo
 ALL += modplug
 ALL += mpg123
@@ -1842,6 +1843,17 @@ lzo: tools
 	$(FBFROG) lzo.fbfrog -incdir extracted/$(LZO)/include \
 		`./lzo-fbfrog-options.sh "$(LZO)"`
 	rm extracted/$(LZO)/include/lzo/*.tmp
+
+MARIADB_VERSION := 3.3.1
+MARIADB := mariadb-connector-c-$(MARIADB_VERSION)
+MARIADBBIN := mariadb-connector-c-$(MARIADB_VERSION)-debian-buster-amd64
+mariadb: tools
+	# see https://mariadb.com/downloads/connectors/ for latest download url
+	./get.sh $(MARIADBBIN) $(MARIADBBIN).tar.gz https://dlm.mariadb.com/2319735/Connectors/c/connector-c-3.3.1/mariadb-connector-c-3.3.1-debian-buster-amd64.tar.gz
+	$(GETCOMMENT) extracted/$(MARIADBBIN)/include/mariadb/mysql.h > mariadb.tmp
+	$(FBFROG) mariadb.fbfrog extracted/$(MARIADBBIN)/include/mariadb/mysql.h \
+		-o inc/mariadb.bi -title $(MARIADB) mariadb.tmp fbteam.txt
+	rm *.tmp
 
 MEDIAINFO_VERSION := 0.7.77
 MEDIAINFO := libmediainfo_$(MEDIAINFO_VERSION)
