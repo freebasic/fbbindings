@@ -2580,11 +2580,11 @@ soloud: tools
 		-title $(SOLOUD) soloud.tmp fbteam.txt
 	rm *.tmp
 
-SQLITE3_PRETTY := "SQLite 3.36.0"
-SQLITE3 := sqlite-amalgamation-3360000
+SQLITE3_PRETTY := "SQLite 3.39.4"
+SQLITE3 := sqlite-amalgamation-3390400
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
-	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2021/$(SQLITE3).zip
+	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2022/$(SQLITE3).zip
 	./get.sh $(SQLITE2) $(SQLITE2).tar.gz "http://www.sqlite.org/src/tarball/$(SQLITE2).tar.gz?uuid=47fee16ba9bd8ab2820fe97e89480528114825cd"
 
 	cd extracted/$(SQLITE2)/src && \
