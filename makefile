@@ -857,7 +857,7 @@ cunit: tools
 		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
 	rm *.tmp
 
-CURL_TITLE := curl-7.79.1
+CURL_TITLE := curl-7.85.0
 curl: tools
 	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.gz "https://curl.se/download/$(CURL_TITLE).tar.gz"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
