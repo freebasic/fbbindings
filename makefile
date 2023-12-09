@@ -69,6 +69,7 @@ ALL += jpeglib
 ALL += jsonc
 ALL += llvm
 ALL += lua
+ALL += mariadb
 ALL += mediainfo
 ALL += modplug
 ALL += mpg123
@@ -856,9 +857,9 @@ cunit: tools
 		-title $(CUNIT_TITLE) cunit.tmp fbteam.txt
 	rm *.tmp
 
-CURL_TITLE := curl-7.73.0
+CURL_TITLE := curl-7.85.0
 curl: tools
-	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.gz "https://curl.haxx.se/download/$(CURL_TITLE).tar.gz"
+	./get.sh $(CURL_TITLE) $(CURL_TITLE).tar.gz "https://curl.se/download/$(CURL_TITLE).tar.gz"
 	tail -n +3 extracted/$(CURL_TITLE)/COPYING > curl.tmp
 	$(FBFROG) curl.fbfrog \
 		extracted/$(CURL_TITLE)/include/curl/curl.h \
@@ -1843,6 +1844,17 @@ lzo: tools
 		`./lzo-fbfrog-options.sh "$(LZO)"`
 	rm extracted/$(LZO)/include/lzo/*.tmp
 
+MARIADB_VERSION := 3.3.1
+MARIADB := mariadb-connector-c-$(MARIADB_VERSION)
+MARIADBBIN := mariadb-connector-c-$(MARIADB_VERSION)-debian-buster-amd64
+mariadb: tools
+	# see https://mariadb.com/downloads/connectors/ for latest download url
+	./get.sh $(MARIADBBIN) $(MARIADBBIN).tar.gz https://dlm.mariadb.com/2319735/Connectors/c/connector-c-3.3.1/mariadb-connector-c-3.3.1-debian-buster-amd64.tar.gz
+	$(GETCOMMENT) extracted/$(MARIADBBIN)/include/mariadb/mysql.h > mariadb.tmp
+	$(FBFROG) mariadb.fbfrog extracted/$(MARIADBBIN)/include/mariadb/mysql.h \
+		-o inc/mariadb.bi -title $(MARIADB) mariadb.tmp fbteam.txt
+	rm *.tmp
+
 MEDIAINFO_VERSION := 0.7.77
 MEDIAINFO := libmediainfo_$(MEDIAINFO_VERSION)
 mediainfo: tools
@@ -2258,7 +2270,7 @@ portaudio: tools
 		-title $(PORTAUDIO) portaudio.tmp fbteam.txt
 	rm *.tmp
 
-POSTGRESQL_VERSION := 12.0
+POSTGRESQL_VERSION := 14.0
 POSTGRESQL := postgresql-$(POSTGRESQL_VERSION)
 postgresql: tools
 	./get.sh $(POSTGRESQL) $(POSTGRESQL).tar.bz2 https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)/$(POSTGRESQL).tar.bz2
@@ -2568,11 +2580,11 @@ soloud: tools
 		-title $(SOLOUD) soloud.tmp fbteam.txt
 	rm *.tmp
 
-SQLITE3_PRETTY := "SQLite 3.34.0"
-SQLITE3 := sqlite-amalgamation-3340000
+SQLITE3_PRETTY := "SQLite 3.39.4"
+SQLITE3 := sqlite-amalgamation-3390400
 SQLITE2 := SQLite-47fee16b
 sqlite: tools
-	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2020/$(SQLITE3).zip
+	./get.sh $(SQLITE3) $(SQLITE3).zip http://sqlite.org/2022/$(SQLITE3).zip
 	./get.sh $(SQLITE2) $(SQLITE2).tar.gz "http://www.sqlite.org/src/tarball/$(SQLITE2).tar.gz?uuid=47fee16ba9bd8ab2820fe97e89480528114825cd"
 
 	cd extracted/$(SQLITE2)/src && \

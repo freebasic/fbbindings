@@ -1,5 +1,5 @@
-convert c: BOOL BASSMOD_MusicLoad(BOOL mem, void *file, DWORD offset, DWORD length, DWORD flags);
-to c:      BOOL BASSMOD_MusicLoad(BOOL mem, char *file, DWORD offset, DWORD length, DWORD flags);
+convert c: HMUSIC BASS_MusicLoad(BOOL mem, const void *file, QWORD offset, DWORD length, DWORD flags, DWORD freq);
+to c:      HMUSIC BASS_MusicLoad(BOOL mem, const char *file, QWORD offset, DWORD length, DWORD flags, DWORD freq);
 
-convert c: BOOL __attribute__((__stdcall__)) BASSMOD_MusicLoad(BOOL mem, void *file, DWORD offset, DWORD length, DWORD flags);
-to c:      BOOL __attribute__((__stdcall__)) BASSMOD_MusicLoad(BOOL mem, char *file, DWORD offset, DWORD length, DWORD flags);
+convert c: HMUSIC __attribute__((__stdcall__)) BASS_MusicLoad(BOOL mem, const void *file, QWORD offset, DWORD length, DWORD flags, DWORD freq);
+to c:      HMUSIC __attribute__((__stdcall__)) BASS_MusicLoad(BOOL mem, const char *file, QWORD offset, DWORD length, DWORD flags, DWORD freq);
