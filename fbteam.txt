@@ -1,1 +1,1 @@
-Copyright © 2021 FreeBASIC development team
+FreeBASIC development team
