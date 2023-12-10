@@ -43,7 +43,7 @@
 ''   SOFTWARE.
 ''
 '' translated to FreeBASIC by:
-''   Copyright © 2021 FreeBASIC development team
+''   FreeBASIC development team
 
 #pragma once
 
@@ -1006,10 +1006,10 @@ declare function LLVMDisasmInstruction(byval DC as LLVMDisasmContextRef, byval B
 #define LLVM_C_EXECUTIONENGINE_H
 #define LLVM_C_TARGET_H
 #define LLVM_CONFIG_H
-#define LLVM_DEFAULT_TARGET_TRIPLE "x86_64-unknown-linux-gnu"
+#define LLVM_DEFAULT_TARGET_TRIPLE "i686-pc-linux-gnu"
 const LLVM_ENABLE_THREADS = 1
 const LLVM_HAS_ATOMICS = 1
-#define LLVM_HOST_TRIPLE "x86_64-unknown-linux-gnu"
+#define LLVM_HOST_TRIPLE "i686-pc-linux-gnu"
 #define LLVM_NATIVE_ARCH X86
 const LLVM_ON_UNIX = 1
 const LLVM_USE_INTEL_JITEVENTS = 0
@@ -1017,7 +1017,7 @@ const LLVM_USE_OPROFILE = 0
 const LLVM_VERSION_MAJOR = 5
 const LLVM_VERSION_MINOR = 0
 const LLVM_VERSION_PATCH = 0
-#define LLVM_VERSION_STRING "5.0.0git-fb0acea"
+#define LLVM_VERSION_STRING "5.0.0git-2116883"
 
 type LLVMByteOrdering as long
 enum
