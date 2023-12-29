@@ -142,7 +142,7 @@ dist-clean:
 	rm -f *.exe
 
 $(LOCAL_FBFROG_DIR):
-	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/dkl/fbfrog/archive/$(FBFROG_VERSION).tar.gz
+	./get.sh fbfrog-$(FBFROG_VERSION) fbfrog-$(FBFROG_VERSION).tar.gz https://github.com/freebasic/fbfrog/archive/$(FBFROG_VERSION).tar.gz
 
 $(LOCAL_FBFROG): $(wildcard $(LOCAL_FBFROG_DIR)/*.bas $(LOCAL_FBFROG_DIR)/*.bi) | $(LOCAL_FBFROG_DIR)
 	cd $(LOCAL_FBFROG_DIR) && make FBFLAGS="-gen gcc -O 3"
