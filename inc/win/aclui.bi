@@ -105,13 +105,13 @@ const SI_NO_ADDITIONAL_PERMISSION = &h00200000
 	const SI_OWNER_ELEVATION_REQUIRED = &h04000000
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const SI_SCOPE_ELEVATION_REQUIRED = &h08000000
 #endif
 
 const SI_MAY_WRITE = &h10000000
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const SI_ENABLE_EDIT_ATTRIBUTE_CONDITION = &h20000000
 	const SI_ENABLE_CENTRAL_POLICY = &h40000000
 	const SI_DISABLE_DENY_ACE = &h80000000
@@ -154,7 +154,7 @@ enum
 		SI_PAGE_TAKEOWNERSHIP
 	#endif
 
-	#if _WIN32_WINNT = &h0602
+	#if _WIN32_WINNT >= &h0602
 		SI_PAGE_SHARE
 	#endif
 end enum
@@ -283,7 +283,7 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	type LPSECURITYINFO3 as ISecurityInformation3 ptr
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	type _SECURITY_OBJECT
 		pwszName as PWSTR
 		pData as PVOID
@@ -349,7 +349,7 @@ type LPSecurityObjectTypeInfo as ISecurityObjectTypeInfo ptr
 	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation3 = {0xe2cdc9cc,0x31bd,0x4f8f,{0x8c,0x8b,0xb6,0x41,0xaf,0x51,0x6a,0x1a}};
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	'' TODO: const IID __attribute__((selectany)) IID_ISecurityInformation4 = {0xea961070,0xcd14,0x4621,{0xac,0xe4,0xf6,0x3c,0x3,0xe5,0x83,0xe4}};
 	'' TODO: const IID __attribute__((selectany)) IID_IEffectivePermission2 = {0x941fabca,0xdd47,0x4fca,{0x90,0xbb,0xb0,0xe1,0x2,0x55,0xf2,0xd}};
 #endif

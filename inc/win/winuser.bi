@@ -504,7 +504,7 @@ const HSHELL_APPCOMMAND = 12
 const HSHELL_WINDOWREPLACED = 13
 const HSHELL_WINDOWREPLACING = 14
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const HSHELL_MONITORCHANGED = 16
 #endif
 
@@ -1374,7 +1374,7 @@ const WM_EXITSIZEMOVE = &h0232
 const WM_DROPFILES = &h0233
 const WM_MDIREFRESHMENU = &h0234
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const WM_POINTERDEVICECHANGE = &h238
 	const WM_POINTERDEVICEINRANGE = &h239
 	const WM_POINTERDEVICEOUTOFRANGE = &h23a
@@ -1384,7 +1384,7 @@ const WM_MDIREFRESHMENU = &h0234
 	const WM_TOUCH = &h0240
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const WM_NCPOINTERUPDATE = &h0241
 	const WM_NCPOINTERDOWN = &h0242
 	const WM_NCPOINTERUP = &h0243
@@ -1645,7 +1645,7 @@ const WS_EX_PALETTEWINDOW = (WS_EX_WINDOWEDGE or WS_EX_TOOLWINDOW) or WS_EX_TOPM
 const WS_EX_LAYERED = &h00080000
 const WS_EX_NOINHERITLAYOUT = &h00100000
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const WS_EX_NOREDIRECTIONBITMAP = &h00200000
 #endif
 
@@ -2041,7 +2041,7 @@ declare function GetMessagePos() as DWORD
 declare function GetMessageTime() as LONG
 declare function GetMessageExtraInfo() as LPARAM
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	declare function GetUnpredictedMessagePos() as DWORD
 #endif
 
@@ -2958,7 +2958,7 @@ const INPUT_HARDWARE = 2
 	const TWF_WANTPALM = &h00000002
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const POINTER_FLAG_NONE = &h00000000
 	const POINTER_FLAG_NEW = &h00000001
 	const POINTER_FLAG_INRANGE = &h00000002
@@ -3114,7 +3114,7 @@ declare function SendInput(byval cInputs as UINT, byval pInputs as LPINPUT, byva
 	declare function IsTouchWindow(byval hwnd as HWND, byval pulFlags as PULONG) as WINBOOL
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	type POINTER_INPUT_TYPE as DWORD
 	type POINTER_FLAGS as UINT32
 	type TOUCH_FLAGS as UINT32
@@ -3320,17 +3320,17 @@ const QS_HOTKEY = &h0080
 const QS_ALLPOSTMESSAGE = &h0100
 const QS_RAWINPUT = &h0400
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const QS_TOUCH = &h0800
 	const QS_POINTER = &h1000
 #endif
 
 const QS_MOUSE = QS_MOUSEMOVE or QS_MOUSEBUTTON
 
-#if _WIN32_WINNT = &h0602
-	const QS_INPUT = (((QS_MOUSE or QS_KEY) or QS_RAWINPUT) or QS_TOUCH) or QS_POINTER
-#else
+#if _WIN32_WINNT <= &h0601
 	const QS_INPUT = (QS_MOUSE or QS_KEY) or QS_RAWINPUT
+#else
+	const QS_INPUT = (((QS_MOUSE or QS_KEY) or QS_RAWINPUT) or QS_TOUCH) or QS_POINTER
 #endif
 
 const QS_ALLEVENTS = (((QS_INPUT or QS_POSTMESSAGE) or QS_TIMER) or QS_PAINT) or QS_HOTKEY
@@ -3519,7 +3519,7 @@ const SM_SHUTTINGDOWN = &h2000
 const SM_REMOTECONTROL = &h2001
 const SM_CARETBLINKINGENABLED = &h2002
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const SM_CONVERTIBLESLATEMODE = &h2003
 	const SM_SYSTEMDOCKED = &h2004
 #endif
@@ -5857,7 +5857,7 @@ const SPI_GETDESKWALLPAPER = &h0073
 	const SPI_SETDOCKMOVING = &h0091
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const SPI_GETTOUCHPREDICTIONPARAMETERS = &h009c
 	const SPI_SETTOUCHPREDICTIONPARAMETERS = &h009d
 	const SPI_GETLOGICALDPIOVERRIDE = &h009e
@@ -5962,7 +5962,7 @@ const SPI_SETFONTSMOOTHINGORIENTATION = &h2013
 	const SPI_SETMESSAGEDURATION = &h2017
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const SPI_GETCONTACTVISUALIZATION = &h2018
 	const SPI_SETCONTACTVISUALIZATION = &h2019
 	const SPI_GETGESTUREVISUALIZATION = &h201a
@@ -6701,7 +6701,7 @@ const EVENT_SYSTEM_MINIMIZEEND = &h0017
 	const EVENT_SYSTEM_DESKTOPSWITCH = &h0020
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const EVENT_SYSTEM_SWITCHER_APPGRABBED = &h0024
 	const EVENT_SYSTEM_SWITCHER_APPOVERTARGET = &h0025
 	const EVENT_SYSTEM_SWITCHER_APPDROPPED = &h0026
@@ -6770,7 +6770,7 @@ const EVENT_OBJECT_ACCELERATORCHANGE = &h8012
 	const EVENT_SYSTEM_ARRANGMENTPREVIEW = &h8016
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const EVENT_OBJECT_CLOAKED = &h8017
 	const EVENT_OBJECT_UNCLOAKED = &h8018
 	const EVENT_OBJECT_LIVEREGIONCHANGED = &h8019
@@ -6911,7 +6911,7 @@ type PCURSORINFO as tagCURSORINFO ptr
 type LPCURSORINFO as tagCURSORINFO ptr
 const CURSOR_SHOWING = &h00000001
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const CURSOR_SUPPRESSED = &h00000002
 #endif
 
@@ -7291,7 +7291,7 @@ declare function GetRegisteredRawInputDevices(byval pRawInputDevices as PRAWINPU
 declare function GetRawInputDeviceList(byval pRawInputDeviceList as PRAWINPUTDEVICELIST, byval puiNumDevices as PUINT, byval cbSize as UINT) as UINT
 declare function DefRawInputProc(byval paRawInput as PRAWINPUT ptr, byval nInput as INT_, byval cbSizeHeader as UINT) as LRESULT
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	const POINTER_DEVICE_PRODUCT_STRING_MAX = 520
 	const PDC_ARRIVAL = &h001
 	const PDC_REMOVAL = &h002
@@ -7539,7 +7539,7 @@ declare function ShutdownBlockReasonDestroy(byval hWnd as HWND) as WINBOOL
 	declare function SetProcessRestrictionExemption(byval fEnableExemption as WINBOOL) as WINBOOL
 #endif
 
-#if _WIN32_WINNT = &h0602
+#if _WIN32_WINNT >= &h0602
 	type tagINPUT_TRANSFORM
 		union
 			type
