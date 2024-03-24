@@ -98,6 +98,7 @@
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/schemadef.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/schnlsp.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/scrnsave.bi
+-title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/sdkddkver.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer.tmp fbteam.txt inc/win/secext.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer.tmp fbteam.txt inc/win/security.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/setupapi.bi

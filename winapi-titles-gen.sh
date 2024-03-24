@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 MINGWW64_DIR="$1"
 MINGWW64_TITLE="$2"
@@ -18,7 +18,7 @@ function work() {
 	for i in $apis; do
 		h=$dir/$i.h
 
-		header=$(head -5 $h)
+		header=$(head -7 $h)
 
 		case "$header" in
 		*DISCLAIMER\.PD*)
