@@ -5,7 +5,7 @@
 	-define UNICODE
 -endif
 
--declareversions _WIN32_WINNT &h0400 &h0501 &h0502 &h0600 &h0601 &h0602
+-declareversions _WIN32_WINNT &h0400 &h0501 &h0502 &h0600 &h0601 &h0602 &h0603 &h0A00
 -selectversion
 -case &h0400 -define _WIN32_WINNT 0x0400
 -case &h0501 -define _WIN32_WINNT 0x0501
@@ -13,6 +13,8 @@
 -case &h0600 -define _WIN32_WINNT 0x0600
 -case &h0601 -define _WIN32_WINNT 0x0601
 -case &h0602 -define _WIN32_WINNT 0x0602
+-case &h0603 -define _WIN32_WINNT 0x0603
+-case &h0A00 -define _WIN32_WINNT 0x0A00
 -endselect
 
 -define SECURITY_WIN32 1
