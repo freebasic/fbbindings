@@ -2,3 +2,4 @@ _bsd_types
 _mingw
 _mingw_unicode
 crtdefs
+excpt

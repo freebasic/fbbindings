@@ -2,6 +2,7 @@
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/_mingw.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/_mingw_unicode.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/crtdefs.bi
+-title mingw-w64-v4.0.4 mingw-w64-disclaimer-pd.tmp fbteam.txt inc/win/excpt.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer.tmp fbteam.txt inc/win/accctrl.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer.tmp fbteam.txt inc/win/aclapi.bi
 -title mingw-w64-v4.0.4 mingw-w64-disclaimer.tmp fbteam.txt inc/win/aclui.bi

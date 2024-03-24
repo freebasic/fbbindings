@@ -2,6 +2,7 @@
 -emit '*/_mingw.h' inc/win/_mingw.bi
 -emit '*/_mingw_unicode.h' inc/win/_mingw_unicode.bi
 -emit '*/crtdefs.h' inc/win/crtdefs.bi
+-emit '*/excpt.h' inc/win/excpt.bi
 -emit '*/accctrl.h' inc/win/accctrl.bi
 -emit '*/aclapi.h' inc/win/aclapi.bi
 -emit '*/aclui.h' inc/win/aclui.bi
@@ -118,6 +119,7 @@
 -emit '*/schemadef.h' inc/win/schemadef.bi
 -emit '*/schnlsp.h' inc/win/schnlsp.bi
 -emit '*/scrnsave.h' inc/win/scrnsave.bi
+-emit '*/sdkddkver.h' inc/win/sdkddkver.bi
 -emit '*/secext.h' inc/win/secext.bi
 -emit '*/security.h' inc/win/security.bi
 -emit '*/servprov.h' inc/win/servprov.bi
