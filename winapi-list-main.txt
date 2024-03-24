@@ -114,6 +114,7 @@ schannel
 schemadef
 schnlsp
 scrnsave
+sdkddkver
 secext
 security
 servprov
