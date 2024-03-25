@@ -55,7 +55,7 @@ type _XCPT_ACTION
 	XcptAction as _PHNDLR
 end type
 
-extern _XcptActTab(0 to ...) as _XCPT_ACTION
+extern _XcptActTab as _XCPT_ACTION ptr
 extern _XcptActTabCount as long
 extern _XcptActTabSize as long
 extern _First_FPE_Indx as long

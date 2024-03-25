@@ -103,10 +103,14 @@ const SUBVERSION_MASK = &h000000FF
 #define OSVER(Version) ((Version) and OSVERSION_MASK)
 #define SPVER(Version) (((Version) and SPVERSION_MASK) shr 8)
 #define SUBVER(Version) ((Version) and SUBVERSION_MASK)
-'' TODO: #define NTDDI_VERSION_FROM_WIN32_WINNT2(Version) Version##0000
+#define NTDDI_VERSION_FROM_WIN32_WINNT2(Version) Version##0000
 #define NTDDI_VERSION_FROM_WIN32_WINNT(Version) NTDDI_VERSION_FROM_WIN32_WINNT2(Version)
 #define NTDDI_VERSION NTDDI_VERSION_FROM_WIN32_WINNT(_WIN32_WINNT)
+
+
+#if not defined( WINVER )
 #define WINVER _WIN32_WINNT
+#endif
 
 #if _WIN32_WINNT = &h0400
 	const _WIN32_IE = _WIN32_IE_IE50
