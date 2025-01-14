@@ -1,3 +1,11 @@
+'' FreeBASIC binding for zstd-1.5.6
+'' based on the C header files:
+''   Main header file for the bfd library -- portable access to object files.
+''Zstandard, or zstd as short version, is a fast lossless compression algorithm, 
+''targeting real-time compression scenarios at zlib-level and better compression ratios.
+''Zstandard is dual-licensed under BSD OR GPLv2.
+'' translated to FreeBASIC by:
+''   FreeBASIC development team
 #pragma once
 #ifndef ZSTD_ERRORS_H_398273423
 #define ZSTD_ERRORS_H_398273423
