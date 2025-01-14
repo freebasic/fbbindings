@@ -1,3 +1,12 @@
+'' FreeBASIC binding for XLSX I/O - 0.2.35
+''
+'' based on the C header files:
+''   XLSX I/O - C library for reading and writing .xlsx files by brechtsanders
+''XLSX I/O is released under the terms of the MIT License (MIT), see LICENSE.txt.
+''This means you are free to use XLSX I/O in any of your projects, from open source to commercial.
+''This library does not require Microsoft(R) Excel(TM) to be installed.
+'' translated to FreeBASIC by:
+'' FreeBASIC development team
 #pragma once
 #ifndef INCLUDED_XLSXIO_WRITE_H
 
