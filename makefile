@@ -2259,14 +2259,20 @@ png16: tools
 		-title $(PNG16_TITLE) png16.tmp fbteam.txt
 	rm *.tmp
 
-PORTAUDIO := pa_stable_v19_20140130
+PORTAUDIO := pa_stable_v190700_20210406
 portaudio: tools
-	./get.sh $(PORTAUDIO) $(PORTAUDIO).tgz http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz createdir
+	./get.sh $(PORTAUDIO) $(PORTAUDIO).tgz https://files.portaudio.com/archives/pa_stable_v190700_20210406.tgz createdir
 	$(GETCOMMENT) -1 extracted/$(PORTAUDIO)/portaudio/include/portaudio.h > portaudio.tmp
 	echo >> portaudio.tmp
 	$(GETCOMMENT) -2 extracted/$(PORTAUDIO)/portaudio/include/portaudio.h >> portaudio.tmp
 	$(FBFROG) extracted/$(PORTAUDIO)/portaudio/include/portaudio.h \
 		-o inc/portaudio.bi -inclib portaudio \
+		-iftarget windows \
+			-inclib winmm \
+			-inclib ole32 \
+			-inclib setupapi \
+			-inclib advapi32 \
+		-endif \
 		-title $(PORTAUDIO) portaudio.tmp fbteam.txt
 	rm *.tmp
 
