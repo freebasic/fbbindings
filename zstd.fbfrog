@@ -6,6 +6,7 @@
 -removeinclude stddef.h
 
 -rename_ str
+-renamedefine ZSTD_COMPRESSBOUND ZSTD_COMPRESSBOUND_
 
 -removedefine ZSTD_H_235446
 -removedefine ZSTDERRORLIB_HIDDEN

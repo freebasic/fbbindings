@@ -18,6 +18,9 @@
 
 #inclib "zstd"
 
+'' The following symbols have been renamed:
+''     #define ZSTD_COMPRESSBOUND => ZSTD_COMPRESSBOUND_
+
 extern "C"
 
 #ifdef __FB_WIN32__
@@ -52,7 +55,7 @@ declare function ZSTD_getFrameContentSize(byval src as const any ptr, byval srcS
 declare function ZSTD_getDecompressedSize(byval src as const any ptr, byval srcSize as uinteger) as ulongint
 declare function ZSTD_findFrameCompressedSize(byval src as const any ptr, byval srcSize as uinteger) as uinteger
 #define ZSTD_MAX_INPUT_SIZE iif(sizeof(uinteger) = 8, &hFF00FF00FF00FF00ull, &hFF00FF00u)
-#define ZSTD_COMPRESSBOUND(srcSize) iif(cuint(srcSize) >= ZSTD_MAX_INPUT_SIZE, 0, ((srcSize) + ((srcSize) shr 8)) + iif((srcSize) < (128 shl 10), ((128 shl 10) - (srcSize)) shr 11, 0))
+#define ZSTD_COMPRESSBOUND_(srcSize) iif(cuint(srcSize) >= ZSTD_MAX_INPUT_SIZE, 0, ((srcSize) + ((srcSize) shr 8)) + iif((srcSize) < (128 shl 10), ((128 shl 10) - (srcSize)) shr 11, 0))
 declare function ZSTD_compressBound(byval srcSize as uinteger) as uinteger
 declare function ZSTD_isError(byval code as uinteger) as ulong
 declare function ZSTD_getErrorName(byval code as uinteger) as const zstring ptr
