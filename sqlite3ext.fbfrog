@@ -256,3 +256,15 @@ sqlite3.fbfrog
 -undefbeforedecl sqlite3_free_filename
 -undefbeforedecl sqlite3_database_file_object
 -undefbeforedecl sqlite3_txn_state
+-undefbeforedecl sqlite3_changes64
+-undefbeforedecl sqlite3_total_changes64
+-undefbeforedecl sqlite3_autovacuum_pages
+-undefbeforedecl sqlite3_error_offset
+-undefbeforedecl sqlite3_vtab_rhs_value
+-undefbeforedecl sqlite3_vtab_distinct
+-undefbeforedecl sqlite3_vtab_in
+-undefbeforedecl sqlite3_vtab_in_first
+-undefbeforedecl sqlite3_vtab_in_next
+-undefbeforedecl sqlite3_deserialize
+-undefbeforedecl sqlite3_serialize
+-undefbeforedecl sqlite3_db_name
