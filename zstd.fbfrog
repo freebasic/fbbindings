@@ -1,0 +1,14 @@
+-inclib zstd   inc/zstd/zstd.bi
+-inclib zstd   inc/zstd/zstd_errors.bi
+
+-removeinclude limits.h
+-removeinclude sys/types.h
+-removeinclude stddef.h
+
+-rename_ str
+
+-removedefine ZSTD_H_235446
+-removedefine ZSTDERRORLIB_HIDDEN
+-removedefine ZSTDERRORLIB_VISIBLE
+-removedefine ZSTDERRORLIB_API
+-removedefine ZSTD_ERRORS_H_398273423
