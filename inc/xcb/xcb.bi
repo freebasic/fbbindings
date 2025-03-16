@@ -38,9 +38,6 @@
 	#include once "crt/sys/uio.bi"
 #endif
 
-#include once "crt/pthread.bi"
-#include once "xproto.bi"
-
 extern "C"
 
 #define __XCB_H__
