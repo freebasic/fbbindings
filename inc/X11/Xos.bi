@@ -39,7 +39,7 @@
 	#include once "strings.bi"
 #endif
 
-#include once "fcntl.bi"
+#include once "crt/fcntl.bi"
 
 #ifdef __FB_UNIX__
 	#include once "crt/unistd.bi"
