@@ -37,7 +37,7 @@
 
 #ifdef __FB_UNIX__
 	#include once "crt/sys/types.bi"
-	#include once "pthread.bi"
+	#include once "crt/pthread.bi"
 #endif
 
 '' The following symbols have been renamed:

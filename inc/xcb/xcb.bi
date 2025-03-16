@@ -41,7 +41,7 @@
 	#include once "sys/uio.bi"
 #endif
 
-#include once "pthread.bi"
+#include once "crt/pthread.bi"
 #include once "xproto.bi"
 
 extern "C"
