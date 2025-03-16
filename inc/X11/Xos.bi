@@ -34,20 +34,6 @@
 
 #include once "crt/sys/types.bi"
 #include once "crt/string.bi"
-
-#ifdef __FB_CYGWIN__
-	#include once "strings.bi"
-#endif
-
-#include once "crt/fcntl.bi"
-
-#ifdef __FB_UNIX__
-	#include once "crt/unistd.bi"
-	#include once "crt/sys/time.bi"
-#else
-	#include once "X11/Xw32defs.bi"
-#endif
-
 #include once "crt/time.bi"
 #include once "X11/Xosdefs.bi"
 #include once "X11/Xarch.bi"
