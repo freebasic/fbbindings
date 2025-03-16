@@ -114,6 +114,7 @@ ALL += xz
 ALL += zip
 ALL += zlib
 ALL += zmq
+ALL += zstd
 
 FBC := fbc
 EXEEXT := $(shell $(FBC) -print x)
@@ -3747,4 +3748,21 @@ zmq: tools
 	mkdir -p inc/zmq
 	$(FBFROG) zmq.fbfrog extracted/lib$(ZMQ)/include/zmq.h -o inc/zmq/zmq.bi \
 		-inclib zmq -title $(ZMQ) zmq.tmp fbteam.txt
+	rm *.tmp
+
+ZSTD_VERSION := 1.5.6
+ZSTD_TITLE := zstd-$(ZSTD_VERSION)
+zstd: tools
+	./get.sh $(ZSTD_TITLE) $(ZSTD_TITLE).tar.gz "https://github.com/facebook/zstd/archive/refs/tags/v$(ZSTD_VERSION).tar.gz"
+	$(GETCOMMENT) extracted/$(ZSTD_TITLE)/lib/zstd.h > zstd.tmp
+	$(GETCOMMENT) extracted/$(ZSTD_TITLE)/lib/zstd_errors.h > zstd_errors.tmp
+	mkdir -p inc/zstd
+	$(FBFROG) zstd.fbfrog \
+		-incdir extracted/$(ZSTD_TITLE)/lib \
+		-include zstd.h \
+		-include zstd_errors.h \
+		-emit '*/zstd.h'        inc/zstd/zstd.bi \
+		-emit '*/zstd_errors.h' inc/zstd/zstd_errors.bi \
+		-title $(ZSTD_TITLE) zstd.tmp fbteam.txt inc/zstd/zstd.bi \
+		-title $(ZSTD_TITLE) zstd_errors.tmp fbteam.txt inc/zstd/zstd_errors.bi
 	rm *.tmp
