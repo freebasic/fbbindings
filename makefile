@@ -115,10 +115,23 @@ ALL += zip
 ALL += zlib
 ALL += zmq
 
-EXEEXT := $(shell fbc -print x)
+FBC := fbc
+EXEEXT := $(shell $(FBC) -print x)
 LOCAL_FBFROG_DIR := extracted/fbfrog-$(FBFROG_VERSION)
 LOCAL_FBFROG := $(LOCAL_FBFROG_DIR)/fbfrog$(EXEEXT)
+
+# Check if msys2 environment variable MSYS2_ARG_CONV_EXCL was set.
+# This environment variable controls the heuristics for path
+# translation.  Some of our arguments to fbfrog '*/file' etc
+# are translated by default and setting MSYS2_ARG_CONV_EXCL will
+# prevent translation
+
+ifdef MSYS2_ARG_CONV_EXCL
+FBFROG := MSYS2_ARG_CONV_EXCL=$(MSYS2_ARG_CONV_EXCL) $(LOCAL_FBFROG)
+else
 FBFROG := $(LOCAL_FBFROG)
+endif
+
 FAKECONFIGURE := ./fake-configure$(EXEEXT)
 GETCOMMENT := ./getcomment$(EXEEXT)
 
