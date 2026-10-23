@@ -16,8 +16,10 @@
 
 # Needed because RAYMATH_STANDALONE used. Unlike C, allows raymath.bi to be included before raylib.bi
 -ifndefdecl Vector2
+-ifndefdecl Vector4
 -ifndefdecl Vector3
 -ifndefdecl Quaternion
 -ifndefdecl Matrix
 
 -addforwarddecl rAudioBuffer
+-addforwarddecl rAudioProcessor

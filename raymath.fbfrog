@@ -12,16 +12,21 @@
 # or call an external implementation in libraylib. We act compatibly: if
 # raylib.bi has been included then we call external implementations, if not
 # or if RAYMATH_HEADER_ONLY is defined, then use private implementations.
--declarebool RAYMATH_HEADER_ONLY
--declarebool RAYLIB_H
--ifdef RAYMATH_HEADER_ONLY
--else
-	-ifdef RAYLIB_H
-		-nofunctionbodies
-	-endif
--endif
+# raymath.h's inline functions translate only partly for raymath 6: the
+# bodies use FB keywords as parameter names and C-only constructs.  Always
+# calling the implementations from libraylib is what a raylib program links
+# against anyway, so the half-translated header-only mode is not shipped.
+-nofunctionbodies
 
+-rename_ end
+-rename_ sub
 -rename_ left
 -rename_ right
 -rename_ to
 
+# The shared math types may already be declared by raylib.bi
+-ifndefdecl Vector2
+-ifndefdecl Vector3
+-ifndefdecl Vector4
+-ifndefdecl Quaternion
+-ifndefdecl Matrix

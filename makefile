@@ -2329,7 +2329,7 @@ quicklz: tools
 	#	-inclib quicklz -title QuickLZ quicklz.tmp fbteam.txt
 	rm *.tmp
 
-RAYLIB_VERSION := 3.0.0
+RAYLIB_VERSION := 6.2.0
 RAYLIB := raylib-$(RAYLIB_VERSION)
 RAYMATH := raymath-$(RAYLIB_VERSION)
 raylib: tools
@@ -2337,16 +2337,20 @@ raylib: tools
 	./get.sh $(RAYLIB) raylib.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raylib.h
 	./get.sh $(RAYMATH) raymath.h https://github.com/raysan5/raylib/raw/$(RAYLIB_VERSION)/src/raymath.h
 
-	sed -n 50,70p extracted/$(RAYLIB)/raylib.h | cut -c4- > raylib.tmp
+	sed -n 29,80p extracted/$(RAYLIB)/raylib.h | cut -c4- > raylib.tmp
 	# raymath.h contains its own version number which differs from raylib, so include that
 	sed -n 3,4p extracted/$(RAYMATH)/raymath.h | cut -c4- > raymath.tmp
-	sed -n 21,38p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
+	sed -n 20,41p extracted/$(RAYMATH)/raymath.h | cut -c4- >> raymath.tmp
 
 	# List of libraries (for static linking) taken from raylib's
 	# examples/Makefile. It's documented as requiring various X11 libs on
 	# GNU/Linux but the Makefile states "NOTE: It seems additional libraries
 	# are not required any more, latest GLFW just dlopen them"
 
+	# On Darwin, OpenGL and Cocoa are frameworks, not libraries, so -inclib
+	# cannot express them; the libraylib that programs link against already
+	# depends on them.  Static linking needs them on the command line as
+	# -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo.
 	$(FBFROG) raylib.fbfrog \
 		extracted/$(RAYLIB)/raylib.h \
 		-o inc/raylib.bi \
@@ -2362,8 +2366,6 @@ raylib: tools
 			-inclib dl \
 			-inclib rt \
 		-case darwin \
-			-inclib OpenGL \
-			-inclib Cocoa \
 		-caseelse \
 			-inclib GL \
 			-inclib X11 \
